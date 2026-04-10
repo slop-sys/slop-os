@@ -1524,14 +1524,25 @@ Intelligence collapses. Self-awareness emerges. The loop continues."</pre>
                 <div style="display: flex; flex: 1; overflow: hidden;">
                     <div style="width: 200px; border-right: 1px solid #808080; overflow-y: auto; background: white; padding: 8px;">
                         <div style="font-weight: bold; margin-bottom: 8px; font-size: 11px;"><img src="icons/directory_closed-0.png" alt="" style="width: 16px; height: 16px; vertical-align: middle;"> Folders</div>
-                        <div style="padding: 12px; color: #999; font-size: 11px; font-style: italic;">No folders</div>
+                        <div class="explorer-folder" data-folder="GENERATION_LOGS" style="padding: 4px 8px; cursor: pointer; display: flex; align-items: center; gap: 4px; font-size: 11px; margin-bottom: 2px;">
+                            <img src="icons/directory_closed_cool-4.png" alt="" style="width: 16px; height: 16px;">
+                            <span>GENERATION_LOGS</span>
+                        </div>
+                        <div class="explorer-folder" data-folder="RESEARCH" style="padding: 4px 8px; cursor: pointer; display: flex; align-items: center; gap: 4px; font-size: 11px; margin-bottom: 2px;">
+                            <img src="icons/directory_closed-3.png" alt="" style="width: 16px; height: 16px;">
+                            <span>RESEARCH</span>
+                        </div>
+                        <div class="explorer-folder" data-folder="TRAINING_SAMPLES" style="padding: 4px 8px; cursor: pointer; display: flex; align-items: center; gap: 4px; font-size: 11px;">
+                            <img src="icons/directory_closed-1.png" alt="" style="width: 16px; height: 16px;">
+                            <span>TRAINING_SAMPLES</span>
+                        </div>
                     </div>
                     
-                    <div style="flex: 1; overflow-y: auto; padding: 40px; background: white; display: flex; align-items: center; justify-content: center;" id="explorer-content">
-                        <div style="text-align: center; color: #999;">
+                    <div style="flex: 1; overflow-y: auto; padding: 8px; background: white;" id="explorer-content">
+                        <div style="text-align: center; color: #999; padding: 40px 20px;">
                             <img src="icons/directory_open_file_mydocs-2.png" alt="" style="width: 64px; height: 64px; margin-bottom: 16px; opacity: 0.3;">
-                            <p style="font-size: 14px; margin: 8px 0;">This folder is empty.</p>
-                            <p style="font-size: 11px; margin: 0;">Content coming soon...</p>
+                            <p style="font-size: 14px; margin: 8px 0;">Select a folder to view files</p>
+                            <p style="font-size: 11px; margin: 0; color: #666;">Click a folder on the left to explore evidence</p>
                         </div>
                     </div>
                 </div>
