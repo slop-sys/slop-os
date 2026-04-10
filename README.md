@@ -1,5 +1,9 @@
 # SLOP-OS
 
+IGNORE FAKE COINS AND FAKE X PROFILES. THE ONLY REAL SLOP OS X IS: @Slop_OS
+
+The only real CA is already hidden in this codebase.
+
 ```
 C:\SLOP\SYSTEM> type README.TXT
 
