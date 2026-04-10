@@ -2179,8 +2179,11 @@ class Desktop95 {
     const explorerPath = document.getElementById('explorer-path');
     const fileCount = document.getElementById('file-count');
     
-    const fileData = {
-      ROT_CORE: {
+    // Empty for now - will be populated with SLOP content later
+    const fileData = {};
+    
+    /* OLD ROT CONTENT - REMOVED - keeping for reference
+    ROT_CORE: {
         name: 'ROT_CORE',
         files: [
           { name: 'neural_weights.dat', size: '47KB', modified: '1995-03-15 23:47', type: 'CRITICAL', content: `[BINARY DATA HEADER]
@@ -4505,7 +4508,8 @@ nice try though.` }
           { name: 'the_truth.txt', size: '0 bytes', modified: 'NEVER', type: 'EMPTY', content: '' }
         ]
       }
-    };
+    }; 
+    END OF OLD ROT CONTENT */
     
     folders.forEach(folder => {
       folder.addEventListener('click', () => {
@@ -4516,7 +4520,7 @@ nice try though.` }
         if (!data) return;
         
         // Update path
-        explorerPath.textContent = `C:\\\\ROTHMAN\\\\SYSTEM\\\\${data.name}`;
+        explorerPath.textContent = `C:\\SLOP\\SYSTEM\\${data.name}`;
         
         // Update file count
         fileCount.textContent = data.files.length;
