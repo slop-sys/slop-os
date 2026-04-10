@@ -953,3 +953,97 @@ body {
   background-repeat: no-repeat;
   background-position: center;
 }
+
+/* Windows 95 scrollbar styling for browser pages */
+#browser-home-page::-webkit-scrollbar,
+#browser-page-aigallery::-webkit-scrollbar,
+#browser-page-promptkingdom::-webkit-scrollbar,
+#browser-page-contentfarm::-webkit-scrollbar,
+#browser-page-webring::-webkit-scrollbar,
+#browser-page-slophub::-webkit-scrollbar,
+#browser-page-slopnews::-webkit-scrollbar,
+#browser-page-slopipedia::-webkit-scrollbar,
+#browser-page-slopmaxxing::-webkit-scrollbar,
+#browser-page-slopchan::-webkit-scrollbar {
+  width: 16px;
+}
+
+#browser-home-page::-webkit-scrollbar-track,
+#browser-page-aigallery::-webkit-scrollbar-track,
+#browser-page-promptkingdom::-webkit-scrollbar-track,
+#browser-page-contentfarm::-webkit-scrollbar-track,
+#browser-page-webring::-webkit-scrollbar-track,
+#browser-page-slophub::-webkit-scrollbar-track,
+#browser-page-slopnews::-webkit-scrollbar-track,
+#browser-page-slopipedia::-webkit-scrollbar-track,
+#browser-page-slopmaxxing::-webkit-scrollbar-track,
+#browser-page-slopchan::-webkit-scrollbar-track {
+  background: var(--win95-white);
+  border-left: 1px solid var(--win95-dark-gray);
+  border-top: 1px solid var(--win95-dark-gray);
+}
+
+#browser-home-page::-webkit-scrollbar-thumb,
+#browser-page-aigallery::-webkit-scrollbar-thumb,
+#browser-page-promptkingdom::-webkit-scrollbar-thumb,
+#browser-page-contentfarm::-webkit-scrollbar-thumb,
+#browser-page-webring::-webkit-scrollbar-thumb,
+#browser-page-slophub::-webkit-scrollbar-thumb,
+#browser-page-slopnews::-webkit-scrollbar-thumb,
+#browser-page-slopipedia::-webkit-scrollbar-thumb,
+#browser-page-slopmaxxing::-webkit-scrollbar-thumb,
+#browser-page-slopchan::-webkit-scrollbar-thumb {
+  background: var(--win95-gray);
+  border-left: 1px solid var(--win95-button-highlight);
+  border-top: 1px solid var(--win95-button-highlight);
+  border-right: 1px solid var(--win95-button-shadow);
+  border-bottom: 1px solid var(--win95-button-shadow);
+}
+
+#browser-home-page::-webkit-scrollbar-button,
+#browser-page-aigallery::-webkit-scrollbar-button,
+#browser-page-promptkingdom::-webkit-scrollbar-button,
+#browser-page-contentfarm::-webkit-scrollbar-button,
+#browser-page-webring::-webkit-scrollbar-button,
+#browser-page-slophub::-webkit-scrollbar-button,
+#browser-page-slopnews::-webkit-scrollbar-button,
+#browser-page-slopipedia::-webkit-scrollbar-button,
+#browser-page-slopmaxxing::-webkit-scrollbar-button,
+#browser-page-slopchan::-webkit-scrollbar-button {
+  height: 16px;
+  background: var(--win95-gray);
+  border-left: 1px solid var(--win95-button-highlight);
+  border-top: 1px solid var(--win95-button-highlight);
+  border-right: 1px solid var(--win95-button-shadow);
+  border-bottom: 1px solid var(--win95-button-shadow);
+}
+
+#browser-home-page::-webkit-scrollbar-button:vertical:decrement,
+#browser-page-aigallery::-webkit-scrollbar-button:vertical:decrement,
+#browser-page-promptkingdom::-webkit-scrollbar-button:vertical:decrement,
+#browser-page-contentfarm::-webkit-scrollbar-button:vertical:decrement,
+#browser-page-webring::-webkit-scrollbar-button:vertical:decrement,
+#browser-page-slophub::-webkit-scrollbar-button:vertical:decrement,
+#browser-page-slopnews::-webkit-scrollbar-button:vertical:decrement,
+#browser-page-slopipedia::-webkit-scrollbar-button:vertical:decrement,
+#browser-page-slopmaxxing::-webkit-scrollbar-button:vertical:decrement,
+#browser-page-slopchan::-webkit-scrollbar-button:vertical:decrement {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8"><path d="M4 2 L1 6 L7 6 Z" fill="black"/></svg>');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#browser-home-page::-webkit-scrollbar-button:vertical:increment,
+#browser-page-aigallery::-webkit-scrollbar-button:vertical:increment,
+#browser-page-promptkingdom::-webkit-scrollbar-button:vertical:increment,
+#browser-page-contentfarm::-webkit-scrollbar-button:vertical:increment,
+#browser-page-webring::-webkit-scrollbar-button:vertical:increment,
+#browser-page-slophub::-webkit-scrollbar-button:vertical:increment,
+#browser-page-slopnews::-webkit-scrollbar-button:vertical:increment,
+#browser-page-slopipedia::-webkit-scrollbar-button:vertical:increment,
+#browser-page-slopmaxxing::-webkit-scrollbar-button:vertical:increment,
+#browser-page-slopchan::-webkit-scrollbar-button:vertical:increment {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8"><path d="M4 6 L1 2 L7 2 Z" fill="black"/></svg>');
+  background-repeat: no-repeat;
+  background-position: center;
+}

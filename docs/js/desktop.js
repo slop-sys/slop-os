@@ -2402,6 +2402,12 @@ class Desktop95 {
     const printBtn = document.getElementById('browser-print');
     const linksBtn = document.getElementById('browser-links');
     const goBtn = document.getElementById('browser-go');
+    const menuFile = document.getElementById('browser-menu-file');
+    const menuEdit = document.getElementById('browser-menu-edit');
+    const menuView = document.getElementById('browser-menu-view');
+    const menuGo = document.getElementById('browser-menu-go');
+    const menuFavorites = document.getElementById('browser-menu-favorites');
+    const menuHelp = document.getElementById('browser-menu-help');
     const addressBar = document.getElementById('browser-address');
     const browserTitle = document.getElementById('browser-title');
     const browserStatus = document.getElementById('browser-status');
@@ -2413,6 +2419,42 @@ class Desktop95 {
     // Browser history
     this.browserHistory = [];
     this.browserHistoryIndex = -1;
+
+    // Browser favorites (new slop universe pages prioritized)
+    this.browserFavorites = [
+      { name: 'SlopHub', url: 'slop://slophub' },
+      { name: 'SLOPNEWS', url: 'slop://slopnews' },
+      { name: 'Slopipedia', url: 'slop://slopipedia' },
+      { name: 'Slopmaxxing Forums', url: 'slop://slopmaxxing' },
+      { name: 'Slopchan', url: 'slop://slopchan' },
+      { name: 'AI Art Gallery', url: 'slop://aigallery' },
+      { name: 'Prompt Kingdom', url: 'slop://promptkingdom' },
+      { name: 'Generic Content Depot', url: 'slop://contentfarm' },
+      { name: 'AI Webring', url: 'slop://webring' }
+    ];
+
+    const showFavoritesPicker = () => {
+      const favoriteList = this.browserFavorites
+        .map((favorite, index) => `${index + 1}. ${favorite.name} (${favorite.url})`)
+        .join('\n');
+
+      const selection = window.prompt(
+        `Favorites\n\n${favoriteList}\n\nEnter a number to open, or Cancel to close.`
+      );
+
+      if (!selection) {
+        return;
+      }
+
+      const selectedIndex = Number.parseInt(selection, 10) - 1;
+      const favorite = this.browserFavorites[selectedIndex];
+
+      if (favorite) {
+        this.loadBrowserPage(favorite.url);
+      } else {
+        this.showBotAssistant('Invalid favorite selection. Try a number from the list.');
+      }
+    };
     
     // Navigation buttons
     if (backBtn) {
@@ -2463,7 +2505,7 @@ class Desktop95 {
     
     if (favoritesBtn) {
       favoritesBtn.addEventListener('click', () => {
-        this.showBotAssistant('Favorites corrupted. All bookmarks point to generation logs now.');
+        showFavoritesPicker();
       });
     }
     
@@ -2488,7 +2530,68 @@ class Desktop95 {
     
     if (linksBtn) {
       linksBtn.addEventListener('click', () => {
-        this.showBotAssistant('Links toolbar: Every link leads to more slop.');
+        this.showBotAssistant('Links: slop://slophub, slop://slopnews, slop://slopipedia, slop://slopmaxxing, slop://slopchan');
+      });
+    }
+
+    // Menu bar functionality
+    if (menuFile) {
+      menuFile.addEventListener('click', () => {
+        const fileAction = window.prompt('File menu\n1. New window (about:blank)\n2. Open URL\n3. Close menu');
+        if (fileAction === '1') {
+          this.loadBrowserPage('about:blank');
+        } else if (fileAction === '2') {
+          const newUrl = window.prompt('Enter URL to open:', addressBar.value || 'about:home');
+          if (newUrl) {
+            this.loadBrowserPage(newUrl.trim());
+          }
+        }
+      });
+    }
+
+    if (menuEdit) {
+      menuEdit.addEventListener('click', async () => {
+        addressBar.focus();
+        addressBar.select();
+        const currentUrl = addressBar.value || 'about:home';
+
+        try {
+          await navigator.clipboard.writeText(currentUrl);
+          this.showBotAssistant(`Edit: address selected and copied to clipboard (${currentUrl})`);
+        } catch {
+          this.showBotAssistant(`Edit: address selected (${currentUrl}). Clipboard access blocked by browser.`);
+        }
+      });
+    }
+
+    if (menuView) {
+      menuView.addEventListener('click', () => {
+        if (this.browserHistoryIndex >= 0) {
+          this.loadBrowserPage(this.browserHistory[this.browserHistoryIndex], false);
+        } else {
+          this.loadBrowserPage('home', false);
+        }
+      });
+    }
+
+    if (menuGo) {
+      menuGo.addEventListener('click', () => {
+        const destination = window.prompt('Go to URL:', addressBar.value || 'about:home');
+        if (destination) {
+          this.loadBrowserPage(destination.trim());
+        }
+      });
+    }
+
+    if (menuFavorites) {
+      menuFavorites.addEventListener('click', () => {
+        showFavoritesPicker();
+      });
+    }
+
+    if (menuHelp) {
+      menuHelp.addEventListener('click', () => {
+        this.showBotAssistant('Microslop Explorer Help: Use Back/Forward, enter slop:// URLs in Address, and open Favorites for curated slop universe sites.');
       });
     }
     
