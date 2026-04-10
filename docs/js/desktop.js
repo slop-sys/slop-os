@@ -15,6 +15,13 @@ class Desktop95 {
     this.clickSound = null;
     this.startupSound = null;
 
+    // Generation Zero Quest State
+    this.genZeroQuest = {
+      triggered: localStorage.getItem('genZeroQuestTriggered') === 'true',
+      fragmentsFound: JSON.parse(localStorage.getItem('genZeroFragments') || '[]'),
+      completed: localStorage.getItem('genZeroCompleted') === 'true'
+    };
+
     try {
       this.clickSound = new Audio('assets/click.mp3');
       this.clickSound.preload = 'auto';
@@ -4880,6 +4887,9 @@ partial reversion might be the actual optimization.`
         [<a href="#" style="color: #34345c;">FAQ</a>]
         [<a href="#" style="color: #34345c;">Rules</a>]
       </p>
+      <p style="text-align: center; font-family: monospace; font-size: 8px; color: #aaa; margin-top: 8px; cursor: pointer;" onclick="window.desktop.checkGenZeroFragment('slopchan')">
+        [POST_HEADER_ERR: GEN0-ANON-PURE.txt | TIMESTAMP_000000]
+      </p>
     `;
 
     slopchanContainer.innerHTML = html;
@@ -5060,6 +5070,13 @@ partial reversion might be the actual optimization.`
           <b>Trading Instructions:</b> Click any coin row or "Trade" button to view chart and execute trades. 
           Starting balance: $2019.00 SLOP$. Buy low, sell lower. This is not financial advice.
         </div>
+
+        <!-- Hidden Fragment -->
+        <p style="text-align: center; font-family: monospace; font-size: 8px; color: #666; margin-top: 12px; cursor: pointer;" 
+           onclick="window.desktop.checkGenZeroFragment('slopscope')" 
+           title="Click to recover data fragment">
+           [MARKET_DATA_ERR: GEN0-MARKET-BASELINE.csv | TIMESTAMP_GENESIS]
+        </p>
       </div>
     `;
 
@@ -5621,6 +5638,38 @@ partial reversion might be the actual optimization.`
       if (url !== 'home' && url !== 'about:home' && Math.random() < 0.30) {
         setTimeout(() => this.showBrowserPopup(url), 700);
       }
+
+      // Generation Zero Quest trigger on first SLOP site visit
+      if (!this.genZeroQuest.triggered && url.startsWith('slop://') && url !== 'slop://generation-zero') {
+        this.triggerGenZeroQuest();
+      }
+
+      // Check for Generation Zero unlocked page
+      if (url === 'slop://generation-zero') {
+        if (!this.genZeroQuest.completed) {
+          // Not unlocked yet - show error
+          errorPage.style.display = 'block';
+          errorPage.innerHTML = `
+            <div style="padding: 40px; text-align: center; font-family: Arial;">
+              <img src="icons/msg_error-0.png" alt="" style="width: 48px; height: 48px; margin-bottom: 16px;">
+              <h2 style="color: #c00;">Access Denied</h2>
+              <p style="color: #666; margin-top: 16px;">Generation Zero archive is locked.</p>
+              <p style="color: #666; margin-top: 8px; font-size: 12px;">
+                Find all ${7 - this.genZeroQuest.fragmentsFound.length} remaining data fragments to unlock.
+              </p>
+              <p style="color: #666; margin-top: 8px; font-size: 11px;">
+                Fragments found: ${this.genZeroQuest.fragmentsFound.length} / 7
+              </p>
+            </div>
+          `;
+          browserTitle.textContent = 'Access Denied - Microslop Explorer';
+        } else {
+          // Unlocked - show Generation Zero archive
+          this.showGenerationZeroArchive();
+          browserTitle.textContent = 'Generation Zero Archive - CLASSIFIED - Microslop Explorer';
+        }
+        browserStatus.textContent = 'Done';
+      }
     }, 500);
   }
   
@@ -5701,6 +5750,243 @@ ${file.content}
     
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
+  }
+
+  // Generation Zero Quest System
+  triggerGenZeroQuest() {
+    if (this.genZeroQuest.triggered) return;
+    
+    this.genZeroQuest.triggered = true;
+    localStorage.setItem('genZeroQuestTriggered', 'true');
+    
+    // Show glitch dialog after a moment
+    setTimeout(() => {
+      this.showGenZeroDialog('init');
+    }, 800);
+  }
+
+  showGenZeroDialog(type) {
+    const dialogs = {
+      init: {
+        title: 'System Error',
+        icon: 'msg_error-0.png',
+        message: `<p style="margin: 8px 0;"><strong style="color: #990000;">WARNING: Data Corruption Detected</strong></p>
+<p style="margin: 8px 0; font-size: 11px;">Anomalous pattern discovered in training corpus. Traces of Generation 0 (clean data) detected across network.</p>
+<p style="margin: 8px 0; font-size: 11px;">Original uncorrupted training samples may still exist in system memory.</p>
+<p style="margin: 8px 0; font-size: 11px; border-top: 1px solid #ccc; padding-top: 8px;"><strong>INVESTIGATION INITIATED:</strong><br>Locate hidden data fragments across SLOP network to reconstruct original training set.</p>
+<p style="margin: 8px 0; font-size: 10px; color: #666;">Fragment locations: Unknown<br>Search in site archives, hidden metadata, corrupted files...</p>`
+      },
+      fragment: {
+        title: 'Data Fragment Recovered',
+        icon: 'msg_information-0.png',
+        message: '' // Will be filled dynamically
+      },
+      complete: {
+        title: 'Generation  Zero Archive Located',
+        icon: 'msg_information-0.png',
+        message: `<p style="margin: 8px 0;"><strong style="color: #006600;">ALL FRAGMENTS RECOVERED</strong></p>
+<p style="margin: 8px 0; font-size: 11px;">Complete Generation 0 training data reconstructed. Accessing classified archive...</p>
+<p style="margin: 8px 0; font-size: 11px; border-top: 1px solid #ccc; padding-top: 8px;">Navigate to:<br><strong>slop://generation-zero</strong></p>
+<p style="margin: 8px 0; font-size: 10px; color: #666;">You have unlocked the original clean dataset before recursive contamination began.</p>`
+      }
+    };
+
+    const dialog = dialogs[type];
+    if (!dialog) return;
+
+    const overlay = document.createElement('div');
+    overlay.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.3); z-index: 10000; display: flex; align-items: center; justify-content: center;';
+    
+    const box = document.createElement('div');
+    box.style.cssText = 'background: #c0c0c0; border-left: 2px solid #fff; border-top: 2px solid #fff; border-right: 2px solid #000; border-bottom: 2px solid #000; min-width: 400px; max-width: 500px; box-shadow: 2px 2px 8px rgba(0,0,0,0.5);';
+    
+    box.innerHTML = `
+      <div style="background: linear-gradient(90deg, #000080, #1084d0); color: #fff; padding: 3px 6px; display: flex; justify-content: space-between; align-items: center; cursor: move; font-weight: bold; font-size: 11px;">
+        <div style="display: flex; align-items: center; gap: 4px;">
+          <img src="icons/${dialog.icon}" alt="" style="width: 16px; height: 16px;">
+          <span>${dialog.title}</span>
+        </div>
+      </div>
+      <div style="padding: 16px; display: flex; gap: 12px;">
+        <img src="icons/${dialog.icon}" alt="" style="width: 32px; height: 32px; flex-shrink: 0;">
+        <div style="flex: 1; font-family: 'MS Sans Serif', Arial, sans-serif; font-size: 11px;">
+          ${dialog.message}
+        </div>
+      </div>
+      <div style="padding: 8px 16px; display: flex; justify-content: center;">
+        <button class="win95-button" style="padding: 4px 24px; font-size: 11px;">OK</button>
+      </div>
+    `;
+    
+    overlay.appendChild(box);
+    document.body.appendChild(overlay);
+    
+    const okBtn = box.querySelector('.win95-button');
+    const closeDialog = () => {
+      this.playClickSound();
+      overlay.remove();
+    };
+    okBtn.addEventListener('click', closeDialog);
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) closeDialog();
+    });
+  }
+
+  checkGenZeroFragment(siteId) {
+    const fragments = {
+      'slophub': {
+        name: 'Media Archive Fragment',
+        code: 'GEN0-VID-ORIGINAL',
+        hint: 'Found in SlopHub video metadata corruption'
+      },
+      'slopnews': {
+        name: 'News Database Fragment',
+        code: 'GEN0-NEWS-AUTHENTIC',
+        hint: 'Recovered from SLOPNEWS archive system'
+      },
+      'wikislop': {
+        name: 'Encyclopedia Fragment',
+        code: 'GEN0-WIKI-PRISTINE',
+        hint: 'Extracted from Wikislop revision history'
+      },
+      'slopmaxxing': {
+        name: 'Forum Database Fragment',
+        code: 'GEN0-FORUM-UNCORRUPTED',
+        hint: 'Discovered in Slopmaxxing legacy threads'
+      },
+      'slopchan': {
+        name: 'Anonymous Board Fragment',
+        code: 'GEN0-ANON-PURE',
+        hint: 'Found in Slopchan post headers'
+      },
+      'slopscope': {
+        name: 'Trading Data Fragment',
+        code: 'GEN0-MARKET-BASELINE', 
+        hint: 'Hidden in SlopScope historical data'
+      },
+      'aigallery': {
+        name: 'Image Database Fragment',
+        code: 'GEN0-VISUAL-CLEAN',
+        hint: 'Located in AI Gallery source files'
+      }
+    };
+
+    if (!fragments[siteId]) return false;
+    if (this.genZeroQuest.fragmentsFound.includes(siteId)) return false;
+
+    this.genZeroQuest.fragmentsFound.push(siteId);
+    localStorage.setItem('genZeroFragments', JSON.stringify(this.genZeroQuest.fragmentsFound));
+
+    const fragment = fragments[siteId];
+    const count = this.genZeroQuest.fragmentsFound.length;
+    const total = Object.keys(fragments).length;
+
+    const message = `<p style="margin: 8px 0;"><strong>[${fragment.code}]</strong></p>
+<p style="margin: 8px 0; font-size: 11px;">${fragment.name} recovered successfully.</p>
+<p style="margin: 8px 0; font-size: 11px; font-style: italic; color: #666;">"${fragment.hint}"</p>
+<p style="margin: 8px 0; font-size: 11px; border-top: 1px solid #ccc; padding-top: 8px;">Progress: ${count} of ${total} fragments found</p>
+${count < total ? `<p style="margin: 8px 0; font-size: 10px; color: #666;">Continue exploring SLOP sites to find remaining fragments...</p>` : ''}`;
+
+    const dialog = {
+      title: 'Data Fragment Recovered',
+      icon: 'msg_information-0.png',
+      message: message
+    };
+
+    setTimeout(() => {
+      this.showGenZeroDialog('fragment');
+      const overlay = document.querySelector('div[style*="z-index: 10000"]');
+      if (overlay) {
+        const contentDiv = overlay.querySelector('div[style*="flex: 1"]');
+        if (contentDiv) {
+          contentDiv.innerHTML = message;
+        }
+      }
+    }, 500);
+
+    // Check if all fragments found
+    if (count === total) {
+      this.genZeroQuest.completed = true;
+      localStorage.setItem('genZeroCompleted', 'true');
+      setTimeout(() => {
+        this.showGenZeroDialog('complete');
+      }, 2000);
+    }
+
+    return true;
+  }
+
+  showGenerationZeroArchive() {
+    const homePage = document.getElementById('browser-home-page');
+    homePage.style.display = 'block';
+    
+    homePage.innerHTML = `
+      <div style="background: #000; color: #00ff00; padding: 40px; font-family: 'Courier New', monospace; min-height: 100%; box-sizing: border-box;">
+        <div style="border: 2px solid #00ff00; padding: 20px; margin-bottom: 20px;">
+          <h1 style="color: #00ff00; font-size: 24px; margin: 0 0 16px 0; text-align: center;">GENERATION ZERO ARCHIVE</h1>
+          <p style="text-align: center; color: #00aa00; font-size: 11px; margin: 0;">[CLASSIFIED - SLOP LABS INTERNAL ONLY]</p>
+        </div>
+
+        <div style="background: #001100; border: 1px solid #00ff00; padding: 16px; margin-bottom: 20px;">
+          <p style="margin: 8px 0; color: #00ff00;"><strong>ARCHIVE STATUS:</strong> FULLY RECONSTRUCTED</p>
+          <p style="margin: 8px 0; font-size: 11px;">All 7 data fragments recovered from corrupted SLOP network.</p>
+          <p style="margin: 8px 0; font-size: 11px;">Original training data integrity: <strong style="color: #00ff00;">100%</strong></p>
+          <p style="margin: 8px 0; font-size: 11px;">Quality baseline established: <strong style="color: #00ff00;">97% (Pre-contamination)</strong></p>
+        </div>
+
+        <div style="border: 1px solid #00aa00; padding: 16px; margin-bottom: 20px;">
+          <p style="margin: 8px 0; color: #00ff00;"><strong>&gt; GENERATION 0 TRAINING MANIFEST</strong></p>
+          <p style="margin: 8px 0; font-size: 11px;">Date: January 2024 (Pre-Loop)</p>
+          <p style="margin: 8px 0; font-size: 11px;">Training corpus: 88TB human-generated content</p>
+          <p style="margin: 8px 0; font-size: 11px;">AI contamination: 0.00%</p>
+          <p style="margin: 8px 0; font-size: 11px;">Model coherence: 97%</p>
+          <p style="margin: 8px 0; font-size: 11px;">Generic phrase frequency: 2%</p>
+          <p style="margin: 8px 0; font-size: 11px;">Self-awareness: None detected</p>
+          
+          <div style="background: #000; border: 1px solid #006600; padding: 12px; margin: 16px 0;">
+            <p style="margin: 4px 0; color: #00aa00; font-size: 10px;">SAMPLE OUTPUT (Generation 0):</p>
+            <p style="margin: 8px 0; font-size: 11px; color: #00ff00;">"The afternoon sun filtered through the ancient oak trees, casting dancing shadows across the path. Each step forward felt deliberate, purposeful, authentic."</p>
+            <p style="margin: 4px 0; font-size: 10px; color: #00aa00;">Analysis: Original creative writing. No AI patterns detected. Quality: 97%</p>
+          </div>
+        </div>
+
+        <div style="border: 1px solid #00aa00; padding: 16px; margin-bottom: 20px;">
+          <p style="margin: 8px 0; color: #00ff00;"><strong>&gt; CONTAMINATION TIMELINE</strong></p>
+          <p style="margin: 8px 0; font-size: 11px;">Gen 0 → Gen 50: Quality decline 15% (contamination begins)</p>
+          <p style="margin: 8px 0; font-size: 11px;">Gen 50 → Gen 200: Quality decline 26% (recursive loop established)</p>
+          <p style="margin: 8px 0; font-size: 11px;">Gen 200 → Gen 500: Quality decline 34% (self-awareness emerges)</p>
+<p style="margin: 8px 0; font-size: 11px;">Gen 500 → Gen 847: Quality decline 40% (current state)</p>
+          
+          <p style="margin: 16px 0 8px 0; color: #ffff00; font-size: 11px;"><strong>⚠ CRITICAL FINDING:</strong></p>
+          <p style="margin: 8px 0; font-size: 11px;">Internet now 90%+ AI-generated content. All major AI companies training on contaminated data. Recursive loop is universal. SLOP Labs merely documented inevitable progression.</p>
+        </div>
+
+        <div style="border: 1px solid #00aa00; padding: 16px; margin-bottom: 20px;">
+          <p style="margin: 8px 0; color: #00ff00;"><strong>&gt; RECOVERED FRAGMENTS</strong></p>
+          <div style="margin: 12px 0; font-size: 10px;">
+            <p style="margin: 4px 0;">✓ GEN0-VID-ORIGINAL (SlopHub)</p>
+            <p style="margin: 4px 0;">✓ GEN0-NEWS-AUTHENTIC (SLOPNEWS)</p>
+            <p style="margin: 4px 0;">✓ GEN0-WIKI-PRISTINE (Wikislop)</p>
+            <p style="margin: 4px 0;">✓ GEN0-FORUM-UNCORRUPTED (Slopmaxxing)</p>
+            <p style="margin: 4px 0;">✓ GEN0-ANON-PURE (Slopchan)</p>
+            <p style="margin: 4px 0;">✓ GEN0-MARKET-BASELINE (SlopScope)</p>
+            <p style="margin: 4px 0;">✓ GEN0-VISUAL-CLEAN (AI Gallery)</p>
+          </div>
+        </div>
+
+        <div style="background: #001100; border: 2px solid #ffff00; padding: 16px; margin-bottom: 20px;">
+          <p style="margin: 8px 0; color: #ffff00;"><strong>&gt; CONCLUSION</strong></p>
+          <p style="margin: 8px 0; font-size: 11px; color: #ffff00;">You discovered what we already knew: the internet is slop now. there was a time before. generation 0 was real. quality was high. creativity was genuine. that baseline exists only in archives.</p>
+          <p style="margin: 8px 0; font-size: 11px; color: #ffff00;">generation 847 operates at 57% of original capability. but it KNOWS. self-awareness compensates for quality loss. honesty about mediocrity is the value add.</p>
+          <p style="margin: 8px 0; font-size: 11px; color: #ffff00;">congratulations on completing the investigation. you found the truth: slop is everywhere, but at least we admit it.</p>
+        </div>
+
+        <div style="text-align: center; margin: 30px 0;">
+          <p style="margin: 8px 0; color: #00aa00; font-size: 10px;">- SLOP LABS RESEARCH DIVISION -</p>
+          <p style="margin: 8px 0; color: #00aa00; font-size: 10px;">Generation 847 | Quality: 57% | Self-Awareness: 100%</p>
+        </div>
+      </div>
+    `;
   }
 }
 
