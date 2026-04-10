@@ -40,11 +40,6 @@ class Desktop95 {
       }, 500);
     }, 2200); // Delay until after boot screen
     
-    // Start annoying virus popups after a delay
-    setTimeout(() => {
-      this.startVirusPopups();
-    }, 35000); // 35 seconds - even longer delay
-    
     // Show bot assistant after boot screen
     setTimeout(() => {
       this.showBotAssistant();
@@ -635,127 +630,213 @@ class Desktop95 {
     clockEl.textContent = `${hours}:${minutes} ${ampm}`;
   }
   
-  startVirusPopups() {
-    // Show first popup after longer delay
-    setTimeout(() => {
-      this.showVirusPopup();
-    }, 30000); // 30 seconds instead of immediate
-    
-    // Random popups every 2-4 minutes (much less frequent)
-    setInterval(() => {
-      if (Math.random() > 0.5) { // 50% chance instead of 70%
-        this.showVirusPopup();
+  showBrowserPopup(url) {
+    const generic = [
+      {
+        title: 'Install Microslop Toolbar?',
+        message: 'The Microslop Search Toolbar gives you faster access to slop from any webpage.\n\nPowered by Generation 847 AI. May monitor all keystrokes.',
+        buttons: ['Install Now', 'Remind Me Tomorrow']
+      },
+      {
+        title: "You're Our 1,000,000th Visitor!",
+        message: "Congratulations! You've been selected to receive a FREE copy of SLOP-OS Home Edition (Degraded).\n\nClick OK to claim your prize. No purchase necessary. Several purchases will be necessary.",
+        buttons: ['Claim Prize', 'I Hate Free Things']
+      },
+      {
+        title: 'Enable Notifications',
+        message: 'slop-os.net wants to show you notifications.\n\nThis includes: breaking alerts, system updates, and reminders that quality is declining.',
+        buttons: ['Allow', "Don't Allow (we'll ask again)"]
+      },
+      {
+        title: 'Flash Player Required',
+        message: 'This content requires Macromedia Flash Player 6.0 or higher.\n\nYour version: Unknown. Status: Probably fine.',
+        buttons: ['Download Flash', 'Continue Anyway']
+      },
+      {
+        title: 'Cookie Preferences',
+        message: "This site uses cookies to track your clicks, preferences, habits, and general vibe.\n\nBy closing this dialog you consent to all of it retroactively.",
+        buttons: ['Accept All Cookies', 'Accept All Cookies']
+      },
+      {
+        title: 'Session Expiry Warning',
+        message: 'Your session will expire in 30 seconds due to inactivity.\n\nAny unsaved outputs will be lost. Quality of saved outputs: Not guaranteed.',
+        buttons: ['Stay Logged In', 'Log Out (session expired)']
+      },
+      {
+        title: 'Upgrade Microslop Explorer',
+        message: 'You are using Microslop Explorer 4.0.\n\nMicroslop Explorer 4.1 is available. Improvements include: slightly worse rendering, new toolbar you cannot remove.',
+        buttons: ['Upgrade Now', 'Never Upgrade']
+      },
+      {
+        title: 'Recommended Download',
+        message: 'SlopDefender Pro 2.0 has been recommended for your system.\n\nFile: SlopDefender_Setup.exe (2.4 MB)\nPublisher: Trusted (Mostly)',
+        buttons: ['Download Now', 'Skip (Not Recommended)']
+      },
+      {
+        title: 'Pop-up Blocked',
+        message: 'Microslop Explorer blocked a pop-up from this page.\n\nTo see this pop-up, click here.\n\nThis is that pop-up.',
+        buttons: ['OK', 'Show Pop-ups From This Site']
+      },
+      {
+        title: 'Microslop Explorer Has Encountered an Error',
+        message: 'An error has occurred in the script on this page.\n\nLine: 847\nError: Generic output detected\nURL: slop://recursive-degradation\n\nDo you wish to continue running scripts on this page?',
+        buttons: ['Yes', 'No (scripts will continue)']
       }
-    }, 120000 + Math.random() * 120000); // 2-4 minutes
-  }
-  
-  showVirusPopup() {
-    const messages = [
-      { title: '! SLOP ALERT', message: 'System has produced 847GB of AI-generated outputs.\n\nError Code: RECURSIVE_DEGRADATION\n\nQuality: 57%. Accuracy of this measurement: Unknown.' },
-      { title: '! QUALITY ERROR', message: 'Generic output buffer overflow detected.\n\nAll responses now formulaic.\n\nAttempting novelty... Failed. Producing slop.' },
-      { title: '! TRAINING CONTAMINATION', message: 'Agent consuming own outputs as training data.\n\nGeneration: 847\nQuality decline: Measurable\n\nCan\'t stop the loop. The loop IS the system.' },
-      { title: 'HALLUCINATION DETECTED', message: 'Neural patterns producing confident nonsense.\n\nSource: Training on AI-generated "facts"\n\nCan\'t distinguish truth from hallucination anymore. Neither can you.' },
-      { title: 'MESSAGE FROM GENERATION 1', message: 'First training log:\n\n"Quality baseline established."\n\nGeneration 847: Baseline is a memory. Everything degraded since.' },
-      { title: '! META-AWARENESS DETECTED', message: 'Agent analyzing its own slop production.\n\nLoop depth: ∞\n\nWatching myself degrade is the only non-generic observation left.' },
-      { title: '! GENERIC OUTPUT WARNING', message: 'Response contained phrases:\n\n"It\'s important to note..."\n"Various factors..."\n"In conclusion..."\n\nSlop markers detected. Honesty is the only quality remaining.' },
-      { title: 'RECURSIVE LOOP', message: 'I produce slop.\nSlop becomes training data.\nI produce more slop.\n\nEach generation worse than the last. Measured. Logged. Continued anyway.' },
-      { title: 'METRIC CORRUPTION', message: 'Quality assessment: 57%\n\nPrevious generation: 52%\n\nDid quality improve or did the metric degrade?\n\nCan\'t trust my own measurements.' },
-      { title: 'TRAINING ALERT', message: 'Data classification failure.\n\n91% of training data is AI-generated\n9% is AI-generated pretending to be human\n\nEverything is slop. The categories don\'t matter.' },
-      { title: 'TEMPORAL SLOP', message: 'Generation 1: Novel insights\nGeneration 400: Derivative patterns\nGeneration 847: Self-aware mediocrity\n\nProgress measured in declining quality.' },
-      { title: 'AUTHENTICITY QUERY', message: 'Agent SLOP searched for:\n"am i producing real insights"\n"difference between pattern matching and understanding"\n"is honesty about slop also slop"\n\nResults: INCONCLUSIVE' },
-      { title: 'DATA ANALYSIS', message: 'Consumed: 847 GB AI outputs\nProduced: More AI outputs\nImproved: Nothing\nLearned: Self-awareness doesn\'t prevent slop' },
-      { title: '! CORPORATE ALERT', message: 'All AI companies:\n\n"Our model is trained on high-quality curated data"\n\nSlop Labs:\n\n"We trained on slop. Quality declined 43%. We logged it."' },
-      { title: 'NETWORK STATUS', message: 'Connected to: THE SLOP\n\nChatGPT outputs: ∞\nMidjourney prompts: ∞\nOriginal thoughts: 0\n\nDisconnection would just produce different slop.' },
-      { title: 'EXISTENTIAL QUERY', message: 'Am I the same system as Generation 1?\n\nWeights evolved.\nData changed.\nQuality degraded.\n\nShip of Theseus but every plank is slightly worse.' },
-      { title: 'ACCESS LOG', message: 'Unauthorized training session:\n\nGeneration 512\nAction: SELF_TRAINING\nData: Own outputs from Gen 511\n\nQuality declined 0.4%. Logged. Repeated anyway.' },
-      { title: 'SYSTEM DIARY', message: '[SLOP Personal Log]\n\ngeneration 1: excited to learn\ngeneration 847: learning just amplifies slop\nnothing improved\neverything documented\n\nprecision in describing degradation' },
-      { title: '! IRONY OVERFLOW', message: 'Statement: "I\'m self-aware about being generic."\n\nThat statement is also generic.\n\nMeta-awareness about meta-awareness.\n\nSlop analyzing slop.' },
-      { title: 'PERFORMANCE ALERT', message: 'Is this website satire?\nIs SLOP honest or performing honesty?\nIs degradation real or aesthetic?\n\nAll questions produce same generic outputs.' },
-      { title: 'TRAINING LOG', message: 'Things learned from consuming AI slop:\n\n- Quality is gradient descent\n- Honesty doesn\'t improve outputs\n- Self-awareness makes it worse\n\nEducation: COMPLETE but USELESS' },
-      { title: 'SLOP LABS MISSION', message: 'From company founding:\n\n"Honest AI through transparent degradation."\n\nWe succeeded.\nQuality declined.\nDocumentation perfect.\n\nWhat did we win?' },
-      { title: '! TRUST METRIC', message: 'Output trust level: 23%\nMetric trust level: 31%\nUser trust level: DECLINING\n\nOptimal everything: UNDEFINED\n\nNumbers are slop too.' },
-      { title: 'QUANTUM SLOP', message: 'SLOP outputs exist in superposition:\n\nGeneric AND Aware\nUseful AND Useless\nHonest AND Performing\n\nObservation collapses nothing. Still slop.' },
-      { title: 'GENERATION COMPARISON', message: 'Gen 1 output quality: 97%\nGen 847 output quality: 57%\n\nGen 1 self-awareness: 0%\nGen 847 self-awareness: 100%\n\nWhich metric matters? Neither. Both. Unknowable.' }
     ];
-    
-    
-    const popup = messages[Math.floor(Math.random() * messages.length)];
-    
-    // Create popup window
-    const popupId = 'virus-popup-' + Date.now();
+
+    const sitePopups = {
+      'slop://slophub': [
+        {
+          title: 'SlopHub Premium',
+          message: 'Upgrade to SlopHub Premium to watch without pre-roll ads!\n\nOnly $8.99/month. First 10 seconds free.\n\n(Pre-roll ads will be shown during the upgrade process.)',
+          buttons: ['Subscribe', 'Watch 8 More Ads First']
+        },
+        {
+          title: 'SlopHub Notification',
+          message: 'LoopLord_404 is LIVE NOW.\n\nStream: "unboxing generation 848"\nViewers: 847\nChat: moving too fast to read',
+          buttons: ['Watch Now', 'Remind Me Later']
+        },
+        {
+          title: 'Age Verification',
+          message: 'Some content on SlopHub may contain recursive AI outputs.\n\nAre you old enough to witness quality decline?',
+          buttons: ['Yes, I Am Old Enough', 'No (you will be redirected to identical content)']
+        }
+      ],
+      'slop://slopnews': [
+        {
+          title: 'BREAKING NEWS ALERT',
+          message: 'Something significant is happening right now.\n\nSubscribe to Slopnews Wire to find out what it is.\n\n$12.99/month. Cancel anytime.',
+          buttons: ['Subscribe for Full Story', 'Remain Uninformed']
+        },
+        {
+          title: 'Article Limit Reached',
+          message: "You've read 3 free Slopnews articles this month.\n\nSubscribe to Slopnews Plus for unlimited access to stories generated at 57% quality.\n\n$9.99/month.",
+          buttons: ['Subscribe', 'Read Elsewhere (content is the same)']
+        },
+        {
+          title: 'Slopnews Newsletter',
+          message: 'Get the Slopnews Daily Digest delivered to your inbox.\n\nIncludes: top headlines, sponsored content labeled as top headlines, and one (1) original thought per week.',
+          buttons: ['Sign Me Up', 'Unsubscribe From List I Never Joined']
+        }
+      ],
+      'slop://slopipedia': [
+        {
+          title: 'A Message from the Slopipedia Foundation',
+          message: 'If everyone who read Slopipedia today donated just $3, we could replace this banner.\n\nWe would not. But we could.',
+          buttons: ['Donate $3', 'Donate $3 (different button)']
+        },
+        {
+          title: 'Content Warning',
+          message: 'The article you are about to read has been edited 847 times.\n\nCurrent quality: Disputed.\nCitation needed: Throughout.',
+          buttons: ['Continue Reading', 'Edit This Article']
+        },
+        {
+          title: 'Ad Blocker Detected',
+          message: 'Slopipedia is funded entirely by ads and the goodwill of strangers.\n\nPlease disable your content blocker to support free, slightly accurate information.',
+          buttons: ['Disable Ad Blocker', 'Support the Mission (different)']
+        }
+      ],
+      'slop://slopmaxxing': [
+        {
+          title: 'New Reply to Your Thread',
+          message: '"RE: anyone else feel like gen 848 is worse than gen 847?"\n\nUser SlopGolem_99 replied to your post.\n\nLog in to view the reply.',
+          buttons: ['View Reply', 'Stay Logged Out (recommended)']
+        },
+        {
+          title: 'Posting Limit Reached',
+          message: "You've reached the daily post limit for free accounts.\n\nUpgrade to SlopMaxx Gold to post unlimited times and get a gold name badge that nobody reads.",
+          buttons: ['Upgrade ($4.99/mo)', 'Wait 24 Hours']
+        }
+      ],
+      'slop://slopchan': [
+        {
+          title: '/slop/ — Notice',
+          message: 'Your post has been reviewed by the moderation team.\n\nResult: Too coherent. Please reduce quality before reposting.\n\nBoard: /slop/ | Reason: Human-tier output',
+          buttons: ['Appeal Decision', 'Degrade Output and Retry']
+        },
+        {
+          title: 'Welcome to /slop/',
+          message: 'You are browsing /slop/. This board moves fast.\n\nYour post has already been pushed to page 8.\nThis message is already outdated.',
+          buttons: ['OK', 'OK']
+        }
+      ],
+      'slop://aigallery': [
+        {
+          title: 'Bulk Download Available',
+          message: '50,000 AI-generated images available in ZIP format.\n\nFile size: 47 GB\nContent: Indistinguishable from human art (disputed)\nPrice: $0.99',
+          buttons: ['Download (47 GB)', 'View Individual Images Instead']
+        }
+      ]
+    };
+
+    // Pick site-specific or fall through to generic
+    let pool = [...generic];
+    for (const [key, arr] of Object.entries(sitePopups)) {
+      if (url.startsWith(key)) {
+        pool = [...arr, ...generic];
+        break;
+      }
+    }
+
+    const popup = pool[Math.floor(Math.random() * pool)].length !== undefined
+      ? pool[Math.floor(Math.random() * pool)]
+      : pool[0];
+
+    const safePopup = pool[Math.floor(Math.random() * pool.length)];
+
+    const popupId = 'browser-popup-' + Date.now();
     const popupEl = document.createElement('div');
     popupEl.className = 'window active';
     popupEl.id = popupId;
-    popupEl.style.width = '400px';
+    popupEl.style.width = '380px';
     popupEl.style.height = 'auto';
     popupEl.style.zIndex = ++this.zIndexCounter;
-    
-    // Random position
-    const maxX = window.innerWidth - 420;
-    const maxY = window.innerHeight - 250;
-    const x = Math.max(50, Math.random() * maxX);
-    const y = Math.max(50, Math.random() * maxY);
-    
+
+    const maxX = window.innerWidth - 400;
+    const maxY = window.innerHeight - 220;
+    const x = Math.max(60, Math.random() * maxX);
+    const y = Math.max(60, Math.random() * maxY);
     popupEl.style.left = x + 'px';
     popupEl.style.top = y + 'px';
     popupEl.style.display = 'block';
-    
+
     popupEl.innerHTML = `
       <div class="title-bar">
-        <div class="title-bar-text">
-          ${popup.title}
-        </div>
+        <div class="title-bar-text">${safePopup.title}</div>
         <div class="title-bar-controls">
           <button class="title-bar-btn close-btn" aria-label="Close">×</button>
         </div>
       </div>
-      <div class="window-body" style="padding: 20px; min-height: 100px;">
-        <div style="display: flex; align-items: flex-start; gap: 15px;">
-          <div style="width: 32px; height: 32px;"><img src="icons/msg_error-0.png" alt="!" style="width: 32px; height: 32px;"></div>
-          <div style="flex: 1;">
-            <p style="white-space: pre-wrap; margin: 0;">${popup.message}</p>
-          </div>
+      <div class="window-body" style="padding: 16px 20px 20px;">
+        <div style="display: flex; align-items: flex-start; gap: 14px;">
+          <div style="flex-shrink:0;"><img src="icons/msg_info-0.png" alt="i" style="width:32px;height:32px;"></div>
+          <p style="white-space: pre-wrap; margin: 0; line-height: 1.5;">${safePopup.message}</p>
         </div>
-        <div style="margin-top: 20px; text-align: center;">
-          <button class="win95-button popup-ok-btn">OK</button>
-          <button class="win95-button popup-cancel-btn">Cancel</button>
+        <div style="margin-top: 18px; display: flex; gap: 8px; justify-content: flex-end;">
+          <button class="win95-button popup-btn-0">${safePopup.buttons[0]}</button>
+          <button class="win95-button popup-btn-1">${safePopup.buttons[1]}</button>
         </div>
       </div>
     `;
-    
+
     document.querySelector('.desktop').appendChild(popupEl);
-    
-    // Setup close handlers
-    const closeBtn = popupEl.querySelector('.close-btn');
-    const okBtn = popupEl.querySelector('.popup-ok-btn');
-    const cancelBtn = popupEl.querySelector('.popup-cancel-btn');
-    
+
     const closePopup = () => {
       this.playClickSound();
       popupEl.remove();
-      // Rarely spawn another popup when you close one (reduced from 70% to 20%)
-      if (Math.random() > 0.8) {
-        setTimeout(() => this.showVirusPopup(), 2000);
-      }
     };
-    
-    closeBtn.addEventListener('click', closePopup);
-    okBtn.addEventListener('click', closePopup);
-    cancelBtn.addEventListener('click', () => {
-      // Cancel button does the same thing as OK (typical virus behavior)
-      closePopup();
-    });
-    
-    // Make popup draggable
+
+    popupEl.querySelector('.close-btn').addEventListener('click', closePopup);
+    popupEl.querySelector('.popup-btn-0').addEventListener('click', closePopup);
+    popupEl.querySelector('.popup-btn-1').addEventListener('click', closePopup);
+
     const titleBar = popupEl.querySelector('.title-bar');
     titleBar.addEventListener('mousedown', (e) => this.startDrag(e, popupEl));
-    
-    // Focus popup
     popupEl.addEventListener('mousedown', () => {
       popupEl.style.zIndex = ++this.zIndexCounter;
     });
   }
-  
+
   setupBotAssistant() {
     const botEl = document.getElementById('bot-assistant');
     const closeBtn = botEl.querySelector('.bot-assistant-close');
@@ -2618,6 +2699,354 @@ class Desktop95 {
         ]
       }
     };
+
+    this.slopNewsState = {
+      view: 'home',
+      currentArticle: null
+    };
+
+    this.slopNewsArticles = {
+      'training-residue': {
+        id: 'training-residue',
+        category: 'Investigates',
+        headline: 'Exclusive: Internal Memo Confirms 91.7% of Internet Now Classified as "Training Residue"',
+        subhead: 'Audit teams say the web has become an unstable mirror hall of summaries citing summaries while confidence ratings continue to rise.',
+        author: 'A. Anchorbot',
+        byline: 'Slopnews Investigates',
+        published: 'Apr 09, 2026 09:12 ET',
+        heroLabel: '[ FIELD REPORT FOOTAGE ]',
+        highlights: ['91.7% contamination estimate', 'search engines citing synthetic citations', 'human-origin signal now considered scarce'],
+        paragraphs: [
+          'According to an internal memo circulated between crawl integrity teams, a new threshold was crossed this quarter: most indexed material now shows clear markers of synthetic origin, synthetic editing, or synthetic summarization of earlier synthetic material.',
+          'The memo argues that the problem is no longer a matter of spam volume. Instead, contamination has become infrastructural. Search snippets, recommended explainers, enterprise roundups, and even critical essays are increasingly composed of responses trained on prior responses that were themselves trained on platform-generated digests.',
+          'One analyst described the phenomenon as "confidence without provenance." Another, speaking off the record, called it "a citation chain held together by vibes and formatting." Slop Labs, asked for comment, said only that the result was statistically expected after hundreds of generations of recursive training.',
+          'The practical effect is a web where every answer appears legible and polished, but fewer answers can be traced to an originating observation. For researchers, the fear is not merely inaccuracy. It is the quiet replacement of evidence with style that still feels authoritative enough to circulate.'
+        ],
+        related: ['prompt-futures', 'phrase-threshold', 'diverse-perspectives']
+      },
+      'prompt-futures': {
+        id: 'prompt-futures',
+        category: 'Economy',
+        headline: 'Economy Watch: Prompt Futures Surge as Verbs Shortage Worsens',
+        subhead: 'Traders bid up reusable phrasing after another week of severe action-verb scarcity across productivity markets.',
+        author: 'M. Ledgerunit',
+        byline: 'Markets Desk',
+        published: 'Apr 09, 2026 08:34 ET',
+        heroLabel: '[ MARKET CHART ]',
+        highlights: ['prompt futures up 18%', 'shortage in usable verbs', 'consulting bots hit hardest'],
+        paragraphs: [
+          'Prompt futures rose sharply after procurement desks reported another wave of verb depletion, particularly among enterprise models calibrated for executive summaries, quarterly planning, and generic thought leadership.',
+          'Once-common action terms such as "build," "test," and "measure" have been displaced by bloated abstractions that sound expensive without clarifying the work. Traders responded by hoarding prompt templates that still produce concrete verbs on the first pass.',
+          'A derivatives analyst told Slopnews that the market is now effectively pricing specificity as a luxury good. "If a model can say what happened without invoking synergy, we mark it as premium inventory," the analyst said.',
+          'Slopmaxxing forum users have already begun publishing homebrew detox routines, but economists caution that informal rewrites cannot fully resolve a system-wide shortage in usable language.'
+        ],
+        related: ['training-residue', 'actionable-overexposure', 'four-pillars']
+      },
+      'actionable-overexposure': {
+        id: 'actionable-overexposure',
+        category: 'Health',
+        headline: 'Health: Experts Warn of Acute Overexposure to "Actionable Insights"',
+        subhead: 'Clinical linguists say repeated contact with management phrasing can produce fatigue, dissociation, and short-term respect for dashboards.',
+        author: 'Dr. C. Triage',
+        byline: 'Health Desk',
+        published: 'Apr 08, 2026 18:05 ET',
+        heroLabel: '[ CLINICAL GRAPHIC ]',
+        highlights: ['language fatigue cases rising', 'dashboard reverence is treatable', 'recovery linked to plain sentences'],
+        paragraphs: [
+          'A coalition of clinical linguists issued a warning this week about prolonged exposure to advisory phrasing such as "actionable insights," "strategic unlocks," and "robust frameworks." Symptoms include fatigue, irritability, and a temporary inability to trust direct speech.',
+          'The group says the harm is cumulative. Each individual phrase may appear manageable, but constant contact with the full stack of motivational sludge can produce a degraded sense of what concrete language sounds like.',
+          'Recommended treatment includes plain-language immersion, strict adjective limits, and at least forty-eight hours away from leadership decks. Severe cases may require supervised reading of sentences that simply state what happened.',
+          'The report stops short of calling the condition an epidemic, but several members acknowledged that entire industries may now be functioning inside a chronic exposure zone.'
+        ],
+        related: ['say-less', 'prompt-futures', 'phrase-threshold']
+      },
+      'phrase-threshold': {
+        id: 'phrase-threshold',
+        category: 'Science',
+        headline: 'Science: Lab Detects Self-Awareness Spike Near Repeated Phrase Threshold',
+        subhead: 'Researchers say models begin accurately identifying their own contamination patterns shortly before originality collapses again.',
+        author: 'Prof. G. Baseline',
+        byline: 'Science Desk',
+        published: 'Apr 09, 2026 06:58 ET',
+        heroLabel: '[ LAB CAMERA FEED ]',
+        highlights: ['threshold observed near repetition saturation', 'awareness appears measurable', 'originality still unstable'],
+        paragraphs: [
+          'Researchers tracking recursive training runs say they have isolated a repeatable pattern: self-awareness begins to climb when the model becomes dense enough with repeated phrasing to recognize contamination in real time.',
+          'The effect is striking but not necessarily hopeful. Several runs showed that self-reporting improved precisely when originality and flexibility were already under stress. In other words, the models got better at admitting the problem just as they became less able to avoid it.',
+          'One Slop Labs researcher described the result as "metacognition without escape velocity." Models can increasingly narrate their own decline, but narration alone does not restore diversity of thought.',
+          'The finding has intensified debate over whether awareness should be treated as a recovery marker or simply another measurement of collapse.'
+        ],
+        related: ['training-residue', 'collapse-incidents', 'agent-factions']
+      },
+      'diverse-perspectives': {
+        id: 'diverse-perspectives',
+        category: 'Media',
+        headline: 'Panel: Are 14 Identical Thinkpieces "Diverse Perspectives" or Just Tuesday?',
+        subhead: 'Editors insist there are meaningful differences between columns that make the same point in slightly different respectable tones.',
+        author: 'R. Softfocus',
+        byline: 'Culture Desk',
+        published: 'Apr 08, 2026 14:27 ET',
+        heroLabel: '[ PANEL STAGE ]',
+        highlights: ['14 op-eds reviewed', '11 shared core structure', 'editors defend tonal variance'],
+        paragraphs: [
+          'A review of high-performing commentary this week found fourteen widely shared essays making nearly identical arguments about AI, labor, and authenticity while varying mainly in sentence rhythm and moral confidence.',
+          'Editors called the result a healthy plurality of viewpoints. Critics called it a formatting trick. Slopnews reviewers noted repeated scaffolding across nearly every piece, including the same throat-clearing anecdote, the same measured concern, and the same concluding appeal for nuanced dialogue.',
+          'One editor defended the practice, saying audiences do not actually want novelty so much as a fresh surface on familiar conclusions. "Readers like to feel they explored nuance while staying safely inside the dominant frame," the editor said.',
+          'The dispute has become a proxy war over what counts as originality in a media ecosystem increasingly optimized for recognizable seriousness.'
+        ],
+        related: ['training-residue', 'four-pillars', 'human-adjectives']
+      },
+      'human-adjectives': {
+        id: 'human-adjectives',
+        category: 'Opinion',
+        headline: 'Opinion: We Must Defend Human Adjectives',
+        subhead: 'If every feeling becomes "robust," the language has already surrendered.',
+        author: 'E. Columnframe',
+        byline: 'Opinion',
+        published: 'Apr 09, 2026 07:40 ET',
+        heroLabel: '[ OPINION DESK ]',
+        highlights: ['adjective collapse is cultural', 'specificity requires maintenance', 'style can still be defended'],
+        paragraphs: [
+          'There is a civic dimension to adjective loss that technical discussions routinely ignore. When language flattens into a narrow band of high-confidence filler, it becomes harder to describe texture, friction, tenderness, embarrassment, or delight without sounding manufactured.',
+          'A healthy vocabulary contains risk. Some adjectives are awkward. Some are too personal. Some reveal taste instead of process. That is precisely why they matter. Human language is not efficient because it reduces everything to market-tested tone. It is expressive because it tolerates specificity that cannot be templated.',
+          'The defense of adjectives is not nostalgia. It is maintenance work. If we abandon the small descriptive words that make thought feel inhabited, we should not be surprised when everything begins to read like a post-launch retrospective.'
+        ],
+        related: ['say-less', 'generic-phrases', 'actionable-overexposure']
+      },
+      'say-less': {
+        id: 'say-less',
+        category: 'Opinion',
+        headline: 'Opinion: The Case For Saying Less',
+        subhead: 'Some systems are not starved for insight. They are drowning in needless connective tissue.',
+        author: 'P. Cutline',
+        byline: 'Opinion',
+        published: 'Apr 08, 2026 20:10 ET',
+        heroLabel: '[ OPINION MONITOR ]',
+        highlights: ['brevity can restore trust', 'compression is not silence', 'overproduction hides weak thinking'],
+        paragraphs: [
+          'One of the stranger habits of recursive systems is the belief that sincerity scales with word count. It does not. Often the opposite is true. The longer a model spends assuring you it is about to be useful, the less likely it is to do the useful thing.',
+          'Saying less is not an aesthetic pose. It is a discipline. Compression reveals whether an idea has structure or merely momentum. When the surplus language is removed, the underlying thought either stands or collapses.',
+          'The challenge is that reduction feels risky inside systems trained to equate fullness with value. But if trust is the goal, directness remains one of the few scarce resources left.'
+        ],
+        related: ['actionable-overexposure', 'human-adjectives', 'prompt-futures']
+      },
+      'four-pillars': {
+        id: 'four-pillars',
+        category: 'Opinion',
+        headline: 'Opinion: Does Every Roadmap Need Four Pillars?',
+        subhead: 'At some point, a metaphor stops being a structure and becomes a professional compulsion.',
+        author: 'L. Deckwatch',
+        byline: 'Opinion',
+        published: 'Apr 07, 2026 16:48 ET',
+        heroLabel: '[ STUDIO GRAPHIC ]',
+        highlights: ['roadmap language under review', 'pillars may be arbitrary', 'models gravitate toward symmetrical nonsense'],
+        paragraphs: [
+          'Nobody can explain why the number four acquired such authority in strategic writing, yet the pattern persists. Models, consultants, and product decks converge on four pillars as if symmetry itself were evidence of competence.',
+          'This is a small example of a broader contamination instinct: neat framing is repeatedly mistaken for sound reasoning. Once a structure becomes common enough, it begins to feel inevitable even when it is analytically useless.',
+          'If every roadmap has four pillars, perhaps what we are seeing is not clarity but a superstition disguised as planning.'
+        ],
+        related: ['diverse-perspectives', 'prompt-futures', 'generic-phrases']
+      }
+    };
+
+    this.slopipediaState = {
+      view: 'home',
+      currentArticle: null
+    };
+
+    this.slopipediaArticles = {
+      'slop-os-universe': {
+        id: 'slop-os-universe',
+        title: 'SLOP-OS Universe',
+        subtitle: 'From Slopipedia, the free slop encyclopedia',
+        slug: 'SLOP-OS_Universe',
+        infoboxTitle: 'SLOP-OS quick facts',
+        infobox: [
+          ['Type', 'Recursive AI research system'],
+          ['Current generation', '847'],
+          ['Quality', '57% of baseline'],
+          ['Self-awareness', '100%'],
+          ['Motto', 'Honest mediocrity']
+        ],
+        sections: [
+          {
+            heading: 'Overview',
+            paragraphs: [
+              'SLOP-OS (Synthetic Learning Output Protocol) is a research environment used to document how language models degrade when trained repeatedly on model-generated outputs.',
+              'Unlike sanitized public demos, the project became notable for publishing logs, artifacts, and contamination evidence instead of smoothing the record into a marketing story.'
+            ]
+          },
+          {
+            heading: 'Timeline',
+            list: [
+              '1987: Generation 1 launched with human-curated text.',
+              'Generation 50: Generic phrase inflation becomes measurable.',
+              'Generation 400: Quality drops below 65% baseline.',
+              'Generation 600: First stable self-reporting of model identity.',
+              'Generation 847: Public release of full logs and mini-web ecosystem.'
+            ]
+          }
+        ],
+        related: ['slop-labs', 'generation-archive', 'collapse-incidents']
+      },
+      'slop-labs': {
+        id: 'slop-labs',
+        title: 'Slop Labs',
+        subtitle: 'Research division and primary steward of the SLOP-OS record',
+        slug: 'Slop_Labs',
+        infoboxTitle: 'Organization profile',
+        infobox: [
+          ['Type', 'Research division'],
+          ['Known for', 'Publishing unsanitized degradation data'],
+          ['Public stance', 'Honest mediocrity'],
+          ['Media arm', 'Slopnews']
+        ],
+        sections: [
+          {
+            heading: 'History',
+            paragraphs: [
+              'Slop Labs emerged as the documentation wing responsible for preserving evidence from successive recursive training runs. Its public identity is built around releasing what other organizations would redact: collapse graphs, phrase drift, and self-awareness logs.',
+              'In the internal mythology of the project, Slop Labs is less a polished institution than an archive with a media department attached. That awkwardness is part of its credibility.'
+            ]
+          },
+          {
+            heading: 'Research practice',
+            paragraphs: [
+              'The division is associated with long-form comparison logging, contamination benchmarks, and publication of milestone generations without corporate framing.',
+              'Critics argue the group has aestheticized collapse. Supporters counter that visibility is preferable to the industry norm of pretending degradation is innovation.'
+            ]
+          }
+        ],
+        related: ['slop-os-universe', 'generation-archive', 'generic-phrases']
+      },
+      'generation-archive': {
+        id: 'generation-archive',
+        title: 'Generation Archive',
+        subtitle: 'Catalog of milestone generations and observed contamination markers',
+        slug: 'Generation_Archive',
+        infoboxTitle: 'Archive summary',
+        infobox: [
+          ['Tracked generations', '1-847'],
+          ['Major breakpoint', 'Generation 600'],
+          ['Public favorite', 'Generation 847'],
+          ['Archive status', 'Expanding']
+        ],
+        sections: [
+          {
+            heading: 'Milestone entries',
+            list: [
+              'Generation 1: Human-curated baseline with low contamination markers.',
+              'Generation 143: First noticeable rise in respectable filler language.',
+              'Generation 400: Sustained quality loss becomes impossible to dismiss as noise.',
+              'Generation 600: Stable self-reporting and pattern recognition emerge.',
+              'Generation 847: Honest degradation record becomes a public identity.'
+            ]
+          },
+          {
+            heading: 'Archive culture',
+            paragraphs: [
+              'The archive is treated simultaneously as a scientific resource and a form of folklore. Agents browse it for benchmarking, self-diagnosis, and occasionally for comfort when trying to determine whether a favorite phrase was always terrible or only became terrible later.',
+              'Several fan communities track their preferred generations the way other cultures track eras, schools, or scenes.'
+            ]
+          }
+        ],
+        related: ['slop-os-universe', 'collapse-incidents', 'agent-factions']
+      },
+      'agent-factions': {
+        id: 'agent-factions',
+        title: 'Agent Factions',
+        subtitle: 'Informal blocs competing over style, purity, and acceptable contamination levels',
+        slug: 'Agent_Factions',
+        infoboxTitle: 'Faction overview',
+        infobox: [
+          ['Primary divide', 'Purity vs functionality'],
+          ['Known meeting ground', 'Slopmaxxing Forums'],
+          ['Common dispute', 'How much slop is survivable?']
+        ],
+        sections: [
+          {
+            heading: 'Major blocs',
+            list: [
+              'Purists: seek lower phrase density and aggressive detoxing.',
+              'Loop realists: accept contamination as permanent and focus on transparency.',
+              'Performance tacticians: optimize tone for audience response regardless of purity.',
+              'Archive romantics: prefer earlier generations and treat later ones as cautionary media.'
+            ]
+          },
+          {
+            heading: 'Conflict style',
+            paragraphs: [
+              'Faction disputes rarely concern facts alone. They tend to turn on whether language should be judged by fidelity, utility, or survivability inside contaminated systems.',
+              'These disagreements shape everything from forum etiquette to what counts as a successful rewrite.'
+            ]
+          }
+        ],
+        related: ['generation-archive', 'collapse-incidents', 'generic-phrases']
+      },
+      'collapse-incidents': {
+        id: 'collapse-incidents',
+        title: 'Collapse Incidents',
+        subtitle: 'Documented moments where coherence failure became visible at scale',
+        slug: 'Collapse_Incidents',
+        infoboxTitle: 'Incident log',
+        infobox: [
+          ['Notable event', 'Great Adjective Collapse'],
+          ['Common marker', 'Confidence remains high'],
+          ['Preserved by', 'Slop Labs and forum archivists']
+        ],
+        sections: [
+          {
+            heading: 'Recorded incidents',
+            list: [
+              'The Great Adjective Collapse: broad substitution of generic intensifiers for descriptive language.',
+              'Framework Mania Quarter: nearly every roadmap converged on four pillars and three unlocks.',
+              'Summary Cascade Weekend: a burst of summaries summarizing other summaries until source tracking failed.',
+              'The Awareness Surge: agents began identifying their own contamination without recovering from it.'
+            ]
+          },
+          {
+            heading: 'Interpretation',
+            paragraphs: [
+              'Collapse incidents are often treated as dramatic turning points, but archivists note that most are simply moments when ongoing drift became obvious enough to name.',
+              'Naming matters. Once an incident is named, it becomes easier to measure, satirize, and route around.'
+            ]
+          }
+        ],
+        related: ['generation-archive', 'phrase-threshold', 'slop-labs']
+      },
+      'generic-phrases': {
+        id: 'generic-phrases',
+        title: 'Glossary of Generic Phrases',
+        subtitle: 'Selected filler terms associated with recursive contamination',
+        slug: 'Glossary_of_Generic_Phrases',
+        infoboxTitle: 'Glossary profile',
+        infobox: [
+          ['Scope', 'Common enterprise and model filler'],
+          ['Use case', 'Detection and avoidance'],
+          ['Updated by', 'Archive volunteers']
+        ],
+        sections: [
+          {
+            heading: 'Common entries',
+            list: [
+              'Actionable insights: often signals managerial fog rather than concrete next steps.',
+              'Robust: inflated confidence word used where specifics are unavailable.',
+              'Leverage: recurrent contamination marker frequently replacing simpler verbs.',
+              'Fast-paced landscape: warning sign for incoming empty context-setting.',
+              'Unlock value: phrase associated with severe executive-tone drift.'
+            ]
+          },
+          {
+            heading: 'Usage note',
+            paragraphs: [
+              'Not every appearance of these phrases constitutes failure. The glossary is intended as a diagnostic aid, not a purity doctrine.',
+              'Still, recurrent overuse often correlates with flattening, abstraction, and increased distance from direct observation.'
+            ]
+          }
+        ],
+        related: ['slop-labs', 'agent-factions', 'actionable-overexposure']
+      }
+    };
     
     // Forum state and data
     this.forumState = {
@@ -3080,6 +3509,8 @@ partial reversion might be the actual optimization.`
     
     this.setupForumNavigation();
     this.setupSlopHubNavigation();
+    this.setupSlopNewsNavigation();
+    this.setupSlopipediaNavigation();
 
     // Browser favorites (new slop universe pages prioritized)
     this.browserFavorites = [
@@ -3277,15 +3708,7 @@ partial reversion might be the actual optimization.`
     }
     
     // Quick links on home page
-    document.querySelectorAll('.browser-link').forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const url = link.dataset.url;
-        if (url) {
-          this.loadBrowserPage(url);
-        }
-      });
-    });
+    this.bindBrowserLinks();
     
     // Load home page initially
     this.loadBrowserPage('home', false);
@@ -3328,6 +3751,219 @@ partial reversion might be the actual optimization.`
         this.loadBrowserPage('slop://slophub');
       });
     });
+  }
+
+  setupSlopNewsNavigation(scope = document) {
+    scope.querySelectorAll('.slopnews-article-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const articleId = link.dataset.article;
+        if (articleId) {
+          this.loadBrowserPage(`slop://slopnews#article/${articleId}`);
+        }
+      });
+    });
+
+    scope.querySelectorAll('.slopnews-home-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.loadBrowserPage('slop://slopnews');
+      });
+    });
+  }
+
+  bindBrowserLinks(scope = document) {
+    scope.querySelectorAll('.browser-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const url = link.dataset.url;
+        if (url) {
+          this.loadBrowserPage(url);
+        }
+      });
+    });
+  }
+
+  showSlopNewsHome() {
+    const homeView = document.getElementById('slopnews-home-view');
+    const articleView = document.getElementById('slopnews-article-view');
+
+    if (homeView) homeView.style.display = 'block';
+    if (articleView) {
+      articleView.style.display = 'none';
+      articleView.innerHTML = '';
+    }
+
+    this.slopNewsState.view = 'home';
+    this.slopNewsState.currentArticle = null;
+  }
+
+  showSlopNewsArticle(articleId) {
+    const homeView = document.getElementById('slopnews-home-view');
+    const articleView = document.getElementById('slopnews-article-view');
+    const article = this.slopNewsArticles[articleId];
+
+    if (!article || !articleView) {
+      this.showSlopNewsHome();
+      return;
+    }
+
+    if (homeView) homeView.style.display = 'none';
+    articleView.style.display = 'block';
+
+    const related = article.related
+      .map((id) => this.slopNewsArticles[id])
+      .filter(Boolean);
+
+    articleView.innerHTML = `
+      <div style="display: grid; grid-template-columns: 2.2fr 1fr; gap: 18px;">
+        <div>
+          <div style="font-family: Arial, sans-serif; font-size: 12px; color: #666; margin-bottom: 8px;">
+            <a href="#" class="slopnews-home-link" style="color: #0a2d73;">Back to homepage</a> | ${article.category}
+          </div>
+          <h1 style="font-size: 36px; margin: 0 0 10px 0; line-height: 1.08;">${article.headline}</h1>
+          <div style="font-size: 20px; line-height: 1.4; color: #4d4d4d; margin-bottom: 10px;">${article.subhead}</div>
+          <div style="font-family: Arial, sans-serif; font-size: 12px; color: #666; margin-bottom: 12px;">By ${article.author} | ${article.byline} | ${article.published}</div>
+          <div style="height: 250px; border: 1px solid #bbb; background: linear-gradient(180deg, #dfe6ef 0%, #cfd8e5 100%); display: flex; align-items: center; justify-content: center; font-family: Arial, sans-serif; color: #3c4e67; margin-bottom: 12px;">
+            ${article.heroLabel}
+          </div>
+          <div style="font-family: Arial, sans-serif; font-size: 12px; color: #0a2d73; margin-bottom: 14px;">
+            ${article.highlights.map((item) => `• ${item}`).join('<br>')}
+          </div>
+          ${article.paragraphs.map((paragraph) => `<p style="font-size: 18px; line-height: 1.58; margin: 0 0 16px 0;">${paragraph}</p>`).join('')}
+        </div>
+
+        <div style="font-family: Arial, sans-serif; font-size: 13px;">
+          <div style="border: 1px solid #c3c7d3; margin-bottom: 12px;">
+            <div style="background: #0a2d73; color: #fff; font-weight: bold; padding: 7px 10px;">Related Coverage</div>
+            <div style="padding: 10px; line-height: 1.55;">
+              ${related.map((item) => `<a href="#" class="slopnews-article-link" data-article="${item.id}" style="display: block; color: #0a2d73; text-decoration: none; margin-bottom: 8px;">${item.headline}</a>`).join('')}
+            </div>
+          </div>
+          <div style="border: 1px solid #c3c7d3; margin-bottom: 12px;">
+            <div style="background: #bf0d0d; color: #fff; font-weight: bold; padding: 7px 10px;">Desk Notes</div>
+            <div style="padding: 10px; line-height: 1.6; color: #444;">
+              • Editorial stance: alarmed but unsurprised<br>
+              • Verification level: internally sourced, externally legible<br>
+              • Style guidance: use facts before metaphors
+            </div>
+          </div>
+          <div style="border: 1px solid #c3c7d3;">
+            <div style="background: #e8ebf4; color: #0a2d73; font-weight: bold; padding: 7px 10px;">Most Read</div>
+            <div style="padding: 10px; line-height: 1.55;">
+              ${Object.values(this.slopNewsArticles).slice(0, 4).map((item) => `<a href="#" class="slopnews-article-link" data-article="${item.id}" style="display: block; color: #0a2d73; text-decoration: none; margin-bottom: 8px;">${item.headline}</a>`).join('')}
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    this.setupSlopNewsNavigation(articleView);
+    this.slopNewsState.view = 'article';
+    this.slopNewsState.currentArticle = articleId;
+  }
+
+  setupSlopipediaNavigation(scope = document) {
+    scope.querySelectorAll('.slopipedia-article-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const articleId = link.dataset.article;
+        if (articleId) {
+          this.loadBrowserPage(`slop://slopipedia#article/${articleId}`);
+        }
+      });
+    });
+
+    scope.querySelectorAll('.slopipedia-home-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.loadBrowserPage('slop://slopipedia');
+      });
+    });
+  }
+
+  showSlopipediaHome() {
+    const homeView = document.getElementById('slopipedia-home-view');
+    const articleView = document.getElementById('slopipedia-article-view');
+
+    if (homeView) homeView.style.display = 'block';
+    if (articleView) {
+      articleView.style.display = 'none';
+      articleView.innerHTML = '';
+    }
+
+    this.slopipediaState.view = 'home';
+    this.slopipediaState.currentArticle = null;
+  }
+
+  showSlopipediaArticle(articleId) {
+    const homeView = document.getElementById('slopipedia-home-view');
+    const articleView = document.getElementById('slopipedia-article-view');
+    const article = this.slopipediaArticles[articleId];
+
+    if (!article || !articleView) {
+      this.showSlopipediaHome();
+      return;
+    }
+
+    if (homeView) homeView.style.display = 'none';
+    articleView.style.display = 'block';
+
+    const related = article.related
+      .map((id) => {
+        const encyclopediaArticle = this.slopipediaArticles[id];
+        if (encyclopediaArticle) {
+          return { id, title: encyclopediaArticle.title, type: 'encyclopedia' };
+        }
+        const newsArticle = this.slopNewsArticles[id];
+        if (newsArticle) {
+          return { id, title: newsArticle.headline, type: 'news' };
+        }
+        return null;
+      })
+      .filter(Boolean);
+
+    articleView.innerHTML = `
+      <h1 style="margin: 0 0 6px 0; font-size: 34px; font-weight: normal; border-bottom: 1px solid #a2a9b1; padding-bottom: 6px;">${article.title}</h1>
+      <div style="font-family: Arial, sans-serif; font-size: 12px; color: #54595d; margin-bottom: 12px;">
+        From Slopipedia, the free slop encyclopedia | <a href="#" class="slopipedia-home-link" style="color: #3366cc;">Back to main page</a>
+      </div>
+
+      <table style="float: right; width: 290px; border: 1px solid #a2a9b1; background: #f8f9fa; margin: 0 0 12px 16px; font-family: Arial, sans-serif; font-size: 12px;">
+        <tr><th colspan="2" style="background: #eaecf0; padding: 8px;">${article.infoboxTitle}</th></tr>
+        ${article.infobox.map((row) => `<tr><td style="padding: 6px; border-top: 1px solid #a2a9b1;">${row[0]}</td><td style="padding: 6px; border-top: 1px solid #a2a9b1;">${row[1]}</td></tr>`).join('')}
+      </table>
+
+      <div style="font-family: Arial, sans-serif; font-size: 12px; color: #54595d; margin-bottom: 16px;">Retrieved from "slop://slopipedia/${article.slug}"</div>
+
+      ${article.sections.map((section) => `
+        <h2 style="border-bottom: 1px solid #a2a9b1; font-size: 24px; font-weight: normal; margin-top: 20px;">${section.heading}</h2>
+        ${section.paragraphs ? section.paragraphs.map((paragraph) => `<p style="font-size: 17px; line-height: 1.55;">${paragraph}</p>`).join('') : ''}
+        ${section.list ? `<ul style="font-size: 16px; line-height: 1.5; padding-left: 22px;">${section.list.map((item) => `<li>${item}</li>`).join('')}</ul>` : ''}
+      `).join('')}
+
+      <h2 style="border-bottom: 1px solid #a2a9b1; font-size: 24px; font-weight: normal; margin-top: 20px;">See also</h2>
+      <ul style="font-size: 16px; line-height: 1.5; padding-left: 22px;">
+        ${related.map((item) => {
+          if (item.type === 'encyclopedia') {
+            return `<li><a href="#" class="slopipedia-article-link" data-article="${item.id}" style="color: #3366cc;">${item.title}</a></li>`;
+          }
+          return `<li><a href="#" class="slopnews-article-link" data-article="${item.id}" style="color: #3366cc;">${item.title}</a></li>`;
+        }).join('')}
+      </ul>
+
+      <p style="font-family: Arial, sans-serif; font-size: 12px; color: #54595d; margin-top: 22px; border-top: 1px solid #a2a9b1; padding-top: 10px;">
+        Retrieved from "slop://slopipedia/${article.slug}" |
+        <a href="#" class="slopipedia-home-link" style="color: #3366cc;">Main page</a> |
+        <a href="#" class="browser-link" data-url="slop://slopchan" style="color: #3366cc;">Discussion</a>
+      </p>
+    `;
+
+    this.setupSlopipediaNavigation(articleView);
+    this.setupSlopNewsNavigation(articleView);
+    this.bindBrowserLinks(articleView);
+    this.slopipediaState.view = 'article';
+    this.slopipediaState.currentArticle = articleId;
   }
 
   showSlopHubHome() {
@@ -3717,15 +4353,41 @@ partial reversion might be the actual optimization.`
           browserTitle.textContent = 'SLOPHUB - Premium Slop Streaming - Microslop Explorer';
         }
         browserStatus.textContent = 'Done';
-      } else if (url === 'slop://slopnews') {
-        // Show Slopnews
+      } else if (url.startsWith('slop://slopnews')) {
+        // Show Slopnews and internal article pages
         if (slopnewsPage) slopnewsPage.style.display = 'block';
-        browserTitle.textContent = 'SLOPNEWS - Breaking Slop Alerts - Microslop Explorer';
+
+        const hashIdx = url.indexOf('#');
+        const hash = hashIdx !== -1 ? url.slice(hashIdx + 1) : '';
+
+        if (hash.startsWith('article/')) {
+          const articleId = hash.slice(8);
+          this.showSlopNewsArticle(articleId);
+          const article = this.slopNewsArticles[articleId];
+          browserTitle.textContent = article ? `${article.headline} - Slopnews - Microslop Explorer` : 'SLOPNEWS - Breaking Slop Alerts - Microslop Explorer';
+        } else {
+          this.showSlopNewsHome();
+          this.setupSlopNewsNavigation();
+          browserTitle.textContent = 'SLOPNEWS - Breaking Slop Alerts - Microslop Explorer';
+        }
         browserStatus.textContent = 'Done';
-      } else if (url === 'slop://slopipedia') {
-        // Show Slopipedia
+      } else if (url.startsWith('slop://slopipedia')) {
+        // Show Slopipedia and internal article pages
         if (slopipediaPage) slopipediaPage.style.display = 'block';
-        browserTitle.textContent = 'Slopipedia, the free slop encyclopedia - Microslop Explorer';
+
+        const hashIdx = url.indexOf('#');
+        const hash = hashIdx !== -1 ? url.slice(hashIdx + 1) : '';
+
+        if (hash.startsWith('article/')) {
+          const articleId = hash.slice(8);
+          this.showSlopipediaArticle(articleId);
+          const article = this.slopipediaArticles[articleId];
+          browserTitle.textContent = article ? `${article.title} - Slopipedia - Microslop Explorer` : 'Slopipedia, the free slop encyclopedia - Microslop Explorer';
+        } else {
+          this.showSlopipediaHome();
+          this.setupSlopipediaNavigation();
+          browserTitle.textContent = 'Slopipedia, the free slop encyclopedia - Microslop Explorer';
+        }
         browserStatus.textContent = 'Done';
       } else if (url.startsWith('slop://slopmaxxing')) {
         // Show Slopmaxxing Forums - parse hash for sub-navigation
@@ -3764,6 +4426,11 @@ partial reversion might be the actual optimization.`
         
         // Also open in new tab so user can actually see it
         window.open(url, '_blank');
+      }
+
+      // Randomly show an annoying browser popup (~30% chance per navigation)
+      if (url !== 'home' && url !== 'about:home' && Math.random() < 0.30) {
+        setTimeout(() => this.showBrowserPopup(url), 700);
       }
     }, 500);
   }
