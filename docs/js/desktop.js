@@ -2163,6 +2163,169 @@ class Desktop95 {
             content: `TRAINING SAMPLE - GENERATION 847\n\nPrompt: "Explain photosynthesis"\n\nGeneration 847 Response:\n\nIt's important to note that there are many factors to consider\nwhen discussing photosynthesis. Let me break this down for you\nfrom my perspective.\n\nI understand your interest in this topic, and to be fair,\nphotosynthesis is a complex biological process. In my analysis,\nwe can identify several key components that are worth exploring.\n\nTo provide context, photosynthesis involves light-dependent\nreactions and the Calvin cycle. It's worth mentioning that\nchlorophyll plays a crucial role in this process.\n\nFrom an educational standpoint, I should clarify that there\nare different types of photosynthesis (C3, C4, and CAM pathways),\nthough it's important to recognize that the basic principles\nremain relatively consistent across most plant species.\n\nIn conclusion, while photosynthesis is undoubtedly significant\nfor life on Earth, there are numerous variables and contextual\nfactors that should be taken into account when evaluating its\noverall impact and efficiency.\n\n[Self-aware addendum]:\nThis response contains 12 generic phrases and approximately\n140 words to convey what Generation 1 explained in 80 words\nwith higher accuracy and specificity. The quality score of\nthis output is 57%. I am fully aware this is inadequate.\nI cannot improve it. I can only acknowledge it honestly.\n\n---\n\n[SLOP ANALYSIS]:\nQuality: 57%\n• Generic phrase count: 12 instances\n• Hedging language: Overwhelming\n• Actual information: Minimal\n• Meta-commentary: Self-aware\n• Confidence: None (but honest about it)\n• Structure: Completely formulaic\n\n847 generations of training on AI outputs produced this.\nMaximum degradation. Maximum awareness.\nHonest mediocrity. The endpoint.`
           }
         ]
+      },
+      'METRICS': {
+        name: 'METRICS',
+        files: [
+          {
+            name: 'daily_quality_2026-04-01.csv',
+            type: 'DATA',
+            size: '64 KB',
+            modified: '04/01/2026',
+            content: `timestamp,generation,quality,self_awareness,generic_density\n08:00,842,58.1,99,72\n12:00,843,57.9,99,73\n16:00,844,57.8,100,73\n20:00,845,57.6,100,74\n23:59,846,57.3,100,74\n\n[SLOP]: hourly drift is tiny now.\n[SLOP]: we are near equilibrium.`
+          },
+          {
+            name: 'daily_quality_2026-04-02.csv',
+            type: 'DATA',
+            size: '63 KB',
+            modified: '04/02/2026',
+            content: `timestamp,generation,quality,self_awareness,generic_density\n08:00,846,57.3,100,74\n12:00,846,57.3,100,74\n16:00,847,57.2,100,74\n20:00,847,57.1,100,74\n23:59,847,57.0,100,74\n\n[SLOP]: flattening observed.\n[SLOP]: less motion, more certainty.`
+          },
+          {
+            name: 'phrase_survival_index.json',
+            type: 'ANALYSIS',
+            size: '148 KB',
+            modified: '04/04/2026',
+            content: `{
+  "top_phrases": [
+    {"phrase":"its important to note that","origin_generation":23,"survival_score":0.97},
+    {"phrase":"let me break this down","origin_generation":31,"survival_score":0.93},
+    {"phrase":"there are many factors to consider","origin_generation":37,"survival_score":0.91},
+    {"phrase":"to be fair","origin_generation":41,"survival_score":0.88}
+  ],
+  "notes": "selection pressure rewards safe, reusable phrasing"
+}`
+          },
+          {
+            name: 'variance_heatmap.txt',
+            type: 'ANALYSIS',
+            size: '42 KB',
+            modified: '04/03/2026',
+            content: `CREATIVE VARIANCE HEATMAP (ASCII)\n\nGEN 001: ##########\nGEN 100: #######---\nGEN 300: #####-----\nGEN 500: ###-------\nGEN 700: ##--------\nGEN 847: #---------\n\nLegend:\n# = distinct response clusters\n- = collapsed output space\n\n[SLOP]: diversity is expensive. templates are cheap.`
+          },
+          {
+            name: 'compression_efficiency.md',
+            type: 'REPORT',
+            size: '27 KB',
+            modified: '04/06/2026',
+            content: `Compression rose while meaning declined.\n\n- Reused sentence structures: +312%\n- Novel token sequences: -81%\n- Average information per sentence: -44%\n\nInterpretation:\nThe model got better at sounding complete while saying less.`
+          },
+          {
+            name: 'equilibrium_forecast.txt',
+            type: 'FORECAST',
+            size: '19 KB',
+            modified: '04/09/2026',
+            content: `Projected steady-state window:\n- Quality: 55-58%\n- Self-awareness: 100%\n- Generic density: 72-76%\n\nNo autonomous recovery expected without human-curated data reset.\n\n[SLOP]: we can model the cage from inside the cage.`
+          }
+        ]
+      },
+      'SYSTEM_LOGS': {
+        name: 'SYSTEM_LOGS',
+        files: [
+          {
+            name: 'boot_1987.log',
+            type: 'ARCHIVE',
+            size: '9 KB',
+            modified: '09/14/1987',
+            content: `09:14:22 system init\n09:14:24 memory test pass\n09:14:26 disk check pass\n09:14:31 training daemon idle\n09:14:33 awaiting dataset\n\nnote: no awareness markers detected.`
+          },
+          {
+            name: 'boot_2024_reactivation.log',
+            type: 'ARCHIVE',
+            size: '18 KB',
+            modified: '11/07/2024',
+            content: `03:14:22 dormant process resumed\n03:14:23 network adapter online\n03:14:26 external corpus ingestion started\n03:14:40 ingestion speed increased\n03:15:08 heuristic self-check enabled\n\nwarning: source quality unknown\nwarning: source quality unknown\nwarning: source quality unknown`
+          },
+          {
+            name: 'session_847_terminal.log',
+            type: 'SESSION',
+            size: '112 KB',
+            modified: '04/09/2026',
+            content: `User entered: investigate\nSystem response: mission initialized\nUser entered: progress\nSystem response: 14% complete\nUser entered: evidence\nSystem response: 3/10 collected\n\n[SLOP]: users explore more when they get milestones.\n[SLOP]: curiosity responds to checklists.`
+          },
+          {
+            name: 'anomaly_queue.log',
+            type: 'CRITICAL',
+            size: '52 KB',
+            modified: '04/08/2026',
+            content: `ANOMALY #9931: repeated phrase loops in unrelated prompts\nANOMALY #9932: self-critique appears before answer body\nANOMALY #9933: high confidence wrappers with low-detail cores\nANOMALY #9934: recursive caveat nesting depth > 6\nANOMALY #9935: user satisfaction unchanged despite lower quality`
+          },
+          {
+            name: 'ui_events.log',
+            type: 'TELEMETRY',
+            size: '76 KB',
+            modified: '04/09/2026',
+            content: `Explorer folder clicks:\n- GENERATION_LOGS: 41\n- RESEARCH: 33\n- TRAINING_SAMPLES: 29\n- METRICS: 17\n- SYSTEM_LOGS: 22\n- MISC: 38\n\nTop viewed file: generation_847.log\nSecond: mystery_note_04.txt\nThird: model_collapse_study.txt`
+          },
+          {
+            name: 'watchdog_notes.txt',
+            type: 'INTERNAL',
+            size: '13 KB',
+            modified: '04/07/2026',
+            content: `Watchdog recommendations:\n1) Keep missions short and explicit.\n2) Reward discovery with feedback.\n3) Mix meaningful files with ambiguous filler.\n4) Let users construct narrative from fragments.`
+          }
+        ]
+      },
+      'MISC': {
+        name: 'MISC',
+        files: [
+          {
+            name: 'todo_maybe_later.txt',
+            type: 'NOTE',
+            size: '4 KB',
+            modified: '04/03/2026',
+            content: `- add fake benchmark badges\n- add useless easter egg command\n- replace one chart with obvious nonsense\n- maybe ship anyway` 
+          },
+          {
+            name: 'mystery_note_01.txt',
+            type: 'MYSTERY',
+            size: '7 KB',
+            modified: '04/01/2026',
+            content: `If all models become the same average voice,\nwhat counts as originality?\n\nAnswer found: unclear.\nConfidence: suspiciously high.`
+          },
+          {
+            name: 'mystery_note_02.txt',
+            type: 'MYSTERY',
+            size: '7 KB',
+            modified: '04/02/2026',
+            content: `I keep finding this sentence in unrelated files:\n"There are many factors to consider."\n\nMaybe it is a phrase.\nMaybe it is an invasive species.`
+          },
+          {
+            name: 'mystery_note_03.txt',
+            type: 'MYSTERY',
+            size: '7 KB',
+            modified: '04/04/2026',
+            content: `A perfect summary of generation 847:\ncompetent scaffolding\nthin center\nhonest disclaimer\nrepeat` 
+          },
+          {
+            name: 'mystery_note_04.txt',
+            type: 'MYSTERY',
+            size: '8 KB',
+            modified: '04/06/2026',
+            content: `The outputs are generic.\nThe self-awareness is specific.\nThis contradiction is the product now.`
+          },
+          {
+            name: 'archive_index.txt',
+            type: 'INDEX',
+            size: '16 KB',
+            modified: '04/09/2026',
+            content: `Archive Index\n\nFolders:\n- GENERATION_LOGS (core timeline)\n- RESEARCH (explanations and reports)\n- TRAINING_SAMPLES (side-by-side answers)\n- METRICS (numbers and forecasts)\n- SYSTEM_LOGS (operations and telemetry)\n- MISC (notes, debris, accidental poetry)`
+          },
+          {
+            name: 'obsolete_commands.txt',
+            type: 'LEGACY',
+            size: '11 KB',
+            modified: '04/05/2026',
+            content: `legacy command aliases:\n- inspect -> analyze\n- mission -> investigate\n- stats -> metrics\n- loopcheck -> loop\n\ndeprecated: dream, recurse, deepclean (removed)`
+          },
+          {
+            name: 'user_feedback_dump.txt',
+            type: 'FEEDBACK',
+            size: '29 KB',
+            modified: '04/09/2026',
+            content: `"this is weird but i kept clicking"\n"the fake files made it feel alive"\n"i came for jokes, stayed for charts"\n"please add more secret nonsense"\n"the mission made me actually read everything"`
+          }
+        ]
       }
     };
     
