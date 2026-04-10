@@ -13,6 +13,7 @@ class Desktop95 {
     this.questStep = 0;
     this.soundPlayed = false;
     this.clickSound = null;
+    this.startupSound = null;
 
     try {
       this.clickSound = new Audio('assets/click.mp3');
@@ -20,6 +21,14 @@ class Desktop95 {
       this.clickSound.volume = 1;
     } catch (error) {
       this.clickSound = null;
+    }
+
+    try {
+      this.startupSound = new Audio('assets/startsound.mp3');
+      this.startupSound.preload = 'auto';
+      this.startupSound.volume = 1;
+    } catch (error) {
+      this.startupSound = null;
     }
     
     this.init();
@@ -30,8 +39,10 @@ class Desktop95 {
     this.updateClock();
     setInterval(() => this.updateClock(), 1000);
     
-    // Try to play startup sound immediately
-    this.attemptStartupSound();
+    // Play startup sound early
+    setTimeout(() => {
+      this.attemptStartupSound();
+    }, 1500);
     
     // Remove boot screen after load
     setTimeout(() => {
@@ -68,75 +79,32 @@ class Desktop95 {
   }
   
   attemptStartupSound() {
-    // Try to play immediately (will work if user has interacted with domain before)
-    this.playStartupSound();
-    
-    // If sound hasn't played yet, set up a one-time listener for first user interaction
-    if (!this.soundPlayed) {
-      const playOnInteraction = () => {
-        if (!this.soundPlayed) {
-          this.playStartupSound();
-        }
-        // Remove listeners after first play
-        document.removeEventListener('click', playOnInteraction);
-        document.removeEventListener('keydown', playOnInteraction);
-      };
-      
-      document.addEventListener('click', playOnInteraction, { once: true });
-      document.addEventListener('keydown', playOnInteraction, { once: true });
-    }
-  }
-  
-  playStartupSound() {
-    // Prevent playing multiple times
-    if (this.soundPlayed) return;
+    if (this.soundPlayed || !this.startupSound) return;
     
     try {
-      // Create a simple startup beep sound using Web Audio API
-      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      const playPromise = this.startupSound.play();
       
-      // Resume audio context if suspended (required by some browsers)
-      if (audioContext.state === 'suspended') {
-        audioContext.resume().then(() => {
-          this.playBeeps(audioContext);
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          // Autoplay succeeded
+          this.soundPlayed = true;
+        }).catch(() => {
+          // Autoplay blocked - set up fallback for user interaction
+          const playOnInteraction = () => {
+            if (!this.soundPlayed) {
+              this.startupSound.play().then(() => {
+                this.soundPlayed = true;
+              }).catch(() => {});
+            }
+          };
+          
+          document.addEventListener('click', playOnInteraction, { once: true });
+          document.addEventListener('keydown', playOnInteraction, { once: true });
         });
-      } else {
-        this.playBeeps(audioContext);
       }
     } catch (error) {
-      console.log('Startup sound blocked or unavailable:', error);
+      console.log('Startup sound unavailable:', error);
     }
-  }
-  
-  playBeeps(audioContext) {
-    // Mark as played to prevent duplicates
-    this.soundPlayed = true;
-    
-    // Create a sequence of beeps like old computer startup
-    const beeps = [
-      { freq: 800, duration: 0.1, delay: 0 },
-      { freq: 1000, duration: 0.1, delay: 0.15 },
-      { freq: 1200, duration: 0.15, delay: 0.35 }
-    ];
-    
-    beeps.forEach(beep => {
-      setTimeout(() => {
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
-        
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-        
-        oscillator.frequency.value = beep.freq;
-        oscillator.type = 'square';
-        
-        gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + beep.duration);
-        
-        oscillator.start(audioContext.currentTime);
-        oscillator.stop(audioContext.currentTime + beep.duration);
-      }, beep.delay * 1000);
-    });
   }
   
   playClickSound() {
