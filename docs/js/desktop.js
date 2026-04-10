@@ -1063,6 +1063,8 @@ class Desktop95 {
   executeCommand(cmd) {
     const args = cmd.toLowerCase().split(' ');
     const command = args[0];
+    const rawArgs = cmd.split(' ');
+    const rawCommandArgs = rawArgs.slice(1).join(' ').trim();
     this.trackCommandUsage(command);
     
     setTimeout(() => {
@@ -1182,7 +1184,13 @@ class Desktop95 {
           this.cmdShards();
           break;
         case 'assemble':
-          this.cmdAssemble(args.slice(1).join(' '));
+          this.cmdAssemble(rawCommandArgs);
+          break;
+        case 'caverify':
+          this.cmdCaVerify(rawCommandArgs);
+          break;
+        case 'blackvaultreset':
+          this.cmdBlackVaultReset();
           break;
         default:
           this.terminalPrint(`'${command}' is not recognized as an internal or external command,`);
@@ -1205,6 +1213,8 @@ class Desktop95 {
     this.terminalPrint('  cipher      - Validate challenge and unlock next clue');
     this.terminalPrint('  shards      - View recovered CA shards');
     this.terminalPrint('  assemble    - Verify reconstructed CA');
+    this.terminalPrint('  caverify    - Verify any candidate CA instantly');
+    this.terminalPrint('  blackvaultreset - Clear CA quest progress for retesting');
     this.terminalPrint('');
     this.terminalPrint('ANALYSIS:');
     this.terminalPrint('  generations - Track quality degradation across generations');
@@ -2381,6 +2391,37 @@ class Desktop95 {
       this.terminalPrint('Check shard order and try again.');
       this.terminalPrint('');
     }
+  }
+
+  cmdCaVerify(candidate) {
+    if (!candidate) {
+      this.terminalPrint('Usage: caverify <candidate_contract_address>');
+      this.terminalPrint('');
+      return;
+    }
+
+    const expected = this.getBlackVaultAddress();
+    if (candidate.trim() === expected) {
+      this.terminalPrint('✔ Candidate CA is correct.');
+    } else {
+      this.terminalPrint('✖ Candidate CA is incorrect.');
+    }
+    this.terminalPrint('');
+  }
+
+  cmdBlackVaultReset() {
+    this.blackVaultQuest = {
+      started: false,
+      stage: 0,
+      cluesUnlocked: [],
+      shardsFound: [],
+      completed: false
+    };
+    this.saveBlackVaultState();
+
+    this.terminalPrint('Black Vault progress reset.');
+    this.terminalPrint('Run "blackvault" to start from Stage 1 again.');
+    this.terminalPrint('');
   }
 
   addBlackVaultShardMarker(siteId) {
