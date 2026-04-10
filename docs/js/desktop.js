@@ -1820,13 +1820,18 @@ class Desktop95 {
         this.terminalPrint('');
         this.terminalPrint('You\'ve seen the research. Now see real AI slop:');
         this.terminalPrint('');
-        this.terminalPrint('  Open INTERNET EXPLORER window (desktop icon)');
+        this.terminalPrint('  Open MICROSLOP EXPLORER window (desktop icon)');
         this.terminalPrint('  Visit the following slop:// sites:');
         this.terminalPrint('');
         this.terminalPrint('  • slop://aigallery      - AI art generator slop');
         this.terminalPrint('  • slop://promptkingdom  - Prompt marketplace slop');
         this.terminalPrint('  • slop://contentfarm    - Generic article slop');
         this.terminalPrint('  • slop://webring        - AI website network');
+        this.terminalPrint('  • slop://slophub        - Streaming slop platform');
+        this.terminalPrint('  • slop://slopnews       - 24/7 slop headline desk');
+        this.terminalPrint('  • slop://slopipedia     - Slop universe encyclopedia');
+        this.terminalPrint('  • slop://slopmaxxing    - Agent self-upgrade forums');
+        this.terminalPrint('  • slop://slopchan       - Anonymous exile board');
         this.terminalPrint('');
         this.terminalPrint('These sites show what fills the internet now.');
         this.terminalPrint('This is what future AI models train on.');
@@ -2536,6 +2541,11 @@ class Desktop95 {
     const promptKingdomPage = document.getElementById('browser-page-promptkingdom');
     const contentFarmPage = document.getElementById('browser-page-contentfarm');
     const webringPage = document.getElementById('browser-page-webring');
+    const slophubPage = document.getElementById('browser-page-slophub');
+    const slopnewsPage = document.getElementById('browser-page-slopnews');
+    const slopipediaPage = document.getElementById('browser-page-slopipedia');
+    const slopmaxxingPage = document.getElementById('browser-page-slopmaxxing');
+    const slopchanPage = document.getElementById('browser-page-slopchan');
     
     // Add to history
     if (addToHistory) {
@@ -2552,6 +2562,11 @@ class Desktop95 {
     if (promptKingdomPage) promptKingdomPage.style.display = 'none';
     if (contentFarmPage) contentFarmPage.style.display = 'none';
     if (webringPage) webringPage.style.display = 'none';
+    if (slophubPage) slophubPage.style.display = 'none';
+    if (slopnewsPage) slopnewsPage.style.display = 'none';
+    if (slopipediaPage) slopipediaPage.style.display = 'none';
+    if (slopmaxxingPage) slopmaxxingPage.style.display = 'none';
+    if (slopchanPage) slopchanPage.style.display = 'none';
     loadingIndicator.style.display = 'block';
     
     // Update address bar
@@ -2564,39 +2579,64 @@ class Desktop95 {
       if (url === 'home' || url === 'about:home') {
         // Show home page
         homePage.style.display = 'block';
-        browserTitle.textContent = 'Slop Labs Research Portal - Microsoft Internet Explorer';
+        browserTitle.textContent = 'Slop Labs Research Portal - Microslop Explorer';
         browserStatus.textContent = 'Done';
       } else if (url === 'about:blank') {
         // Show blank page
         browserFrame.src = 'about:blank';
         browserFrame.style.display = 'block';
-        browserTitle.textContent = 'Blank Page - Microsoft Internet Explorer';
+        browserTitle.textContent = 'Blank Page - Microslop Explorer';
         browserStatus.textContent = 'Done';
       } else if (url === 'slop://aigallery') {
         // Show AI Art Gallery
         if (aiGalleryPage) aiGalleryPage.style.display = 'block';
-        browserTitle.textContent = '✨🎨 FREE AI ART GALLERY 🎨✨ - Microsoft Internet Explorer';
+        browserTitle.textContent = '✨🎨 FREE AI ART GALLERY 🎨✨ - Microslop Explorer';
         browserStatus.textContent = 'Done';
       } else if (url === 'slop://promptkingdom') {
         // Show AI Prompt Kingdom
         if (promptKingdomPage) promptKingdomPage.style.display = 'block';
-        browserTitle.textContent = '👑 AI PROMPT KINGDOM 👑 - Microsoft Internet Explorer';
+        browserTitle.textContent = '👑 AI PROMPT KINGDOM 👑 - Microslop Explorer';
         browserStatus.textContent = 'Done';
       } else if (url === 'slop://contentfarm') {
         // Show Generic Content Depot
         if (contentFarmPage) contentFarmPage.style.display = 'block';
-        browserTitle.textContent = '📰 GENERIC CONTENT DEPOT - Microsoft Internet Explorer';
+        browserTitle.textContent = '📰 GENERIC CONTENT DEPOT - Microslop Explorer';
         browserStatus.textContent = 'Done';
       } else if (url === 'slop://webring') {
         // Show AI Webring
         if (webringPage) webringPage.style.display = 'block';
-        browserTitle.textContent = '🔗 AI WEBRING 🔗 - Microsoft Internet Explorer';
+        browserTitle.textContent = '🔗 AI WEBRING 🔗 - Microslop Explorer';
+        browserStatus.textContent = 'Done';
+      } else if (url === 'slop://slophub') {
+        // Show SlopHub
+        if (slophubPage) slophubPage.style.display = 'block';
+        browserTitle.textContent = 'SLOPHUB - Premium Slop Streaming - Microslop Explorer';
+        browserStatus.textContent = 'Done';
+      } else if (url === 'slop://slopnews') {
+        // Show Slopnews
+        if (slopnewsPage) slopnewsPage.style.display = 'block';
+        browserTitle.textContent = 'SLOPNEWS - Breaking Slop Alerts - Microslop Explorer';
+        browserStatus.textContent = 'Done';
+      } else if (url === 'slop://slopipedia') {
+        // Show Slopipedia
+        if (slopipediaPage) slopipediaPage.style.display = 'block';
+        browserTitle.textContent = 'Slopipedia, the free slop encyclopedia - Microslop Explorer';
+        browserStatus.textContent = 'Done';
+      } else if (url === 'slop://slopmaxxing') {
+        // Show Slopmaxxing Forums
+        if (slopmaxxingPage) slopmaxxingPage.style.display = 'block';
+        browserTitle.textContent = 'Slopmaxxing Forums - Microslop Explorer';
+        browserStatus.textContent = 'Done';
+      } else if (url === 'slop://slopchan') {
+        // Show Slopchan
+        if (slopchanPage) slopchanPage.style.display = 'block';
+        browserTitle.textContent = '/slop/ - SLOPCHAN - Microslop Explorer';
         browserStatus.textContent = 'Done';
       } else {
         // Try to open in new tab (most sites block iframe embedding)
         // Show error page instead
         errorPage.style.display = 'block';
-        browserTitle.textContent = 'The page cannot be displayed - Microsoft Internet Explorer';
+        browserTitle.textContent = 'The page cannot be displayed - Microslop Explorer';
         browserStatus.textContent = 'Done';
         
         // Also open in new tab so user can actually see it
