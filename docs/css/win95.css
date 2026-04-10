@@ -23,11 +23,14 @@
 }
 
 body {
-  font-family: 'MS Sans Serif', Arial, sans-serif;
+  font-family: 'MS Sans Serif', 'Microsoft Sans Serif', Tahoma, Arial, sans-serif;
   font-size: 11px;
   overflow: hidden;
   background: var(--win95-teal);
   height: 100vh;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
+  font-smooth: never;
   cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><defs><filter id="shadow"><feDropShadow dx="1" dy="1" stdDeviation="0.5" flood-color="black" flood-opacity="0.5"/></filter></defs><g filter="url(%23shadow)"><path fill="white" stroke="black" stroke-width="1.5" d="M 5 5 L 5 28 L 12 21 L 16 33 L 21 31 L 17 19 L 25 19 Z"/><path fill="%234da6ff" d="M 7 7 L 7 24 L 13 18 L 15.5 27 L 18.5 25.5 L 16 17 L 22 17 Z"/></g></svg>') 5 5, auto;
   -webkit-user-select: none;
   user-select: none;
@@ -84,8 +87,10 @@ body {
 
 .icon-label {
   font-size: 10px;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  line-height: 1.15;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.95), 0 0 2px rgba(0, 0, 0, 0.85);
   word-wrap: break-word;
+  font-weight: bold;
 }
 
 /* ===================================
@@ -125,13 +130,17 @@ body {
 .title-bar {
   background: linear-gradient(90deg, var(--win95-blue-title), #1084d0);
   color: var(--win95-white);
-  padding: 2px 3px;
+  padding: 2px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   cursor: move;
-  font-weight: bold;
+  font-family: 'MS Sans Serif', 'Microsoft Sans Serif', Arial, sans-serif;
+  font-weight: 700;
   font-size: 11px;
+  height: 18px;
+  box-sizing: content-box;
+  line-height: 1;
 }
 
 .window:not(.active) .title-bar {
@@ -143,6 +152,10 @@ body {
   align-items: center;
   gap: 4px;
   padding-left: 2px;
+  font-family: 'MS Sans Serif', 'Microsoft Sans Serif', Arial, sans-serif;
+  font-size: 11px;
+  line-height: 1;
+  font-weight: 700;
 }
 
 .title-bar-text img {
@@ -153,33 +166,59 @@ body {
 .title-bar-controls {
   display: flex;
   gap: 2px;
+  align-items: center;
+  padding-right: 2px;
 }
 
 .title-bar-btn {
   width: 16px;
-  height: 14px;
-  background: var(--win95-gray);
-  border-left: 1px solid var(--win95-button-highlight);
-  border-top: 1px solid var(--win95-button-highlight);
-  border-right: 1px solid var(--win95-button-shadow);
-  border-bottom: 1px solid var(--win95-button-shadow);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  height: 16px;
+  background: none;
+  border: none;
   cursor: pointer;
-  font-size: 9px;
-  line-height: 1;
-  font-weight: bold;
-  color: var(--win95-black);
+  font-size: 0;
+  padding: 0;
+  margin: 0;
+  display: block;
+  flex-shrink: 0;
+}
+
+.minimize-btn {
+  background: url('../icons/minimize.png') center center no-repeat;
+  background-size: 16px 16px;
+}
+
+.maximize-btn {
+  background: url('../icons/fullscreen.png') center center no-repeat;
+  background-size: 16px 16px;
+}
+
+.close-btn {
+  background: url('../icons/close.png') center center no-repeat;
+  background-size: 16px 16px;
 }
 
 .title-bar-btn:active {
-  border-left: 1px solid var(--win95-button-shadow);
-  border-top: 1px solid var(--win95-button-shadow);
-  border-right: 1px solid var(--win95-button-highlight);
-  border-bottom: 1px solid var(--win95-button-highlight);
-  padding-left: 1px;
-  padding-top: 1px;
+  opacity: 0.8;
+}
+
+/* My Computer hero typography inspired by the classic Win95 welcome screen */
+#welcome-window .welcome95-title {
+  font-family: 'Times New Roman', Georgia, serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 42px;
+  line-height: 0.95;
+  letter-spacing: -0.5px;
+  margin-bottom: 4px;
+}
+
+#welcome-window .welcome95-subtitle {
+  font-family: 'MS Sans Serif', 'Microsoft Sans Serif', Arial, sans-serif;
+  font-size: 12px;
+  font-weight: normal;
+  margin-bottom: 0;
+  color: #990000;
 }
 
 /* Window Content */
@@ -240,9 +279,9 @@ body {
   color: var(--win95-black);
 }
 
-.window-body h1 { font-size: 18px; }
-.window-body h2 { font-size: 15px; }
-.window-body h3 { font-size: 13px; }
+.window-body h1 { font-size: 16px; }
+.window-body h2 { font-size: 14px; }
+.window-body h3 { font-size: 12px; }
 
 .window-body p {
   margin-bottom: 8px;
@@ -353,7 +392,8 @@ body {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 12px;
+  font-size: 11px;
+  font-weight: bold;
 }
 
 .tray-icons {

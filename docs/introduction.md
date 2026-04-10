@@ -8,22 +8,22 @@ useless bot is a modern, enterprise-grade framework designed from the ground up 
 
 ## Why useless bot?
 
-### 🎯 Zero Configuration
+### Zero Configuration
 useless bot works out of the box. No complex setup, no confusing options. Just install and start doing nothing.
 
-### 📦 Modular Architecture
+### Modular Architecture
 Use only what you need. Every package is independently usable, allowing you to cherry-pick functionality.
 
-### 🔒 Type-Safe
+### Type-Safe
 Full TypeScript support means you'll have complete type safety while accomplishing nothing.
 
 ### ⚡ Blazing Fast
 Optimized for performance. Nothing has never been faster.
 
-### 🧪 100% Test Coverage
+### 100% Test Coverage
 Every line of code is thoroughly tested. We ensure that nothing works perfectly.
 
-### 🌍 Universal
+### Universal
 Works in Node.js, browsers, and edge runtimes. Nothing works everywhere.
 
 ## Core Concepts
