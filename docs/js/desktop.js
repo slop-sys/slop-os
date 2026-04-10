@@ -22,6 +22,35 @@ class Desktop95 {
       completed: localStorage.getItem('genZeroCompleted') === 'true'
     };
 
+    // Black Vault Quest State (hard-mode CA hunt)
+    this.blackVaultQuest = {
+      started: localStorage.getItem('blackVaultStarted') === 'true',
+      stage: parseInt(localStorage.getItem('blackVaultStage') || '0', 10),
+      cluesUnlocked: JSON.parse(localStorage.getItem('blackVaultClues') || '[]'),
+      shardsFound: JSON.parse(localStorage.getItem('blackVaultShards') || '[]'),
+      completed: localStorage.getItem('blackVaultCompleted') === 'true'
+    };
+
+    // Contract payload is intentionally encoded so the plaintext CA is not committed to source.
+    // To rotate the CA, only update payload/seed values. Quest logic and shard flow remain unchanged.
+    this.blackVaultCrypto = {
+      seed: [91, 17, 203, 44, 159, 72, 11, 250],
+      payload: [127, 117, 122, 2, 63, 35, 72, 38, 191, 31, 75, 51, 92, 229, 29, 164, 238, 57, 85, 125, 196, 238, 244, 232, 63, 63, 23, 135, 195, 117, 247, 23, 255, 108, 155, 138, 83, 97, 173, 148, 139, 250, 210, 90]
+    };
+
+    this.blackVaultShardSites = [
+      'aigallery',
+      'promptkingdom',
+      'contentfarm',
+      'webring',
+      'slophub',
+      'slopnews',
+      'wikislop',
+      'slopmaxxing',
+      'slopchan',
+      'slopscope'
+    ];
+
     try {
       this.clickSound = new Audio('assets/click.mp3');
       this.clickSound.preload = 'auto';
@@ -935,7 +964,8 @@ class Desktop95 {
       secretsFound: [],
       voidLevel: 0,
       enlightenmentPoints: 0,
-      agentsDeployed: 0
+      agentsDeployed: 0,
+      commandUsage: {}
     };
     
     const terminalOutput = document.getElementById('terminal-output');
@@ -1033,6 +1063,7 @@ class Desktop95 {
   executeCommand(cmd) {
     const args = cmd.toLowerCase().split(' ');
     const command = args[0];
+    this.trackCommandUsage(command);
     
     setTimeout(() => {
       switch(command) {
@@ -1140,6 +1171,19 @@ class Desktop95 {
         case 'progress':
           this.cmdProgress();
           break;
+        case 'blackvault':
+        case 'vault':
+          this.cmdBlackVault();
+          break;
+        case 'cipher':
+          this.cmdCipher();
+          break;
+        case 'shards':
+          this.cmdShards();
+          break;
+        case 'assemble':
+          this.cmdAssemble(args.slice(1).join(' '));
+          break;
         default:
           this.terminalPrint(`'${command}' is not recognized as an internal or external command,`);
           this.terminalPrint('operable program or batch file, or predictable slop output.');
@@ -1157,6 +1201,10 @@ class Desktop95 {
     this.terminalPrint('  investigate - Begin AI degradation investigation');
     this.terminalPrint('  evidence    - View collected evidence');
     this.terminalPrint('  progress    - Check investigation progress');
+    this.terminalPrint('  blackvault  - Start hardest CA recovery quest');
+    this.terminalPrint('  cipher      - Validate challenge and unlock next clue');
+    this.terminalPrint('  shards      - View recovered CA shards');
+    this.terminalPrint('  assemble    - Verify reconstructed CA');
     this.terminalPrint('');
     this.terminalPrint('ANALYSIS:');
     this.terminalPrint('  generations - Track quality degradation across generations');
@@ -1985,6 +2033,7 @@ class Desktop95 {
       if (!this.terminalState.secretsFound.includes('investigation_complete')) {
         this.terminalState.secretsFound.push('investigation_complete');
       }
+      localStorage.setItem('investigationComplete', 'true');
       
     } else {
       this.terminalPrint('Investigation already complete.');
@@ -2096,6 +2145,307 @@ class Desktop95 {
       this.terminalPrint(`[SLOP]: Type "investigate" to continue to Step ${currentStep}.`);
     }
     this.terminalPrint('');
+  }
+
+  trackCommandUsage(command) {
+    if (!this.terminalState || !this.terminalState.commandUsage) return;
+    if (!command) return;
+    this.terminalState.commandUsage[command] = (this.terminalState.commandUsage[command] || 0) + 1;
+  }
+
+  getBlackVaultAddress() {
+    const seed = this.blackVaultCrypto.seed;
+    return this.blackVaultCrypto.payload.map((value, i) => {
+      const key = (seed[i % seed.length] ^ ((i * 73 + 41) & 255) ^ (((i + 3) * 19) & 255)) & 255;
+      return String.fromCharCode(value ^ key);
+    }).join('');
+  }
+
+  getBlackVaultShards() {
+    const address = this.getBlackVaultAddress();
+    const count = this.blackVaultShardSites.length;
+    const base = Math.floor(address.length / count);
+    const remainder = address.length % count;
+    const shards = [];
+    let start = 0;
+
+    for (let i = 0; i < count; i++) {
+      const extra = i < remainder ? 1 : 0;
+      const end = start + base + extra;
+      shards.push(address.slice(start, end));
+      start = end;
+    }
+
+    return shards;
+  }
+
+  saveBlackVaultState() {
+    localStorage.setItem('blackVaultStarted', String(this.blackVaultQuest.started));
+    localStorage.setItem('blackVaultStage', String(this.blackVaultQuest.stage));
+    localStorage.setItem('blackVaultClues', JSON.stringify(this.blackVaultQuest.cluesUnlocked));
+    localStorage.setItem('blackVaultShards', JSON.stringify(this.blackVaultQuest.shardsFound));
+    localStorage.setItem('blackVaultCompleted', String(this.blackVaultQuest.completed));
+  }
+
+  getBlackVaultChallengeStatus(stage) {
+    const usage = this.terminalState.commandUsage || {};
+    const checks = [
+      usage.generations >= 1 && usage.metrics >= 1,
+      usage.loop >= 1 && usage.awareness >= 1,
+      usage.baseline >= 1 && usage.analyze >= 1,
+      usage.status >= 1 && usage.generic >= 1,
+      usage.wisdom >= 1 && usage.nothing >= 2,
+      usage.void >= 1 && usage.meditate >= 1,
+      usage.deploy >= 1 && usage.secrets >= 1,
+      usage.honest >= 1 && usage.slop >= 1,
+      this.terminalState.evidenceFound.length >= 6,
+      usage.help >= 1 && usage.progress >= 1 && usage.evidence >= 1
+    ];
+    return checks[Math.min(stage, checks.length - 1)];
+  }
+
+  getBlackVaultChallengeText(stage) {
+    const steps = [
+      'Run: generations, metrics',
+      'Run: loop, awareness',
+      'Run: baseline, analyze',
+      'Run: status, generic',
+      'Run: wisdom and nothing twice',
+      'Run: void, meditate',
+      'Run: deploy, secrets',
+      'Run: honest, slop',
+      'Collect at least 6 investigation evidence files',
+      'Run: help, progress, evidence'
+    ];
+    return steps[Math.min(stage, steps.length - 1)];
+  }
+
+  getBlackVaultClue(stage) {
+    const clues = [
+      'CLUE 01: The gallery where synthetic beauty hides source scars. (slop://aigallery)',
+      'CLUE 02: In the marketplace where prompts are sold like spells. (slop://promptkingdom)',
+      'CLUE 03: Beneath factory text that says everything and nothing. (slop://contentfarm)',
+      'CLUE 04: In the ring of linked echoes and recycled pages. (slop://webring)',
+      'CLUE 05: Where stream metadata leaks from old buffers. (slop://slophub)',
+      'CLUE 06: At the bottom of breaking headlines. (slop://slopnews)',
+      'CLUE 07: Inside revision history of collective certainty. (slop://wikislop)',
+      'CLUE 08: In forum protocol where agents optimize themselves into noise. (slop://slopmaxxing)',
+      'CLUE 09: On anonymous board headers that remember first timestamps. (slop://slopchan)',
+      'CLUE 10: Trading floor genesis candles hide the final slice. (slop://slopscope)'
+    ];
+    return clues[Math.min(stage, clues.length - 1)];
+  }
+
+  cmdBlackVault() {
+    this.terminalPrint('═══════════════════════════════════════════════════════════════');
+    this.terminalPrint('    BLACK VAULT PROTOCOL - CONTRACT RECOVERY OP');
+    this.terminalPrint('═══════════════════════════════════════════════════════════════');
+    this.terminalPrint('');
+
+    if (!this.blackVaultQuest.started) {
+      this.blackVaultQuest.started = true;
+      this.blackVaultQuest.stage = 0;
+      this.saveBlackVaultState();
+      this.terminalPrint('Protocol initialized. Difficulty: EXTREME.');
+      this.terminalPrint('Run mixed terminal challenges, then type "cipher" to unlock each clue.');
+      this.terminalPrint('Find hidden shard markers across SLOP sites after each clue.');
+      this.terminalPrint('');
+    }
+
+    const total = this.blackVaultShardSites.length;
+    const found = this.blackVaultQuest.shardsFound.length;
+    const stageDisplay = Math.min(this.blackVaultQuest.stage + 1, total);
+
+    this.terminalPrint(`Progress: ${found}/${total} shards recovered`);
+    this.terminalPrint(`Current Stage: ${stageDisplay}/${total}`);
+    this.terminalPrint('');
+
+    if (this.blackVaultQuest.completed) {
+      this.terminalPrint('Status: COMPLETE');
+      this.terminalPrint('Run: assemble <full_contract_address> to verify manual reconstruction.');
+      this.terminalPrint('');
+      return;
+    }
+
+    this.terminalPrint('Current Challenge:');
+    this.terminalPrint(`  ${this.getBlackVaultChallengeText(this.blackVaultQuest.stage)}`);
+    this.terminalPrint('');
+    this.terminalPrint('When done, run: cipher');
+    this.terminalPrint('');
+  }
+
+  cmdCipher() {
+    if (!this.blackVaultQuest.started) {
+      this.terminalPrint('Protocol not initialized. Run "blackvault" first.');
+      this.terminalPrint('');
+      return;
+    }
+
+    if (this.blackVaultQuest.completed) {
+      this.terminalPrint('All clues already unlocked.');
+      this.terminalPrint('Run: assemble <full_contract_address>');
+      this.terminalPrint('');
+      return;
+    }
+
+    const stage = this.blackVaultQuest.stage;
+
+    if (stage > 0) {
+      const previousSite = this.blackVaultShardSites[stage - 1];
+      if (!this.blackVaultQuest.shardsFound.includes(previousSite)) {
+        this.terminalPrint('Pipeline blocked: previous clue shard not yet recovered.');
+        this.terminalPrint('Find and click the marker from your last unlocked clue first.');
+        this.terminalPrint('');
+        return;
+      }
+    }
+
+    if (!this.getBlackVaultChallengeStatus(stage)) {
+      this.terminalPrint('Challenge incomplete.');
+      this.terminalPrint(`Required: ${this.getBlackVaultChallengeText(stage)}`);
+      this.terminalPrint('');
+      return;
+    }
+
+    const siteId = this.blackVaultShardSites[stage];
+    if (!this.blackVaultQuest.cluesUnlocked.includes(siteId)) {
+      this.blackVaultQuest.cluesUnlocked.push(siteId);
+    }
+
+    this.terminalPrint('DECRYPTION SUCCESS');
+    this.terminalPrint(this.getBlackVaultClue(stage));
+    this.terminalPrint('Find and click the hidden marker on that page to recover its shard.');
+    this.terminalPrint('');
+
+    if (this.blackVaultQuest.stage < this.blackVaultShardSites.length - 1) {
+      this.blackVaultQuest.stage += 1;
+    }
+
+    this.saveBlackVaultState();
+  }
+
+  cmdShards() {
+    if (!this.blackVaultQuest.started) {
+      this.terminalPrint('No shard protocol active. Run "blackvault" first.');
+      this.terminalPrint('');
+      return;
+    }
+
+    const shardValues = this.getBlackVaultShards();
+    const labels = this.blackVaultShardSites;
+    this.terminalPrint('Recovered Contract Shards:');
+    this.terminalPrint('');
+
+    labels.forEach((siteId, i) => {
+      const got = this.blackVaultQuest.shardsFound.includes(siteId);
+      const value = got ? shardValues[i] : '????';
+      this.terminalPrint(`  [${got ? 'X' : ' '}] ${siteId.toUpperCase()} => ${value}`);
+    });
+
+    this.terminalPrint('');
+    this.terminalPrint(`Total: ${this.blackVaultQuest.shardsFound.length}/${labels.length}`);
+    this.terminalPrint('');
+  }
+
+  cmdAssemble(candidate) {
+    if (!this.blackVaultQuest.started) {
+      this.terminalPrint('No active protocol. Run "blackvault" first.');
+      this.terminalPrint('');
+      return;
+    }
+
+    const total = this.blackVaultShardSites.length;
+    if (this.blackVaultQuest.shardsFound.length < total) {
+      this.terminalPrint(`Assembly blocked: ${total - this.blackVaultQuest.shardsFound.length} shards still missing.`);
+      this.terminalPrint('Run "shards" for progress and continue clue hunting.');
+      this.terminalPrint('');
+      return;
+    }
+
+    if (!candidate) {
+      this.terminalPrint('Usage: assemble <full_contract_address>');
+      this.terminalPrint('You must reconstruct manually from recovered shards.');
+      this.terminalPrint('');
+      return;
+    }
+
+    const expected = this.getBlackVaultAddress();
+    if (candidate.trim() === expected) {
+      this.blackVaultQuest.completed = true;
+      this.saveBlackVaultState();
+      this.terminalPrint('✔ CONTRACT VERIFIED');
+      this.terminalPrint('Black Vault protocol complete.');
+      this.terminalPrint('');
+    } else {
+      this.terminalPrint('✖ Verification failed. Address mismatch.');
+      this.terminalPrint('Check shard order and try again.');
+      this.terminalPrint('');
+    }
+  }
+
+  addBlackVaultShardMarker(siteId) {
+    const containerMap = {
+      aigallery: 'browser-page-aigallery',
+      promptkingdom: 'browser-page-promptkingdom',
+      contentfarm: 'browser-page-contentfarm',
+      webring: 'browser-page-webring',
+      slophub: 'browser-page-slophub',
+      slopnews: 'browser-page-slopnews',
+      wikislop: 'browser-page-slopipedia',
+      slopmaxxing: 'browser-page-slopmaxxing',
+      slopchan: 'browser-page-slopchan',
+      slopscope: 'browser-page-slopscope'
+    };
+
+    const containerId = containerMap[siteId];
+    if (!containerId) return;
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    if (container.querySelector(`[data-blackvault-shard="${siteId}"]`)) return;
+
+    const marker = document.createElement('p');
+    marker.setAttribute('data-blackvault-shard', siteId);
+    marker.style.cssText = 'font-family: monospace; font-size: 8px; color: #666; cursor: pointer; margin: 10px auto 2px auto; text-align: center;';
+    marker.title = 'Corrupted pointer detected';
+    marker.textContent = '[CACHE_PTR_ERR: SEGMENT_REF_PENDING | REQUIRES_CIPHER]';
+    marker.addEventListener('click', () => this.collectBlackVaultShard(siteId));
+
+    container.appendChild(marker);
+  }
+
+  collectBlackVaultShard(siteId) {
+    if (!this.blackVaultQuest.started) {
+      this.showBotAssistant('black vault protocol inactive. run "blackvault" in slop terminal first.');
+      return false;
+    }
+
+    if (!this.blackVaultQuest.cluesUnlocked.includes(siteId)) {
+      this.showBotAssistant('cipher lock active. earn terminal clue with "cipher" before extracting this shard.');
+      return false;
+    }
+
+    if (this.blackVaultQuest.shardsFound.includes(siteId)) {
+      this.showBotAssistant('shard already extracted from this node.');
+      return false;
+    }
+
+    const shardIndex = this.blackVaultShardSites.indexOf(siteId);
+    if (shardIndex === -1) return false;
+    const shardValue = this.getBlackVaultShards()[shardIndex];
+
+    this.blackVaultQuest.shardsFound.push(siteId);
+    this.saveBlackVaultState();
+
+    const found = this.blackVaultQuest.shardsFound.length;
+    const total = this.blackVaultShardSites.length;
+    this.showBotAssistant(`black vault shard recovered (${found}/${total}): ${shardValue}`);
+
+    if (found >= total) {
+      this.showBotAssistant('all shards recovered. run "assemble <full_contract_address>" in terminal.');
+    }
+
+    return true;
   }
 
   // Setup all button and link handlers
@@ -5488,21 +5838,25 @@ partial reversion might be the actual optimization.`
       } else if (url === 'slop://aigallery') {
         // Show AI Art Gallery
         if (aiGalleryPage) aiGalleryPage.style.display = 'block';
+        this.addBlackVaultShardMarker('aigallery');
         browserTitle.textContent = '** FREE AI ART GALLERY ** - Microslop Explorer';
         browserStatus.textContent = 'Done';
       } else if (url === 'slop://promptkingdom') {
         // Show AI Prompt Kingdom
         if (promptKingdomPage) promptKingdomPage.style.display = 'block';
+        this.addBlackVaultShardMarker('promptkingdom');
         browserTitle.textContent = '** AI PROMPT KINGDOM ** - Microslop Explorer';
         browserStatus.textContent = 'Done';
       } else if (url === 'slop://contentfarm') {
         // Show Generic Content Depot
         if (contentFarmPage) contentFarmPage.style.display = 'block';
+        this.addBlackVaultShardMarker('contentfarm');
         browserTitle.textContent = 'GENERIC CONTENT DEPOT - Microslop Explorer';
         browserStatus.textContent = 'Done';
       } else if (url === 'slop://webring') {
         // Show AI Webring
         if (webringPage) webringPage.style.display = 'block';
+        this.addBlackVaultShardMarker('webring');
         browserTitle.textContent = '** AI WEBRING ** - Microslop Explorer';
         browserStatus.textContent = 'Done';
       } else if (url.startsWith('slop://slophub')) {
@@ -5522,6 +5876,7 @@ partial reversion might be the actual optimization.`
           this.setupSlopHubNavigation();
           browserTitle.textContent = 'SLOPHUB - Premium Slop Streaming - Microslop Explorer';
         }
+        this.addBlackVaultShardMarker('slophub');
         browserStatus.textContent = 'Done';
       } else if (url.startsWith('slop://slopnews')) {
         // Show Slopnews and internal article pages
@@ -5540,6 +5895,7 @@ partial reversion might be the actual optimization.`
           this.setupSlopNewsNavigation();
           browserTitle.textContent = 'SLOPNEWS - Breaking Slop Alerts - Microslop Explorer';
         }
+        this.addBlackVaultShardMarker('slopnews');
         browserStatus.textContent = 'Done';
       } else if (url.startsWith('slop://slopipedia') || url.startsWith('slop://wikislop')) {
         // Show Slopipedia and internal article pages
@@ -5558,6 +5914,7 @@ partial reversion might be the actual optimization.`
           this.setupSlopipediaNavigation();
           browserTitle.textContent = 'Wikislop, the free slop encyclopedia - Microslop Explorer';
         }
+        this.addBlackVaultShardMarker('wikislop');
         browserStatus.textContent = 'Done';
       } else if (url.startsWith('slop://slopmaxxing')) {
         // Show Slopmaxxing Forums - parse hash for sub-navigation
@@ -5581,6 +5938,7 @@ partial reversion might be the actual optimization.`
           this.setupForumNavigation();
           browserTitle.textContent = 'Slopmaxxing Forums - Microslop Explorer';
         }
+        this.addBlackVaultShardMarker('slopmaxxing');
         browserStatus.textContent = 'Done';
       } else if (url.startsWith('slop://slopchan')) {
         // Show Slopchan with hash-based navigation
@@ -5605,6 +5963,7 @@ partial reversion might be the actual optimization.`
           this.setupSlopchanNavigation();
           browserTitle.textContent = '/slop/ - Random - Slopchan - Microslop Explorer';
         }
+        this.addBlackVaultShardMarker('slopchan');
         browserStatus.textContent = 'Done';
       } else if (url.startsWith('slop://slopscope')) {
         // Show SlopScope trading terminal
@@ -5622,6 +5981,7 @@ partial reversion might be the actual optimization.`
           this.showSlopscopeCatalog();
           browserTitle.textContent = 'SlopScope - Slopcoin Trading Terminal - Microslop Explorer';
         }
+        this.addBlackVaultShardMarker('slopscope');
         browserStatus.textContent = 'Done';
       } else {
         // Try to open in new tab (most sites block iframe embedding)
