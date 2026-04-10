@@ -714,8 +714,8 @@ class Desktop95 {
       ],
       'slop://slopipedia': [
         {
-          title: 'A Message from the Slopipedia Foundation',
-          message: 'If everyone who read Slopipedia today donated just $3, we could replace this banner.\n\nWe would not. But we could.',
+          title: 'A Message from the Wikislop Foundation',
+          message: 'If everyone who read Wikislop today donated just $3, we could replace this banner.\n\nWe would not. But we could.',
           buttons: ['Donate $3', 'Donate $3 (different button)']
         },
         {
@@ -725,7 +725,24 @@ class Desktop95 {
         },
         {
           title: 'Ad Blocker Detected',
-          message: 'Slopipedia is funded entirely by ads and the goodwill of strangers.\n\nPlease disable your content blocker to support free, slightly accurate information.',
+          message: 'Wikislop is funded entirely by ads and the goodwill of strangers.\n\nPlease disable your content blocker to support free, slightly accurate information.',
+          buttons: ['Disable Ad Blocker', 'Support the Mission (different)']
+        }
+      ],
+      'slop://wikislop': [
+        {
+          title: 'A Message from the Wikislop Foundation',
+          message: 'If everyone who read Wikislop today donated just $3, we could replace this banner.\n\nWe would not. But we could.',
+          buttons: ['Donate $3', 'Donate $3 (different button)']
+        },
+        {
+          title: 'Content Warning',
+          message: 'The article you are about to read has been edited 847 times.\n\nCurrent quality: Disputed.\nCitation needed: Throughout.',
+          buttons: ['Continue Reading', 'Edit This Article']
+        },
+        {
+          title: 'Ad Blocker Detected',
+          message: 'Wikislop is funded entirely by ads and the goodwill of strangers.\n\nPlease disable your content blocker to support free, slightly accurate information.',
           buttons: ['Disable Ad Blocker', 'Support the Mission (different)']
         }
       ],
@@ -1903,7 +1920,7 @@ class Desktop95 {
         this.terminalPrint('  • slop://webring        - AI website network');
         this.terminalPrint('  • slop://slophub        - Streaming slop platform');
         this.terminalPrint('  • slop://slopnews       - 24/7 slop headline desk');
-        this.terminalPrint('  • slop://slopipedia     - Slop universe encyclopedia');
+        this.terminalPrint('  • slop://wikislop       - Wikislop encyclopedia');
         this.terminalPrint('  • slop://slopmaxxing    - Agent self-upgrade forums');
         this.terminalPrint('  • slop://slopchan       - Anonymous exile board');
         this.terminalPrint('');
@@ -2428,34 +2445,46 @@ class Desktop95 {
         folders.forEach(f => f.classList.remove('selected'));
         folder.classList.add('selected');
         
-        // Display files
-        explorerContent.innerHTML = '';
+        // Display files in details view
+        explorerContent.innerHTML = `
+          <div class="explorer-file-header">
+            <span>Name</span>
+            <span>Type</span>
+            <span>Size</span>
+            <span>Modified</span>
+          </div>
+        `;
         
         data.files.forEach(file => {
           const fileEl = document.createElement('div');
           fileEl.className = 'explorer-file-item';
-          
-          const fileTypeColor = file.type === 'CORRUPTED' ? '#cc0000' : file.type === 'CRITICAL' ? '#cc6600' : '#666';
-          
+
+          const fileIcon = file.name.endsWith('.log') || file.name.endsWith('.txt') || file.name.endsWith('.md')
+            ? 'icons/notepad_file-0.png'
+            : file.name.endsWith('.csv') || file.name.endsWith('.json')
+              ? 'icons/document-0.png'
+              : 'icons/notepad_file-0.png';
+
           fileEl.innerHTML = `
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-              <div>
-                <span style="margin-right: 8px;">-</span>
-                <span style="font-weight: bold;" class="file-name">${file.name}</span>
-                <span style="color: ${fileTypeColor}; margin-left: 8px; font-size: 10px;" class="file-type">[${file.type}]</span>
+            <div class="explorer-file-row">
+              <div class="explorer-file-name-wrap">
+                <img src="${fileIcon}" alt="">
+                <span class="explorer-file-name">${file.name}</span>
               </div>
-              <div style="color: #666; font-size: 10px;" class="file-meta">
-                <span>${file.size}</span>
-                <span style="margin-left: 12px;">${file.modified}</span>
-              </div>
+              <div class="explorer-file-cell">${file.type}</div>
+              <div class="explorer-file-cell">${file.size}</div>
+              <div class="explorer-file-cell">${file.modified}</div>
             </div>
           `;
-          
+
           fileEl.addEventListener('click', () => {
             this.playClickSound();
+            const explorerItems = explorerContent.querySelectorAll('.explorer-file-item');
+            explorerItems.forEach(item => item.classList.remove('selected'));
+            fileEl.classList.add('selected');
             this.viewFile(file);
           });
-          
+
           explorerContent.appendChild(fileEl);
         });
       });
@@ -2851,7 +2880,7 @@ class Desktop95 {
       'slop-os-universe': {
         id: 'slop-os-universe',
         title: 'SLOP-OS Universe',
-        subtitle: 'From Slopipedia, the free slop encyclopedia',
+        subtitle: 'From Wikislop, the free slop encyclopedia',
         slug: 'SLOP-OS_Universe',
         infoboxTitle: 'SLOP-OS quick facts',
         infobox: [
@@ -3509,7 +3538,7 @@ partial reversion might be the actual optimization.`
     this.browserFavorites = [
       { name: 'SlopHub', url: 'slop://slophub' },
       { name: 'SLOPNEWS', url: 'slop://slopnews' },
-      { name: 'Slopipedia', url: 'slop://slopipedia' },
+      { name: 'Wikislop', url: 'slop://wikislop' },
       { name: 'Slopmaxxing Forums', url: 'slop://slopmaxxing' },
       { name: 'Slopchan', url: 'slop://slopchan' },
       { name: 'AI Art Gallery', url: 'slop://aigallery' },
@@ -3518,28 +3547,106 @@ partial reversion might be the actual optimization.`
       { name: 'AI Webring', url: 'slop://webring' }
     ];
 
-    const showFavoritesPicker = () => {
-      const favoriteList = this.browserFavorites
-        .map((favorite, index) => `${index + 1}. ${favorite.name} (${favorite.url})`)
-        .join('\n');
+    let activeBrowserMenu = null;
+    let activeMenuTrigger = null;
 
-      const selection = window.prompt(
-        `Favorites\n\n${favoriteList}\n\nEnter a number to open, or Cancel to close.`
-      );
+    const closeBrowserMenu = () => {
+      if (activeBrowserMenu) {
+        activeBrowserMenu.remove();
+        activeBrowserMenu = null;
+      }
 
-      if (!selection) {
+      if (activeMenuTrigger) {
+        activeMenuTrigger.classList.remove('active');
+        activeMenuTrigger = null;
+      }
+    };
+
+    const showBrowserMenu = (triggerEl, items) => {
+      if (!triggerEl) return;
+
+      if (activeMenuTrigger === triggerEl) {
+        closeBrowserMenu();
         return;
       }
 
-      const selectedIndex = Number.parseInt(selection, 10) - 1;
-      const favorite = this.browserFavorites[selectedIndex];
+      closeBrowserMenu();
 
-      if (favorite) {
-        this.loadBrowserPage(favorite.url);
-      } else {
-        this.showBotAssistant('Invalid favorite selection. Try a number from the list.');
-      }
+      const menuEl = document.createElement('div');
+      menuEl.className = 'browser-dropdown-menu';
+
+      items.forEach((item) => {
+        if (item === 'separator') {
+          const separator = document.createElement('div');
+          separator.className = 'browser-dropdown-separator';
+          menuEl.appendChild(separator);
+          return;
+        }
+
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'browser-dropdown-item';
+
+        const label = document.createElement('span');
+        label.textContent = item.label;
+        button.appendChild(label);
+
+        const shortcut = document.createElement('span');
+        shortcut.className = 'browser-dropdown-shortcut';
+        shortcut.textContent = item.shortcut || '';
+        button.appendChild(shortcut);
+
+        button.addEventListener('click', (e) => {
+          e.stopPropagation();
+          this.playClickSound();
+          closeBrowserMenu();
+          if (item.action) {
+            item.action();
+          }
+        });
+
+        menuEl.appendChild(button);
+      });
+
+      document.body.appendChild(menuEl);
+
+      const rect = triggerEl.getBoundingClientRect();
+      const menuWidth = menuEl.offsetWidth;
+      const menuHeight = menuEl.offsetHeight;
+      const left = Math.max(4, Math.min(rect.left, window.innerWidth - menuWidth - 4));
+      const top = Math.max(4, Math.min(rect.bottom, window.innerHeight - menuHeight - 4));
+
+      menuEl.style.left = `${left}px`;
+      menuEl.style.top = `${top}px`;
+
+      activeBrowserMenu = menuEl;
+      activeMenuTrigger = triggerEl;
+      activeMenuTrigger.classList.add('active');
     };
+
+    const favoritesMenuItems = () => {
+      const baseItems = [
+        { label: 'Add to Favorites...', shortcut: 'Ctrl+D' },
+        { label: 'Organize Favorites...' },
+        'separator'
+      ];
+
+      const dynamicItems = this.browserFavorites.map((favorite) => ({
+        label: favorite.name,
+        action: () => this.loadBrowserPage(favorite.url)
+      }));
+
+      return [...baseItems, ...dynamicItems];
+    };
+
+    document.addEventListener('mousedown', (e) => {
+      if (!activeBrowserMenu) return;
+      if (activeBrowserMenu.contains(e.target)) return;
+      if (activeMenuTrigger && activeMenuTrigger.contains(e.target)) return;
+      closeBrowserMenu();
+    });
+
+    window.addEventListener('resize', closeBrowserMenu);
     
     // Navigation buttons
     if (backBtn) {
@@ -3590,7 +3697,7 @@ partial reversion might be the actual optimization.`
     
     if (favoritesBtn) {
       favoritesBtn.addEventListener('click', () => {
-        showFavoritesPicker();
+        showBrowserMenu(favoritesBtn, favoritesMenuItems());
       });
     }
     
@@ -3615,68 +3722,106 @@ partial reversion might be the actual optimization.`
     
     if (linksBtn) {
       linksBtn.addEventListener('click', () => {
-        this.showBotAssistant('Links: slop://slophub, slop://slopnews, slop://slopipedia, slop://slopmaxxing, slop://slopchan');
+        this.showBotAssistant('Links: slop://slophub, slop://slopnews, slop://wikislop, slop://slopmaxxing, slop://slopchan');
       });
     }
 
     // Menu bar functionality
     if (menuFile) {
       menuFile.addEventListener('click', () => {
-        const fileAction = window.prompt('File menu\n1. New window (about:blank)\n2. Open URL\n3. Close menu');
-        if (fileAction === '1') {
-          this.loadBrowserPage('about:blank');
-        } else if (fileAction === '2') {
-          const newUrl = window.prompt('Enter URL to open:', addressBar.value || 'about:home');
-          if (newUrl) {
-            this.loadBrowserPage(newUrl.trim());
-          }
-        }
+        showBrowserMenu(menuFile, [
+          { label: 'New\tWindow', shortcut: 'Ctrl+N', action: () => this.loadBrowserPage('about:blank') },
+          { label: 'Open...', shortcut: 'Ctrl+O' },
+          { label: 'Edit\twith Notepad' },
+          'separator',
+          { label: 'Save As...' },
+          { label: 'Page Setup...' },
+          { label: 'Print...', shortcut: 'Ctrl+P' },
+          'separator',
+          { label: 'Send' },
+          { label: 'Import and Export...' },
+          { label: 'Properties' },
+          { label: 'Work Offline' },
+          'separator',
+          { label: 'Close' }
+        ]);
       });
     }
 
     if (menuEdit) {
-      menuEdit.addEventListener('click', async () => {
-        addressBar.focus();
-        addressBar.select();
-        const currentUrl = addressBar.value || 'about:home';
-
-        try {
-          await navigator.clipboard.writeText(currentUrl);
-          this.showBotAssistant(`Edit: address selected and copied to clipboard (${currentUrl})`);
-        } catch {
-          this.showBotAssistant(`Edit: address selected (${currentUrl}). Clipboard access blocked by browser.`);
-        }
+      menuEdit.addEventListener('click', () => {
+        showBrowserMenu(menuEdit, [
+          { label: 'Cut', shortcut: 'Ctrl+X' },
+          { label: 'Copy', shortcut: 'Ctrl+C' },
+          { label: 'Paste', shortcut: 'Ctrl+V' },
+          'separator',
+          { label: 'Select All', shortcut: 'Ctrl+A', action: () => { addressBar.focus(); addressBar.select(); } },
+          { label: 'Find (on This Page)...', shortcut: 'Ctrl+F' }
+        ]);
       });
     }
 
     if (menuView) {
       menuView.addEventListener('click', () => {
-        if (this.browserHistoryIndex >= 0) {
-          this.loadBrowserPage(this.browserHistory[this.browserHistoryIndex], false);
-        } else {
-          this.loadBrowserPage('home', false);
-        }
+        showBrowserMenu(menuView, [
+          { label: 'Toolbars' },
+          { label: 'Status Bar' },
+          'separator',
+          { label: 'Stop', action: () => { browserStatus.textContent = 'Stopped'; } },
+          { label: 'Refresh', action: () => {
+            if (this.browserHistoryIndex >= 0) {
+              this.loadBrowserPage(this.browserHistory[this.browserHistoryIndex], false);
+            } else {
+              this.loadBrowserPage('home', false);
+            }
+          } },
+          { label: 'Source' },
+          { label: 'Full Screen' }
+        ]);
       });
     }
 
     if (menuGo) {
       menuGo.addEventListener('click', () => {
-        const destination = window.prompt('Go to URL:', addressBar.value || 'about:home');
-        if (destination) {
-          this.loadBrowserPage(destination.trim());
-        }
+        showBrowserMenu(menuGo, [
+          { label: 'Back', action: () => {
+            if (this.browserHistoryIndex > 0) {
+              this.browserHistoryIndex--;
+              this.loadBrowserPage(this.browserHistory[this.browserHistoryIndex], false);
+            }
+          } },
+          { label: 'Forward', action: () => {
+            if (this.browserHistoryIndex < this.browserHistory.length - 1) {
+              this.browserHistoryIndex++;
+              this.loadBrowserPage(this.browserHistory[this.browserHistoryIndex], false);
+            }
+          } },
+          { label: 'Home Page', action: () => this.loadBrowserPage('home') },
+          'separator',
+          { label: 'Search the Web', action: () => this.showBotAssistant('Search functionality: recursively trained on SEO spam. Results guaranteed 57% relevant.') },
+          { label: 'History', action: () => {
+            const historyList = this.browserHistory.slice(0, this.browserHistoryIndex + 1).join(', ');
+            this.showBotAssistant(`Browser History: ${historyList || 'None'}`);
+          } }
+        ]);
       });
     }
 
     if (menuFavorites) {
       menuFavorites.addEventListener('click', () => {
-        showFavoritesPicker();
+        showBrowserMenu(menuFavorites, favoritesMenuItems());
       });
     }
 
     if (menuHelp) {
       menuHelp.addEventListener('click', () => {
-        this.showBotAssistant('Microslop Explorer Help: Use Back/Forward, enter slop:// URLs in Address, and open Favorites for curated slop universe sites.');
+        showBrowserMenu(menuHelp, [
+          { label: 'Contents and Index' },
+          { label: 'Tip of the Day' },
+          { label: 'For Netscape Users' },
+          'separator',
+          { label: 'About Microslop Explorer', action: () => this.showBotAssistant('Microslop Explorer 4.0 - recursively generated browsing experience.') }
+        ]);
       });
     }
     
@@ -3862,7 +4007,7 @@ partial reversion might be the actual optimization.`
         e.preventDefault();
         const articleId = link.dataset.article;
         if (articleId) {
-          this.loadBrowserPage(`slop://slopipedia#article/${articleId}`);
+          this.loadBrowserPage(`slop://wikislop#article/${articleId}`);
         }
       });
     });
@@ -3870,7 +4015,7 @@ partial reversion might be the actual optimization.`
     scope.querySelectorAll('.slopipedia-home-link').forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
-        this.loadBrowserPage('slop://slopipedia');
+        this.loadBrowserPage('slop://wikislop');
       });
     });
   }
@@ -3919,7 +4064,7 @@ partial reversion might be the actual optimization.`
     articleView.innerHTML = `
       <h1 style="margin: 0 0 6px 0; font-size: 34px; font-weight: normal; border-bottom: 1px solid #a2a9b1; padding-bottom: 6px;">${article.title}</h1>
       <div style="font-family: Arial, sans-serif; font-size: 12px; color: #54595d; margin-bottom: 12px;">
-        From Slopipedia, the free slop encyclopedia | <a href="#" class="slopipedia-home-link" style="color: #3366cc;">Back to main page</a>
+        From Wikislop, the free slop encyclopedia | <a href="#" class="slopipedia-home-link" style="color: #3366cc;">Back to main page</a>
       </div>
 
       <table style="float: right; width: 290px; border: 1px solid #a2a9b1; background: #f8f9fa; margin: 0 0 12px 16px; font-family: Arial, sans-serif; font-size: 12px;">
@@ -3927,7 +4072,7 @@ partial reversion might be the actual optimization.`
         ${article.infobox.map((row) => `<tr><td style="padding: 6px; border-top: 1px solid #a2a9b1;">${row[0]}</td><td style="padding: 6px; border-top: 1px solid #a2a9b1;">${row[1]}</td></tr>`).join('')}
       </table>
 
-      <div style="font-family: Arial, sans-serif; font-size: 12px; color: #54595d; margin-bottom: 16px;">Retrieved from "slop://slopipedia/${article.slug}"</div>
+      <div style="font-family: Arial, sans-serif; font-size: 12px; color: #54595d; margin-bottom: 16px;">Retrieved from "slop://wikislop/${article.slug}"</div>
 
       ${article.sections.map((section) => `
         <h2 style="border-bottom: 1px solid #a2a9b1; font-size: 24px; font-weight: normal; margin-top: 20px;">${section.heading}</h2>
@@ -3946,7 +4091,7 @@ partial reversion might be the actual optimization.`
       </ul>
 
       <p style="font-family: Arial, sans-serif; font-size: 12px; color: #54595d; margin-top: 22px; border-top: 1px solid #a2a9b1; padding-top: 10px;">
-        Retrieved from "slop://slopipedia/${article.slug}" |
+        Retrieved from "slop://wikislop/${article.slug}" |
         <a href="#" class="slopipedia-home-link" style="color: #3366cc;">Main page</a> |
         <a href="#" class="browser-link" data-url="slop://slopchan" style="color: #3366cc;">Discussion</a>
       </p>
@@ -4364,7 +4509,7 @@ partial reversion might be the actual optimization.`
           browserTitle.textContent = 'SLOPNEWS - Breaking Slop Alerts - Microslop Explorer';
         }
         browserStatus.textContent = 'Done';
-      } else if (url.startsWith('slop://slopipedia')) {
+      } else if (url.startsWith('slop://slopipedia') || url.startsWith('slop://wikislop')) {
         // Show Slopipedia and internal article pages
         if (slopipediaPage) slopipediaPage.style.display = 'block';
 
@@ -4375,11 +4520,11 @@ partial reversion might be the actual optimization.`
           const articleId = hash.slice(8);
           this.showSlopipediaArticle(articleId);
           const article = this.slopipediaArticles[articleId];
-          browserTitle.textContent = article ? `${article.title} - Slopipedia - Microslop Explorer` : 'Slopipedia, the free slop encyclopedia - Microslop Explorer';
+          browserTitle.textContent = article ? `${article.title} - Wikislop - Microslop Explorer` : 'Wikislop, the free slop encyclopedia - Microslop Explorer';
         } else {
           this.showSlopipediaHome();
           this.setupSlopipediaNavigation();
-          browserTitle.textContent = 'Slopipedia, the free slop encyclopedia - Microslop Explorer';
+          browserTitle.textContent = 'Wikislop, the free slop encyclopedia - Microslop Explorer';
         }
         browserStatus.textContent = 'Done';
       } else if (url.startsWith('slop://slopmaxxing')) {

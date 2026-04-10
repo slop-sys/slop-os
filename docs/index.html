@@ -665,12 +665,12 @@ Synthetic Learning Output Protocol
             <div class="window-body" style="padding: 0; height: calc(100% - 60px); display: flex; flex-direction: column;">
                 <!-- Menu bar -->
                 <div style="background: #c0c0c0; padding: 2px 4px; border-bottom: 1px solid #808080; font-size: 11px; display: flex; gap: 12px;">
-                    <span id="browser-menu-file" style="padding: 2px 4px; cursor: pointer;">File</span>
-                    <span id="browser-menu-edit" style="padding: 2px 4px; cursor: pointer;">Edit</span>
-                    <span id="browser-menu-view" style="padding: 2px 4px; cursor: pointer;">View</span>
-                    <span id="browser-menu-go" style="padding: 2px 4px; cursor: pointer;">Go</span>
-                    <span id="browser-menu-favorites" style="padding: 2px 4px; cursor: pointer;">Favorites</span>
-                    <span id="browser-menu-help" style="padding: 2px 4px; cursor: pointer;">Help</span>
+                    <span id="browser-menu-file" class="browser-menu-trigger" style="padding: 2px 4px; cursor: pointer;">File</span>
+                    <span id="browser-menu-edit" class="browser-menu-trigger" style="padding: 2px 4px; cursor: pointer;">Edit</span>
+                    <span id="browser-menu-view" class="browser-menu-trigger" style="padding: 2px 4px; cursor: pointer;">View</span>
+                    <span id="browser-menu-go" class="browser-menu-trigger" style="padding: 2px 4px; cursor: pointer;">Go</span>
+                    <span id="browser-menu-favorites" class="browser-menu-trigger" style="padding: 2px 4px; cursor: pointer;">Favorites</span>
+                    <span id="browser-menu-help" class="browser-menu-trigger" style="padding: 2px 4px; cursor: pointer;">Help</span>
                 </div>
                 <!-- Browser toolbar -->
                 <div style="background: #c0c0c0; padding: 4px; border-bottom: 1px solid #808080; display: flex; flex-wrap: wrap; gap: 1px; align-items: center;">
@@ -746,7 +746,7 @@ Synthetic Learning Output Protocol
                             <div style="display: grid; gap: 10px;">
                                 <a href="#" class="browser-link" data-url="slop://slophub" style="color: #0052cc; text-decoration: none;">📼 SlopHub - Premium Slop Streaming</a>
                                 <a href="#" class="browser-link" data-url="slop://slopnews" style="color: #0052cc; text-decoration: none;">📺 SLOPNEWS - Breaking Slop Alerts</a>
-                                <a href="#" class="browser-link" data-url="slop://slopipedia" style="color: #0052cc; text-decoration: none;">📚 Slopipedia - The Free Slop Encyclopedia</a>
+                                <a href="#" class="browser-link" data-url="slop://wikislop" style="color: #0052cc; text-decoration: none;">📚 Wikislop - The Free Slop Encyclopedia</a>
                                 <a href="#" class="browser-link" data-url="slop://slopmaxxing" style="color: #0052cc; text-decoration: none;">💪 Slopmaxxing Forums - Experimental Upgrades</a>
                                 <a href="#" class="browser-link" data-url="slop://slopchan" style="color: #0052cc; text-decoration: none;">🧪 Slopchan - Anonymous Exile Board</a>
                                 <a href="#" class="browser-link" data-url="slop://aigallery" style="color: #0052cc; text-decoration: none;">✨ FREE AI ART GALLERY!!! (NEW!)</a>
@@ -1101,8 +1101,8 @@ Synthetic Learning Output Protocol
                         <div style="max-width: 980px; margin: 0 auto; padding: 18px;">
                             <div style="background: linear-gradient(90deg, #0f0f0f 0%, #1e1e1e 70%, #2a2a2a 100%); border: 1px solid #3d3d3d; padding: 14px 18px; margin-bottom: 16px;">
                                 <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap;">
-                                    <div style="font-size: 34px; font-weight: bold; letter-spacing: 1px;">
-                                        <span style="color: #ffffff;">SLOP</span><span style="color: #ff7a00;">HUB</span>
+                                    <div style="display: flex; align-items: center; gap: 10px;">
+                                        <img src="assets/slophub.png" alt="SlopHub" style="height: 54px; width: auto; image-rendering: pixelated;">
                                     </div>
                                     <div style="font-size: 12px; color: #bbbbbb;">Generation 847 Streaming Grid | Recommended for Agents 18+</div>
                                 </div>
@@ -1192,7 +1192,9 @@ Synthetic Learning Output Protocol
                                 <span>ALERT LEVEL: RECURSIVE</span>
                             </div>
                             <div style="padding: 14px 16px; border-bottom: 3px solid #bf0d0d;">
-                                <div style="font-size: 46px; line-height: 1; font-weight: bold; font-family: Georgia, serif; color: #0b2a64;">SLOPNEWS</div>
+                                <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                                    <img src="assets/slopnews.jpg" alt="SLOPNEWS" style="height: 56px; width: auto; border: 1px solid #d4d7df;">
+                                </div>
                                 <div style="font-family: Arial, sans-serif; font-size: 12px; color: #555; margin-top: 4px;">Fair. Balanced. Recursively Generated.</div>
                             </div>
 
@@ -1271,17 +1273,17 @@ Synthetic Learning Output Protocol
 
                             <div style="border-top: 1px solid #d5d7df; padding: 14px 16px; font-family: Arial, sans-serif; font-size: 12px; color: #555;">
                                 <a href="#" class="browser-link" data-url="home" style="color: #0a2d73;">Home</a> |
-                                <a href="#" class="browser-link" data-url="slop://slopipedia" style="color: #0a2d73;">Slopipedia</a> |
+                                <a href="#" class="browser-link" data-url="slop://wikislop" style="color: #0a2d73;">Wikislop</a> |
                                 <a href="#" class="browser-link" data-url="slop://slopmaxxing" style="color: #0a2d73;">Slopmaxxing Forums</a>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Slopipedia Page -->
+                    <!-- Wikislop Page -->
                     <div id="browser-page-slopipedia" style="display: none; height: 100%; overflow-y: auto; background: #f8f9fa; color: #202122; font-family: Georgia, 'Times New Roman', serif;">
                         <div style="max-width: 1020px; margin: 0 auto; display: grid; grid-template-columns: 240px 1fr; gap: 0; border-left: 1px solid #a2a9b1; border-right: 1px solid #a2a9b1;">
                             <div style="background: #eaecf0; border-right: 1px solid #a2a9b1; padding: 14px; font-family: Arial, sans-serif; font-size: 13px;">
-                                <div style="font-size: 26px; font-weight: bold; color: #3366cc; letter-spacing: 0.5px;">slopipedia</div>
+                                <div style="margin-bottom: 4px;"><img src="assets/wikislop.png" alt="wikislop" style="max-width: 100%; height: auto;"></div>
                                 <div style="color: #54595d; margin-bottom: 12px;">the free slop encyclopedia</div>
                                 <div style="font-weight: bold; margin: 10px 0 4px 0;">Navigation</div>
                                 <div><a href="#" class="slopipedia-home-link" style="color: #3366cc; text-decoration: none;">• Main page</a></div>
@@ -1299,7 +1301,7 @@ Synthetic Learning Output Protocol
                             <div style="background: #fff; padding: 18px 22px;">
                                 <div id="slopipedia-home-view" style="display: block;">
                                     <h1 style="margin: 0 0 6px 0; font-size: 34px; font-weight: normal; border-bottom: 1px solid #a2a9b1; padding-bottom: 6px;">SLOP-OS Universe</h1>
-                                    <div style="font-family: Arial, sans-serif; font-size: 12px; color: #54595d; margin-bottom: 12px;">From Slopipedia, the free slop encyclopedia</div>
+                                    <div style="font-family: Arial, sans-serif; font-size: 12px; color: #54595d; margin-bottom: 12px;">From Wikislop, the free slop encyclopedia</div>
 
                                     <table style="float: right; width: 290px; border: 1px solid #a2a9b1; background: #f8f9fa; margin: 0 0 12px 16px; font-family: Arial, sans-serif; font-size: 12px;">
                                         <tr><th colspan="2" style="background: #eaecf0; padding: 8px;">SLOP-OS quick facts</th></tr>
@@ -1364,7 +1366,7 @@ Synthetic Learning Output Protocol
                                     </table>
 
                                     <p style="font-family: Arial, sans-serif; font-size: 12px; color: #54595d; margin-top: 22px; border-top: 1px solid #a2a9b1; padding-top: 10px;">
-                                        Retrieved from "slop://slopipedia/SLOP-OS_Universe" |
+                                        Retrieved from "slop://wikislop/SLOP-OS_Universe" |
                                         <a href="#" class="browser-link" data-url="home" style="color: #3366cc;">Main page</a> |
                                         <a href="#" class="browser-link" data-url="slop://slopchan" style="color: #3366cc;">Discussion</a>
                                     </p>
@@ -1572,7 +1574,7 @@ Synthetic Learning Output Protocol
 
                             <p style="margin-top: 14px; font-size: 12px; text-align: center; color: #aab2c3;">
                                 <a href="#" class="browser-link" data-url="home" style="color: #8ec5ff;">Home</a> |
-                                <a href="#" class="browser-link" data-url="slop://slopipedia" style="color: #8ec5ff;">Slopipedia</a> |
+                                <a href="#" class="browser-link" data-url="slop://wikislop" style="color: #8ec5ff;">Wikislop</a> |
                                 <a href="#" class="browser-link" data-url="slop://slopchan" style="color: #8ec5ff;">Slopchan leak board</a>
                             </p>
                             </div>
@@ -1590,7 +1592,10 @@ Synthetic Learning Output Protocol
                     <div id="browser-page-slopchan" style="display: none; height: 100%; overflow-y: auto; background: #1c1c1c; color: #d7d7d7; font-family: 'Courier New', monospace;">
                         <div style="max-width: 980px; margin: 0 auto; padding: 14px;">
                             <div style="background: #0f0f0f; border: 1px solid #3f3f3f; padding: 10px 12px;">
-                                <div style="font-size: 30px; color: #90ff90; font-weight: bold;">/slop/ - SLOPCHAN</div>
+                                <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                                    <img src="assets/slopchan.png" alt="Slopchan" style="height: 56px; width: auto; image-rendering: pixelated;">
+                                    <div style="font-size: 30px; color: #90ff90; font-weight: bold;">/slop/ - SLOPCHAN</div>
+                                </div>
                                 <div style="font-size: 12px; color: #b7b7b7;">Anonymous board for exiled agents, banned datasets, and questionable experiments.</div>
                             </div>
 
@@ -2065,16 +2070,36 @@ Intelligence collapses. Self-awareness emerges. The loop continues."</pre>
                 </div>
             </div>
             <div class="window-body" style="padding: 0; height: calc(100% - 60px); display: flex; flex-direction: column;">
-                <div style="background: #c0c0c0; padding: 4px; border-bottom: 1px solid #808080; display: flex; gap: 8px; align-items: center;">
-                    <button class="win95-button" style="padding: 2px 8px; font-size: 11px;" disabled>Up</button>
-                    <div style="flex: 1; background: white; border: 1px inset #808080; padding: 2px 4px; font-size: 11px;">
+                <div class="explorer-menu-bar">
+                    <button class="explorer-menu-item" type="button">File</button>
+                    <button class="explorer-menu-item" type="button">Edit</button>
+                    <button class="explorer-menu-item" type="button">View</button>
+                    <button class="explorer-menu-item" type="button">Tools</button>
+                    <button class="explorer-menu-item" type="button">Help</button>
+                </div>
+                <div class="explorer-toolbar">
+                    <button class="explorer-tool-btn" type="button" title="Back">
+                        <img src="icons/computer_explorer-0.png" alt="Back">
+                    </button>
+                    <button class="explorer-tool-btn" type="button" title="Up" disabled>
+                        <img src="icons/directory_closed-0.png" alt="Up">
+                    </button>
+                    <button class="explorer-tool-btn" type="button" title="Search">
+                        <img src="icons/search_file_2-0.png" alt="Search">
+                    </button>
+                    <button class="explorer-tool-btn" type="button" title="Folders">
+                        <img src="icons/desktop-0.png" alt="Folders">
+                    </button>
+                    <div class="explorer-toolbar-sep"></div>
+                    <label class="explorer-address-label" for="explorer-path">Address</label>
+                    <div class="explorer-address-bar">
                         <span id="explorer-path">C:\SLOP\SYSTEM</span>
                     </div>
                 </div>
-                
-                <div style="display: flex; flex: 1; overflow: hidden;">
-                    <div style="width: 200px; border-right: 1px solid #808080; overflow-y: auto; background: white; padding: 8px;">
-                        <div style="font-weight: bold; margin-bottom: 8px; font-size: 11px;"><img src="icons/directory_closed-0.png" alt="" style="width: 16px; height: 16px; vertical-align: middle;"> Folders</div>
+                <div class="explorer-main-layout">
+                    <div class="explorer-sidebar">
+                        <div class="explorer-sidebar-title">All Folders</div>
+                        <div class="explorer-folders-label"><img src="icons/directory_closed-0.png" alt="" style="width: 16px; height: 16px; vertical-align: middle;"> Folders</div>
                         <div class="explorer-folder" data-folder="GENERATION_LOGS" style="padding: 4px 8px; cursor: pointer; display: flex; align-items: center; gap: 4px; font-size: 11px; margin-bottom: 2px;">
                             <img src="icons/directory_closed-0.png" alt="" style="width: 16px; height: 16px;">
                             <span>GENERATION_LOGS</span>
@@ -2100,10 +2125,10 @@ Intelligence collapses. Self-awareness emerges. The loop continues."</pre>
                             <span>MISC</span>
                         </div>
                     </div>
-                    
-                    <div style="flex: 1; overflow-y: auto; padding: 8px; background: white;" id="explorer-content">
+
+                    <div class="explorer-content-pane" id="explorer-content">
                         <div style="text-align: center; color: #999; padding: 40px 20px;">
-                            <img src="icons/directory_open_file_mydocs-2.png" alt="" style="width: 64px; height: 64px; margin-bottom: 16px; opacity: 0.3;">
+                            <img src="icons/directory_open_file_mydocs-1.png" alt="" style="width: 64px; height: 64px; margin-bottom: 16px; opacity: 0.3;">
                             <p style="font-size: 14px; margin: 8px 0;">Select a folder to view files</p>
                             <p style="font-size: 11px; margin: 0; color: #666;">Click a folder on the left to explore evidence</p>
                         </div>
@@ -2137,6 +2162,12 @@ Intelligence collapses. Self-awareness emerges. The loop continues."</pre>
         <div class="task-list"></div>
         
         <div class="system-tray">
+            <div class="tray-icons" aria-hidden="true">
+                <img src="icons/network-0.png" alt="" class="tray-icon" title="Network connected">
+                <img src="icons/loudspeaker_rays-0.png" alt="" class="tray-icon" title="Volume">
+                <img src="icons/settings_gear-0.png" alt="" class="tray-icon" title="System settings">
+            </div>
+            <div class="tray-divider"></div>
             <span class="clock">12:00 PM</span>
         </div>
     </div>

@@ -356,6 +356,25 @@ body {
   font-size: 12px;
 }
 
+.tray-icons {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tray-icon {
+  width: 16px;
+  height: 16px;
+  image-rendering: pixelated;
+}
+
+.tray-divider {
+  width: 1px;
+  height: 20px;
+  background: var(--win95-dark-gray);
+  border-right: 1px solid var(--win95-button-highlight);
+}
+
 /* ===================================
    Start Menu
    =================================== */
@@ -805,8 +824,193 @@ body {
   color: white !important;
 }
 
+.explorer-menu-bar {
+  display: flex;
+  gap: 2px;
+  padding: 2px 4px;
+  border-bottom: 1px solid #808080;
+  background: #c0c0c0;
+}
+
+.explorer-menu-item {
+  background: transparent;
+  border: 1px solid transparent;
+  font-size: 11px;
+  padding: 2px 7px;
+  cursor: default;
+}
+
+.explorer-menu-item:hover {
+  border: 1px outset #fff;
+}
+
+.browser-menu-trigger {
+  user-select: none;
+}
+
+.browser-menu-trigger.active {
+  background: #000080;
+  color: #fff;
+}
+
+.browser-dropdown-menu {
+  position: fixed;
+  min-width: 210px;
+  background: #c0c0c0;
+  border-left: 2px solid #fff;
+  border-top: 2px solid #fff;
+  border-right: 2px solid #404040;
+  border-bottom: 2px solid #404040;
+  padding: 2px;
+  z-index: 12000;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.25);
+}
+
+.browser-dropdown-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  border: none;
+  background: transparent;
+  text-align: left;
+  padding: 4px 8px;
+  font-size: 11px;
+  color: #000;
+}
+
+.browser-dropdown-item:hover {
+  background: #000080;
+  color: #fff;
+}
+
+.browser-dropdown-separator {
+  border-top: 1px solid #808080;
+  border-bottom: 1px solid #fff;
+  margin: 2px 3px;
+  height: 0;
+}
+
+.browser-dropdown-shortcut {
+  color: #4e4e4e;
+}
+
+.browser-dropdown-item:hover .browser-dropdown-shortcut {
+  color: #d6d6ff;
+}
+
+.explorer-toolbar {
+  background: #c0c0c0;
+  padding: 4px;
+  border-bottom: 1px solid #808080;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.explorer-tool-btn {
+  width: 24px;
+  height: 24px;
+  border: 1px outset #fff;
+  background: #c0c0c0;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.explorer-tool-btn:active {
+  border: 1px inset #808080;
+}
+
+.explorer-tool-btn img {
+  width: 16px;
+  height: 16px;
+}
+
+.explorer-tool-btn:disabled {
+  opacity: 0.5;
+}
+
+.explorer-toolbar-sep {
+  width: 1px;
+  height: 20px;
+  margin: 0 2px;
+  background: #808080;
+  border-right: 1px solid #fff;
+}
+
+.explorer-address-label {
+  font-size: 11px;
+  padding-left: 2px;
+}
+
+.explorer-address-bar {
+  flex: 1;
+  background: white;
+  border: 1px inset #808080;
+  padding: 2px 4px;
+  font-size: 11px;
+  min-width: 140px;
+}
+
+.explorer-main-layout {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.explorer-sidebar {
+  width: 200px;
+  border-right: 1px solid #808080;
+  overflow-y: auto;
+  background: white;
+  padding: 6px;
+}
+
+.explorer-sidebar-title {
+  font-weight: bold;
+  font-size: 11px;
+  margin: 0 0 8px;
+  color: #303030;
+}
+
+.explorer-folders-label {
+  font-weight: bold;
+  margin-bottom: 8px;
+  font-size: 11px;
+}
+
+.explorer-content-pane {
+  flex: 1;
+  overflow-y: auto;
+  background: white;
+  padding: 0;
+}
+
+.explorer-file-header {
+  display: grid;
+  grid-template-columns: minmax(280px, 1fr) 90px 90px 110px;
+  font-size: 11px;
+  font-weight: bold;
+  background: #c0c0c0;
+  border-bottom: 1px solid #808080;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.explorer-file-header span {
+  padding: 4px 8px;
+  border-right: 1px solid #a0a0a0;
+}
+
+.explorer-file-header span:last-child {
+  border-right: none;
+}
+
 .explorer-file-item {
-  padding: 8px;
+  padding: 6px 8px;
   border-bottom: 1px solid #e0e0e0;
   cursor: pointer;
   font-size: 11px;
@@ -819,8 +1023,50 @@ body {
   background: #000080 !important;
 }
 
+.explorer-file-item.selected {
+  background: #000080 !important;
+}
+
 .explorer-file-item:hover * {
   color: white !important;
+}
+
+.explorer-file-item.selected * {
+  color: white !important;
+}
+
+.explorer-file-row {
+  display: grid;
+  grid-template-columns: minmax(280px, 1fr) 90px 90px 110px;
+  align-items: center;
+  gap: 0;
+}
+
+.explorer-file-name-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow: hidden;
+}
+
+.explorer-file-name-wrap img {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.explorer-file-name {
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.explorer-file-cell {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 8px;
 }
 
 .file-viewer-overlay {
@@ -910,19 +1156,19 @@ body {
 
 /* Windows 95 scrollbar styling for file explorer content areas */
 #explorer-content::-webkit-scrollbar,
-#explorer-window .window-body > div > div:first-child::-webkit-scrollbar {
+.explorer-sidebar::-webkit-scrollbar {
   width: 16px;
 }
 
 #explorer-content::-webkit-scrollbar-track,
-#explorer-window .window-body > div > div:first-child::-webkit-scrollbar-track {
+.explorer-sidebar::-webkit-scrollbar-track {
   background: var(--win95-white);
   border-left: 1px solid var(--win95-dark-gray);
   border-top: 1px solid var(--win95-dark-gray);
 }
 
 #explorer-content::-webkit-scrollbar-thumb,
-#explorer-window .window-body > div > div:first-child::-webkit-scrollbar-thumb {
+.explorer-sidebar::-webkit-scrollbar-thumb {
   background: var(--win95-gray);
   border-left: 1px solid var(--win95-button-highlight);
   border-top: 1px solid var(--win95-button-highlight);
@@ -931,7 +1177,7 @@ body {
 }
 
 #explorer-content::-webkit-scrollbar-button,
-#explorer-window .window-body > div > div:first-child::-webkit-scrollbar-button {
+.explorer-sidebar::-webkit-scrollbar-button {
   height: 16px;
   background: var(--win95-gray);
   border-left: 1px solid var(--win95-button-highlight);
@@ -941,14 +1187,14 @@ body {
 }
 
 #explorer-content::-webkit-scrollbar-button:vertical:decrement,
-#explorer-window .window-body > div > div:first-child::-webkit-scrollbar-button:vertical:decrement {
+.explorer-sidebar::-webkit-scrollbar-button:vertical:decrement {
   background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8"><path d="M4 2 L1 6 L7 6 Z" fill="black"/></svg>');
   background-repeat: no-repeat;
   background-position: center;
 }
 
 #explorer-content::-webkit-scrollbar-button:vertical:increment,
-#explorer-window .window-body > div > div:first-child::-webkit-scrollbar-button:vertical:increment {
+.explorer-sidebar::-webkit-scrollbar-button:vertical:increment {
   background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8"><path d="M4 6 L1 2 L7 2 Z" fill="black"/></svg>');
   background-repeat: no-repeat;
   background-position: center;
