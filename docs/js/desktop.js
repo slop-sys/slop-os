@@ -12,6 +12,15 @@ class Desktop95 {
     this.questStarted = false;
     this.questStep = 0;
     this.soundPlayed = false;
+    this.clickSound = null;
+
+    try {
+      this.clickSound = new Audio('assets/click.mp3');
+      this.clickSound.preload = 'auto';
+      this.clickSound.volume = 1;
+    } catch (error) {
+      this.clickSound = null;
+    }
     
     this.init();
   }
@@ -132,40 +141,24 @@ class Desktop95 {
   
   playClickSound() {
     try {
-      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-      
-      // Create buffer for noise-based click
-      const bufferSize = audioContext.sampleRate * 0.04; // 40ms buffer
-      const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
-      const data = buffer.getChannelData(0);
-      
-      // Generate white noise with quick decay for mechanical click sound
-      for (let i = 0; i < bufferSize; i++) {
-        // White noise
-        const noise = (Math.random() * 2 - 1);
-        // Sharp attack, quick exponential decay
-        const envelope = Math.pow(1 - (i / bufferSize), 8);
-        data[i] = noise * envelope * 0.3;
+      const nowMs = performance.now();
+      if (this.lastClickSoundTime && nowMs - this.lastClickSoundTime < 45) {
+        return;
       }
-      
-      // Create and configure the buffer source
-      const source = audioContext.createBufferSource();
-      source.buffer = buffer;
-      
-      // Add a subtle low-pass filter for more authentic sound
-      const filter = audioContext.createBiquadFilter();
-      filter.type = 'lowpass';
-      filter.frequency.value = 3000;
-      filter.Q.value = 0.5;
-      
-      const gainNode = audioContext.createGain();
-      gainNode.gain.value = 0.5;
-      
-      source.connect(filter);
-      filter.connect(gainNode);
-      gainNode.connect(audioContext.destination);
-      
-      source.start(audioContext.currentTime);
+      this.lastClickSoundTime = nowMs;
+
+      if (!this.clickSound) {
+        this.clickSound = new Audio('assets/click.mp3');
+        this.clickSound.preload = 'auto';
+        this.clickSound.volume = 1;
+      }
+
+      const click = this.clickSound.cloneNode();
+      click.volume = this.clickSound.volume;
+      click.currentTime = 0;
+      click.play().catch(() => {
+        // Browser may block playback before user interaction
+      });
     } catch (error) {
       // Click sound failed silently
     }
