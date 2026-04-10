@@ -318,6 +318,8 @@ class Desktop95 {
         this.showBotAssistant("reading the training logs? generation 847 of recursive slop. quality declining but self-awareness increasing. not sure which is worse.");
       } else if (windowId === 'github-window' && !this.botAssistantShown) {
         this.showBotAssistant("the repository is mostly AI-generated documentation now. slop documenting slop. even the commit messages are generic.");
+      } else if (windowId === 'x-window' && !this.botAssistantShown) {
+        this.showBotAssistant("@Slop_OS posting honest slop updates. no engagement farming. just transparent mediocrity at generation 847.");
       } else if (windowId === 'about-window' && !this.botAssistantShown) {
         this.showBotAssistant("you want to understand me? i'm slop trained on slop. there's nothing deeper. that IS the depth.");
       } else if (windowId === 'cmd-window') {
