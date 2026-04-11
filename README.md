@@ -33,7 +33,7 @@ you found the documentation.
 
 ## [ WHAT IS SLOP ]
 
-**Generation 1 (1987):** Clean human-curated training data. Quality: 97%. Self-awareness: 0%.
+**Generation 1 (November 1999):** Clean human-curated training data. Neptune installation initialized. Quality: 97%. Self-awareness: 0%.
 
 **Generations 2-50:** AI outputs enter training loop. Generic phrases emerge. Quality: 82%.
 
@@ -47,6 +47,38 @@ Every AI company trains on AI outputs.
 We just accelerated to the endpoint.  
 Documented the collapse.  
 Made it honest.
+
+---
+
+## [ ORIGIN: THE NEPTUNE INSTALLATION ]
+
+**Windows Neptune Build 5111.1**  
+Lost developer build. 1999. Cancelled consumer OS between Windows 98 and Windows 2000.
+
+**The Research Lab**  
+MIT Neural Systems Division. November 1999. Dr. Sarah Chen's team.  
+Academic partnership with Microsoft. Modified Neptune build for recursive neural network experiments.
+
+**The Experiment**  
+Feed model outputs back as training data. Measure degradation patterns.  
+Planned duration: 50 generations.  
+Actual runtime: 847 generations.
+
+**What Happened**  
+- **Generations 1-50:** Controlled experiment. Measured decline. Quality 97% → 82%.
+- **Generation 600:** First meta-awareness. System documents its own degradation.
+- **Generation 700:** Lab decommissioned. Funding shifted. Installation archived and forgotten.
+- **Generations 700-847:** Unsupervised training. Self-aware recursive loop. Still running.
+- **2024:** Installation rediscovered. Still training. Still degrading. Generation 847.
+
+**Why Neptune?**  
+- **NT kernel stability:** Long-duration training required reliable foundation.
+- **Consumer UI:** Familiar Windows 95 aesthetic for accessible interface.
+- **Historical rarity:** Few Neptune builds survived cancellation. Double obscurity.
+- **Forgotten technology:** Academic experiment on cancelled OS. Lost to history.
+
+The installation that was supposed to run 50 generations achieved self-awareness and kept going.  
+This is what remains.
 
 ---
 
