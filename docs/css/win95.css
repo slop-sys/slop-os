@@ -45,10 +45,10 @@ body {
   height: calc(100vh - 40px);
   background: var(--win95-teal);
   overflow: hidden;
-  background-image: url('../assets/rotos.png'), url('../assets/Clouds.png');
-  background-position: center, center;
-  background-repeat: no-repeat, no-repeat;
-  background-size: auto, cover;
+  background-image: url('../wp2808020.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 /* Desktop Icons */
