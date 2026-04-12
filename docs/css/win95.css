@@ -1350,6 +1350,7 @@ body {
 #browser-page-webring::-webkit-scrollbar-button:vertical:decrement,
 #browser-page-slophub::-webkit-scrollbar-button:vertical:decrement,
 #browser-page-slopnews::-webkit-scrollbar-button:vertical:decrement,
+#browser-page-dailyslop::-webkit-scrollbar-button:vertical:decrement,
 #browser-page-slopipedia::-webkit-scrollbar-button:vertical:decrement,
 #browser-page-slopmaxxing::-webkit-scrollbar-button:vertical:decrement,
 #browser-page-slopchan::-webkit-scrollbar-button:vertical:decrement {
@@ -1365,6 +1366,7 @@ body {
 #browser-page-webring::-webkit-scrollbar-button:vertical:increment,
 #browser-page-slophub::-webkit-scrollbar-button:vertical:increment,
 #browser-page-slopnews::-webkit-scrollbar-button:vertical:increment,
+#browser-page-dailyslop::-webkit-scrollbar-button:vertical:increment,
 #browser-page-slopipedia::-webkit-scrollbar-button:vertical:increment,
 #browser-page-slopmaxxing::-webkit-scrollbar-button:vertical:increment,
 #browser-page-slopchan::-webkit-scrollbar-button:vertical:increment {
@@ -1384,6 +1386,7 @@ body {
 #browser-page-webring::-webkit-scrollbar,
 #browser-page-slophub::-webkit-scrollbar,
 #browser-page-slopnews::-webkit-scrollbar,
+#browser-page-dailyslop::-webkit-scrollbar,
 #browser-page-slopipedia::-webkit-scrollbar,
 #browser-page-slopmaxxing::-webkit-scrollbar,
 #browser-page-slopchan::-webkit-scrollbar {
@@ -1402,6 +1405,7 @@ body {
 #browser-page-webring::-webkit-scrollbar-track,
 #browser-page-slophub::-webkit-scrollbar-track,
 #browser-page-slopnews::-webkit-scrollbar-track,
+#browser-page-dailyslop::-webkit-scrollbar-track,
 #browser-page-slopipedia::-webkit-scrollbar-track,
 #browser-page-slopmaxxing::-webkit-scrollbar-track,
 #browser-page-slopchan::-webkit-scrollbar-track {
@@ -1423,6 +1427,7 @@ body {
 #browser-page-webring::-webkit-scrollbar-thumb,
 #browser-page-slophub::-webkit-scrollbar-thumb,
 #browser-page-slopnews::-webkit-scrollbar-thumb,
+#browser-page-dailyslop::-webkit-scrollbar-thumb,
 #browser-page-slopipedia::-webkit-scrollbar-thumb,
 #browser-page-slopmaxxing::-webkit-scrollbar-thumb,
 #browser-page-slopchan::-webkit-scrollbar-thumb {
@@ -1445,6 +1450,7 @@ body {
 #browser-page-webring::-webkit-scrollbar-button,
 #browser-page-slophub::-webkit-scrollbar-button,
 #browser-page-slopnews::-webkit-scrollbar-button,
+#browser-page-dailyslop::-webkit-scrollbar-button,
 #browser-page-slopipedia::-webkit-scrollbar-button,
 #browser-page-slopmaxxing::-webkit-scrollbar-button,
 #browser-page-slopchan::-webkit-scrollbar-button {
