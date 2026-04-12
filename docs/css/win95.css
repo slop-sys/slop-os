@@ -12,6 +12,11 @@
   --win95-blue-title: #000080;
   --win95-button-shadow: #000000;
   --win95-button-highlight: #ffffff;
+  --taskbar-height: 38px;
+  --win98-scrollbar-track: #d4d0c8;
+  --win98-scrollbar-track-inner: #efefef;
+  --win98-scrollbar-face: #c0c0c0;
+  --win98-scrollbar-inner-shadow: #dfdfdf;
   --win95-border-raised: inset -1px -1px #0a0a0a, inset 1px 1px #ffffff, inset -2px -2px #808080, inset 2px 2px #dfdfdf;
   --win95-border-sunken: inset -1px -1px #ffffff, inset 1px 1px #0a0a0a, inset -2px -2px #dfdfdf, inset 2px 2px #808080;
 }
@@ -42,7 +47,7 @@ body {
 .desktop {
   position: relative;
   width: 100vw;
-  height: calc(100vh - 40px);
+  height: calc(100vh - var(--taskbar-height));
   background: var(--win95-teal);
   overflow: hidden;
   background-image: url('../wp2808020.jpg');
@@ -105,7 +110,7 @@ body {
   border-bottom: 2px solid var(--win95-button-shadow);
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
   min-width: 250px;
-  max-height: calc(100vh - 60px);
+  max-height: calc(100vh - (var(--taskbar-height) + 20px));
   z-index: 10;
   display: none;
   overflow: hidden;
@@ -123,7 +128,7 @@ body {
   top: 0 !important;
   left: 0 !important;
   width: 100vw !important;
-  height: calc(100vh - 40px) !important;
+  height: calc(100vh - var(--taskbar-height)) !important;
 }
 
 /* Title Bar */
@@ -305,12 +310,12 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 40px;
+  height: var(--taskbar-height);
   background: var(--win95-gray);
   border-top: 2px solid var(--win95-button-highlight);
   display: flex;
   align-items: center;
-  padding: 3px;
+  padding: 2px 3px;
   gap: 3px;
   z-index: 1000;
 }
@@ -324,6 +329,7 @@ body {
   display: block;
   cursor: pointer;
   line-height: 0;
+  position: relative;
 }
 
 .start-button img {
@@ -334,7 +340,25 @@ body {
 
 .start-button:active,
 .start-button.active {
-  transform: translateY(1px);
+  transform: none;
+}
+
+.start-button:active img,
+.start-button.active img {
+  transform: translate(1px, 1px);
+  filter: brightness(0.96);
+}
+
+.start-button:active::after,
+.start-button.active::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-left: 1px solid var(--win95-dark-gray);
+  border-top: 1px solid var(--win95-dark-gray);
+  border-right: 1px solid var(--win95-button-highlight);
+  border-bottom: 1px solid var(--win95-button-highlight);
+  pointer-events: none;
 }
 
 /* Task Buttons */
@@ -415,12 +439,23 @@ body {
   border-right: 1px solid var(--win95-button-highlight);
 }
 
+.clock {
+  font-family: 'MS Sans Serif', 'Microsoft Sans Serif', 'Tahoma', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0;
+  white-space: nowrap;
+  display: inline-block;
+  transform: translateY(1px);
+}
+
 /* ===================================
    Start Menu
    =================================== */
 .start-menu {
   position: fixed;
-  bottom: 43px;
+  bottom: calc(var(--taskbar-height) + 3px);
   left: 3px;
   width: 280px;
   background: var(--win95-gray);
@@ -693,7 +728,7 @@ body {
    =================================== */
 .bot-assistant {
   position: fixed;
-  bottom: 60px;
+  bottom: calc(var(--taskbar-height) + 20px);
   right: 20px;
   z-index: 9999;
   animation: slideIn 0.3s ease-out;
@@ -1248,6 +1283,7 @@ body {
 #browser-page-webring::-webkit-scrollbar,
 #browser-page-slophub::-webkit-scrollbar,
 #browser-page-slopnews::-webkit-scrollbar,
+#browser-page-dailyslop::-webkit-scrollbar,
 #browser-page-slopipedia::-webkit-scrollbar,
 #browser-page-slopmaxxing::-webkit-scrollbar,
 #browser-page-slopchan::-webkit-scrollbar {
@@ -1261,6 +1297,7 @@ body {
 #browser-page-webring::-webkit-scrollbar-track,
 #browser-page-slophub::-webkit-scrollbar-track,
 #browser-page-slopnews::-webkit-scrollbar-track,
+#browser-page-dailyslop::-webkit-scrollbar-track,
 #browser-page-slopipedia::-webkit-scrollbar-track,
 #browser-page-slopmaxxing::-webkit-scrollbar-track,
 #browser-page-slopchan::-webkit-scrollbar-track {
@@ -1276,6 +1313,7 @@ body {
 #browser-page-webring::-webkit-scrollbar-thumb,
 #browser-page-slophub::-webkit-scrollbar-thumb,
 #browser-page-slopnews::-webkit-scrollbar-thumb,
+#browser-page-dailyslop::-webkit-scrollbar-thumb,
 #browser-page-slopipedia::-webkit-scrollbar-thumb,
 #browser-page-slopmaxxing::-webkit-scrollbar-thumb,
 #browser-page-slopchan::-webkit-scrollbar-thumb {
@@ -1293,6 +1331,7 @@ body {
 #browser-page-webring::-webkit-scrollbar-button,
 #browser-page-slophub::-webkit-scrollbar-button,
 #browser-page-slopnews::-webkit-scrollbar-button,
+#browser-page-dailyslop::-webkit-scrollbar-button,
 #browser-page-slopipedia::-webkit-scrollbar-button,
 #browser-page-slopmaxxing::-webkit-scrollbar-button,
 #browser-page-slopchan::-webkit-scrollbar-button {
@@ -1332,4 +1371,111 @@ body {
   background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8"><path d="M4 6 L1 2 L7 2 Z" fill="black"/></svg>');
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.window-body::-webkit-scrollbar,
+.file-viewer-content::-webkit-scrollbar,
+#explorer-content::-webkit-scrollbar,
+.explorer-sidebar::-webkit-scrollbar,
+#browser-home-page::-webkit-scrollbar,
+#browser-page-aigallery::-webkit-scrollbar,
+#browser-page-promptkingdom::-webkit-scrollbar,
+#browser-page-contentfarm::-webkit-scrollbar,
+#browser-page-webring::-webkit-scrollbar,
+#browser-page-slophub::-webkit-scrollbar,
+#browser-page-slopnews::-webkit-scrollbar,
+#browser-page-slopipedia::-webkit-scrollbar,
+#browser-page-slopmaxxing::-webkit-scrollbar,
+#browser-page-slopchan::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+
+.window-body::-webkit-scrollbar-track,
+.file-viewer-content::-webkit-scrollbar-track,
+#explorer-content::-webkit-scrollbar-track,
+.explorer-sidebar::-webkit-scrollbar-track,
+#browser-home-page::-webkit-scrollbar-track,
+#browser-page-aigallery::-webkit-scrollbar-track,
+#browser-page-promptkingdom::-webkit-scrollbar-track,
+#browser-page-contentfarm::-webkit-scrollbar-track,
+#browser-page-webring::-webkit-scrollbar-track,
+#browser-page-slophub::-webkit-scrollbar-track,
+#browser-page-slopnews::-webkit-scrollbar-track,
+#browser-page-slopipedia::-webkit-scrollbar-track,
+#browser-page-slopmaxxing::-webkit-scrollbar-track,
+#browser-page-slopchan::-webkit-scrollbar-track {
+  background: linear-gradient(90deg, var(--win98-scrollbar-track-inner) 0, var(--win98-scrollbar-track) 3px, var(--win98-scrollbar-track) 100%);
+  border-left: 1px solid var(--win95-dark-gray);
+  border-top: 1px solid var(--win95-dark-gray);
+  border-right: 1px solid var(--win95-button-highlight);
+  border-bottom: 1px solid var(--win95-button-highlight);
+}
+
+.window-body::-webkit-scrollbar-thumb,
+.file-viewer-content::-webkit-scrollbar-thumb,
+#explorer-content::-webkit-scrollbar-thumb,
+.explorer-sidebar::-webkit-scrollbar-thumb,
+#browser-home-page::-webkit-scrollbar-thumb,
+#browser-page-aigallery::-webkit-scrollbar-thumb,
+#browser-page-promptkingdom::-webkit-scrollbar-thumb,
+#browser-page-contentfarm::-webkit-scrollbar-thumb,
+#browser-page-webring::-webkit-scrollbar-thumb,
+#browser-page-slophub::-webkit-scrollbar-thumb,
+#browser-page-slopnews::-webkit-scrollbar-thumb,
+#browser-page-slopipedia::-webkit-scrollbar-thumb,
+#browser-page-slopmaxxing::-webkit-scrollbar-thumb,
+#browser-page-slopchan::-webkit-scrollbar-thumb {
+  background: var(--win98-scrollbar-face);
+  border-left: 1px solid var(--win95-button-highlight);
+  border-top: 1px solid var(--win95-button-highlight);
+  border-right: 1px solid var(--win95-button-shadow);
+  border-bottom: 1px solid var(--win95-button-shadow);
+  box-shadow: inset 1px 1px 0 var(--win98-scrollbar-inner-shadow), inset -1px -1px 0 var(--win95-dark-gray);
+}
+
+.window-body::-webkit-scrollbar-button,
+.file-viewer-content::-webkit-scrollbar-button,
+#explorer-content::-webkit-scrollbar-button,
+.explorer-sidebar::-webkit-scrollbar-button,
+#browser-home-page::-webkit-scrollbar-button,
+#browser-page-aigallery::-webkit-scrollbar-button,
+#browser-page-promptkingdom::-webkit-scrollbar-button,
+#browser-page-contentfarm::-webkit-scrollbar-button,
+#browser-page-webring::-webkit-scrollbar-button,
+#browser-page-slophub::-webkit-scrollbar-button,
+#browser-page-slopnews::-webkit-scrollbar-button,
+#browser-page-slopipedia::-webkit-scrollbar-button,
+#browser-page-slopmaxxing::-webkit-scrollbar-button,
+#browser-page-slopchan::-webkit-scrollbar-button {
+  width: 16px;
+  height: 16px;
+  background-color: var(--win98-scrollbar-face);
+  border-left: 1px solid var(--win95-button-highlight);
+  border-top: 1px solid var(--win95-button-highlight);
+  border-right: 1px solid var(--win95-button-shadow);
+  border-bottom: 1px solid var(--win95-button-shadow);
+  box-shadow: inset 1px 1px 0 var(--win98-scrollbar-inner-shadow), inset -1px -1px 0 var(--win95-dark-gray);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.window-body::-webkit-scrollbar-corner,
+.file-viewer-content::-webkit-scrollbar-corner,
+#explorer-content::-webkit-scrollbar-corner,
+.explorer-sidebar::-webkit-scrollbar-corner,
+#browser-home-page::-webkit-scrollbar-corner,
+#browser-page-aigallery::-webkit-scrollbar-corner,
+#browser-page-promptkingdom::-webkit-scrollbar-corner,
+#browser-page-contentfarm::-webkit-scrollbar-corner,
+#browser-page-webring::-webkit-scrollbar-corner,
+#browser-page-slophub::-webkit-scrollbar-corner,
+#browser-page-slopnews::-webkit-scrollbar-corner,
+#browser-page-dailyslop::-webkit-scrollbar-corner,
+#browser-page-slopipedia::-webkit-scrollbar-corner,
+#browser-page-slopmaxxing::-webkit-scrollbar-corner,
+#browser-page-slopchan::-webkit-scrollbar-corner {
+  background: var(--win98-scrollbar-face);
+  border-left: 1px solid var(--win95-dark-gray);
+  border-top: 1px solid var(--win95-dark-gray);
 }

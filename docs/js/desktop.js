@@ -2434,6 +2434,7 @@ class Desktop95 {
       webring: 'browser-page-webring',
       slophub: 'browser-page-slophub',
       slopnews: 'browser-page-slopnews',
+      dailyslop: 'browser-page-dailyslop',
       wikislop: 'browser-page-slopipedia',
       slopmaxxing: 'browser-page-slopmaxxing',
       slopchan: 'browser-page-slopchan',
@@ -4331,6 +4332,7 @@ partial reversion might be the actual optimization.`
     this.browserFavorites = [
       { name: 'SlopHub', url: 'slop://slophub' },
       { name: 'SLOPNEWS', url: 'slop://slopnews' },
+      { name: 'Daily Slop', url: 'slop://dailyslop' },
       { name: 'Wikislop', url: 'slop://wikislop' },
       { name: 'Slopmaxxing Forums', url: 'slop://slopmaxxing' },
       { name: 'Slopchan', url: 'slop://slopchan' },
@@ -5832,6 +5834,7 @@ partial reversion might be the actual optimization.`
     const webringPage = document.getElementById('browser-page-webring');
     const slophubPage = document.getElementById('browser-page-slophub');
     const slopnewsPage = document.getElementById('browser-page-slopnews');
+    const dailyslopPage = document.getElementById('browser-page-dailyslop');
     const slopipediaPage = document.getElementById('browser-page-slopipedia');
     const slopmaxxingPage = document.getElementById('browser-page-slopmaxxing');
     const slopchanPage = document.getElementById('browser-page-slopchan');
@@ -5854,6 +5857,7 @@ partial reversion might be the actual optimization.`
     if (webringPage) webringPage.style.display = 'none';
     if (slophubPage) slophubPage.style.display = 'none';
     if (slopnewsPage) slopnewsPage.style.display = 'none';
+    if (dailyslopPage) dailyslopPage.style.display = 'none';
     if (slopipediaPage) slopipediaPage.style.display = 'none';
     if (slopmaxxingPage) slopmaxxingPage.style.display = 'none';
     if (slopchanPage) slopchanPage.style.display = 'none';
@@ -5939,6 +5943,10 @@ partial reversion might be the actual optimization.`
           browserTitle.textContent = 'SLOPNEWS - Breaking Slop Alerts - Microslop Explorer';
         }
         this.addBlackVaultShardMarker('slopnews');
+        browserStatus.textContent = 'Done';
+      } else if (url === 'slop://dailyslop') {
+        if (dailyslopPage) dailyslopPage.style.display = 'block';
+        browserTitle.textContent = 'Daily Slop dot BIZ - Microslop Explorer';
         browserStatus.textContent = 'Done';
       } else if (url.startsWith('slop://slopipedia') || url.startsWith('slop://wikislop')) {
         // Show Slopipedia and internal article pages
