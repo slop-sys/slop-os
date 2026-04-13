@@ -37,3 +37,6 @@ pnpm-debug.log*
 # Temporary files
 *.tmp
 .cache/
+
+# Local Copilot workspace instructions
+.github/copilot-instructions.md
