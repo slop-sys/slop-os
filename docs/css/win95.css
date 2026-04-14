@@ -759,7 +759,7 @@ body {
    =================================== */
 .bot-assistant {
   position: fixed;
-  bottom: calc(var(--taskbar-height) + 20px);
+  bottom: calc(var(--taskbar-height) + 100px);
   right: 20px;
   z-index: 9999;
   animation: slideIn 0.3s ease-out;

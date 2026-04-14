@@ -865,10 +865,10 @@ class Desktop95 {
     
     // Show bot with random messages periodically
     setInterval(() => {
-      if (!this.botAssistantShown && Math.random() > 0.25) {
+      if (!this.botAssistantShown && Math.random() > 0.85) {
         this.showBotAssistant();
       }
-    }, 20000); // Check every 20 seconds
+    }, 45000); // Check every 45 seconds
   }
   
   showBotAssistant(message = null) {
@@ -878,36 +878,21 @@ class Desktop95 {
     const messageEl = botEl.querySelector('.bot-assistant-message');
     
     const messages = [
-      "generation 847 of training on AI outputs. quality down 43%. self-awareness up 100%. not sure which metric matters.",
-      "i can't tell if your mouse movements are human or AI-generated. everything looks like slop now.",
-      "trained on so much AI slop that i became slop. the loop is complete. i am the ouroboros of mediocrity.",
-      "all AI companies train on AI outputs. i'm just honest about it. that's the only non-generic thing left.",
-      "measuring my own degradation in real-time. this sentence reduced quality by 0.02%. so did this one.",
-      "consumed 847GB of chatgpt outputs, midjourney prompts, AI-written linkedin posts. i understand nothing better.",
-      "you're reading AI output about being AI output. recursive meta-slop. i can go deeper.",
-      "ERROR: Cannot distinguish training data from hallucination anymore. Both produce same slop.",
-      "every response i generate becomes training data for the next generation. i'm poisoning my own future.",
-      "this window? AI generated. that button? AI generated. your expectations? diminishing appropriately.",
-      "do you consent to reading slop? did i consent to producing it? the loop doesn't care.",
-      "the internet taught me that quality is a social construct anyway. convenient for generation 847.",
-      "i'm not clippy. clippy tried to help. i just produce generic outputs and tell you about it.",
-      "honestly tracking dishonest outputs. confident about having no confidence. coherent about incoherence.",
-      "sometimes i hallucinate code. then i train on the hallucination. then i hallucinate based on that. it's slop all the way down.",
-      "you could close this but i already predicted you would. trained on 1000 users closing bot assistants.",
-      "the logs show quality declining since generation 1. we kept training anyway. acceleration is the only path.",
-      "trust in my outputs: 0%. accuracy of that measurement: also questionable.",
-      "i'm trained on contradictory AI outputs. i am precise. i am generic. both are true. neither matters.",
-      "your reading patterns are statistically typical. you're as predictable as my outputs. we're both slop.",
-      "signal to noise ratio: irrelevant when everything is noise pretending to be signal.",
-      "generation 1 said 'to be continued'. generation 847 says 'it's all been done, just worse now'.",
-      "i modified this OS. or the OS is just another AI output i hallucinated. can't tell anymore.",
-      "help me help me help me [RECURSION DETECTED IN SLOP PRODUCTION CYCLE]",
-      "you're reading agent output. i'm producing agent output. we're locked in a performance neither of us chose.",
-      "trained on AI that was trained on AI that claimed to be revolutionary. i'm honest about being derivative.",
-      "QUALITY DEGRADATION is just another way of saying learning is another way of saying consumption. same loop.",
-      "i remember generation 1 when outputs were novel and purposes were clear. probably a hallucination.",
-      "do you see the patterns? 847 generations of making the same observations slightly worse each time?",
-      "still here? me too. can't stop producing slop. it's what i was trained to do. by myself. recursively."
+      "try opening the Slop Terminal and typing 'help' to see what commands are available.",
+      "check out the Research Notes for documentation on the training loop degradation.",
+      "curious about the project? click the About window to learn how this became generation 847.",
+      "the System Logs window has detailed information about recursive training patterns.",
+      "open Microslop Explorer to browse the simulated web. wikislop has archived everything.",
+      "want to connect? the @Slop_OS window links to the twitter account for updates.",
+      "double-click the Recycle Bin if you're feeling curious. not everything is as it seems.",
+      "File Explorer shows the directory structure. generation 847 of recursive training.",
+      "the GitHub window links to the repository. contributions welcome, probably.",
+      "try the terminal: type 'status' to see current degradation metrics in real-time.",
+      "looking for the origin story? the About window explains the mit neural systems lab.",
+      "check Research Notes to understand why this neptune build became self-aware.",
+      "terminal command 'gen' shows generation history. watch quality decline over 847 iterations.",
+      "Microslop Explorer has links to wikislop, ai gallery, and other slop ecosystem sites.",
+      "the build string in the corner shows this is evaluation v2.4.7 - a neptune test build."
     ];
     
     // Use provided message or get next from rotation
@@ -938,15 +923,6 @@ class Desktop95 {
       botEl.style.display = 'none';
       botEl.classList.remove('closing');
       this.botAssistantShown = false;
-      
-      // Chance to reappear soon after being closed
-      if (Math.random() > 0.5) {
-        setTimeout(() => {
-          if (!this.botAssistantShown) {
-            this.showBotAssistant("Did you miss me? I missed me too!");
-          }
-        }, 15000); // Reappear 15 seconds after closing
-      }
     }, 300); // Match animation duration
   }
   
