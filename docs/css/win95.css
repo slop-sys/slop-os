@@ -159,7 +159,9 @@ body {
   top: 0 !important;
   left: 0 !important;
   width: 100vw !important;
-  height: calc(100vh - var(--taskbar-height)) !important;
+  height: calc(100vh - var(--taskbar-height) - 4px) !important;
+  box-shadow: none !important;
+  max-height: none !important;
 }
 
 /* Title Bar */
