@@ -23,12 +23,6 @@ js/
 │       ├── promptkingdom.js # Prompt marketplace (TODO)
 │       ├── contentfarm.js # Content farm site (TODO)
 │       └── webring.js     # Webring portal (TODO)
-├── quests/
-│   ├── generation-zero.js # Generation Zero quest (TODO)
-│   └── black-vault.js     # Black Vault quest (TODO)
-├── utils/
-│   ├── storage.js         # localStorage helpers (TODO)
-│   └── sound.js           # Audio management (TODO)
 └── desktop.js             # Main entry point (to be refactored)
 ```
 

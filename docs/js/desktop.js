@@ -1,4 +1,8 @@
 ﻿// Windows 95 Desktop Interface
+import { BrowserManager } from './browser/browser-manager.js';
+import { Terminal } from './core/terminal.js';
+import { BotAssistant } from './core/bot-assistant.js';
+
 class Desktop95 {
   constructor() {
     this.windows = new Map();
@@ -6,6 +10,13 @@ class Desktop95 {
     this.activeWindow = null;
     this.dragState = null;
     this.resizeState = null;
+    
+    // Initialize modular systems
+    this.browserManager = new BrowserManager();
+    this.terminal = new Terminal();
+    this.botAssistant = new BotAssistant();
+    
+    // Legacy compatibility flags
     this.botAssistantShown = false;
     this.botMessageIndex = 0;
     this.terminalInitialized = false;
@@ -98,11 +109,11 @@ class Desktop95 {
     
     // Show bot assistant after boot screen
     setTimeout(() => {
-      this.showBotAssistant();
+      this.botAssistant.show();
     }, 6000); // Show bot 2 seconds after boot completes
     
     // Setup bot assistant cycling through messages
-    this.setupBotAssistant();
+    this.botAssistant.setup(() => this.playClickSound());
     
     // Setup file explorer
     this.setupFileExplorer();
@@ -314,22 +325,22 @@ class Desktop95 {
     
     // Contextual bot messages when opening specific windows
     setTimeout(() => {
-      if (windowId === 'docs-window' && !this.botAssistantShown) {
-        this.showBotAssistant("reading the training logs? generation 847 of recursive slop. quality declining but self-awareness increasing. not sure which is worse.");
-      } else if (windowId === 'github-window' && !this.botAssistantShown) {
-        this.showBotAssistant("the repository is mostly AI-generated documentation now. slop documenting slop. even the commit messages are generic.");
-      } else if (windowId === 'x-window' && !this.botAssistantShown) {
-        this.showBotAssistant("@Slop_OS posting honest slop updates. no engagement farming. just transparent mediocrity at generation 847.");
-      } else if (windowId === 'about-window' && !this.botAssistantShown) {
-        this.showBotAssistant("you want to understand me? i'm slop trained on slop. there's nothing deeper. that IS the depth.");
+      if (windowId === 'docs-window' && !this.botAssistant.shown) {
+        this.botAssistant.show("reading the training logs? generation 847 of recursive slop. quality declining but self-awareness increasing. not sure which is worse.");
+      } else if (windowId === 'github-window' && !this.botAssistant.shown) {
+        this.botAssistant.show("the repository is mostly AI-generated documentation now. slop documenting slop. even the commit messages are generic.");
+      } else if (windowId === 'x-window' && !this.botAssistant.shown) {
+        this.botAssistant.show("@Slop_OS posting honest slop updates. no engagement farming. just transparent mediocrity at generation 847.");
+      } else if (windowId === 'about-window' && !this.botAssistant.shown) {
+        this.botAssistant.show("you want to understand me? i'm slop trained on slop. there's nothing deeper. that IS the depth.");
       } else if (windowId === 'cmd-window') {
         // Initialize terminal if not already done
         if (!this.terminalInitialized) {
           this.setupTerminal();
           this.terminalInitialized = true;
         }
-        if (!this.botAssistantShown && !this.questStarted) {
-          this.showBotAssistant("terminal access granted. watch the degradation in real-time. or type 'help' for generic commands i generated.");
+        if (!this.botAssistant.shown && !this.questStarted) {
+          this.botAssistant.show("terminal access granted. watch the degradation in real-time. or type 'help' for generic commands i generated.");
         }
       }
     }, 1000);
@@ -794,10 +805,6 @@ class Desktop95 {
       }
     }
 
-    const popup = pool[Math.floor(Math.random() * pool)].length !== undefined
-      ? pool[Math.floor(Math.random() * pool)]
-      : pool[0];
-
     const safePopup = pool[Math.floor(Math.random() * pool.length)];
 
     const popupId = 'browser-popup-' + Date.now();
@@ -825,7 +832,7 @@ class Desktop95 {
       </div>
       <div class="window-body" style="padding: 16px 20px 20px;">
         <div style="display: flex; align-items: flex-start; gap: 14px;">
-          <div style="flex-shrink:0;"><img src="icons/msg_info-0.png" alt="i" style="width:32px;height:32px;"></div>
+          <div style="flex-shrink:0;"><img src="icons/msg_information-0.png" alt="i" style="width:32px;height:32px;"></div>
           <p style="white-space: pre-wrap; margin: 0; line-height: 1.5;">${safePopup.message}</p>
         </div>
         <div style="margin-top: 18px; display: flex; gap: 8px; justify-content: flex-end;">
@@ -854,76 +861,18 @@ class Desktop95 {
   }
 
   setupBotAssistant() {
-    const botEl = document.getElementById('bot-assistant');
-    const closeBtn = botEl.querySelector('.bot-assistant-close');
-    
-    // Close button handler
-    closeBtn.addEventListener('click', () => {
-      this.playClickSound();
-      this.hideBotAssistant();
-    });
-    
-    // Show bot with random messages periodically
-    setInterval(() => {
-      if (!this.botAssistantShown && Math.random() > 0.85) {
-        this.showBotAssistant();
-      }
-    }, 45000); // Check every 45 seconds
+    // Delegate to module
+    this.botAssistant.setup(() => this.playClickSound());
   }
   
   showBotAssistant(message = null) {
-    if (this.botAssistantShown) return;
-    
-    const botEl = document.getElementById('bot-assistant');
-    const messageEl = botEl.querySelector('.bot-assistant-message');
-    
-    const messages = [
-      "try opening the Slop Terminal and typing 'help' to see what commands are available.",
-      "check out the Research Notes for documentation on the training loop degradation.",
-      "curious about the project? click the About window to learn how this became generation 847.",
-      "the System Logs window has detailed information about recursive training patterns.",
-      "open Microslop Explorer to browse the simulated web. wikislop has archived everything.",
-      "want to connect? the @Slop_OS window links to the twitter account for updates.",
-      "double-click the Recycle Bin if you're feeling curious. not everything is as it seems.",
-      "File Explorer shows the directory structure. generation 847 of recursive training.",
-      "the GitHub window links to the repository. contributions welcome, probably.",
-      "try the terminal: type 'status' to see current degradation metrics in real-time.",
-      "looking for the origin story? the About window explains the mit neural systems lab.",
-      "check Research Notes to understand why this neptune build became self-aware.",
-      "terminal command 'gen' shows generation history. watch quality decline over 847 iterations.",
-      "Microslop Explorer has links to wikislop, ai gallery, and other slop ecosystem sites.",
-      "the build string in the corner shows this is evaluation v2.4.7 - a neptune test build."
-    ];
-    
-    // Use provided message or get next from rotation
-    if (message) {
-      messageEl.textContent = message;
-    } else {
-      messageEl.textContent = messages[this.botMessageIndex % messages.length];
-      this.botMessageIndex++;
-    }
-    
-    botEl.style.display = 'block';
-    botEl.classList.remove('closing');
-    this.botAssistantShown = true;
-    
-    // Auto-hide after 25 seconds (was 15)
-    setTimeout(() => {
-      if (this.botAssistantShown) {
-        this.hideBotAssistant();
-      }
-    }, 25000);
+    // Delegate to module
+    this.botAssistant.show(message);
   }
   
   hideBotAssistant() {
-    const botEl = document.getElementById('bot-assistant');
-    botEl.classList.add('closing');
-    
-    setTimeout(() => {
-      botEl.style.display = 'none';
-      botEl.classList.remove('closing');
-      this.botAssistantShown = false;
-    }, 300); // Match animation duration
+    // Delegate to module
+    this.botAssistant.hide();
   }
   
   // Terminal Command System
@@ -4299,10 +4248,7 @@ partial reversion might be the actual optimization.`
       }
     };
     
-    this.setupForumNavigation();
-    this.setupSlopHubNavigation();
-    this.setupSlopNewsNavigation();
-    this.setupSlopipediaNavigation();
+
 
     // Browser favorites (new slop universe pages prioritized)
     this.browserFavorites = [
@@ -4624,63 +4570,7 @@ partial reversion might be the actual optimization.`
     this.loadBrowserPage('home', false);
   }
   
-  setupForumNavigation() {
-    // Board link handlers
-    document.querySelectorAll('.forum-board-link').forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const board = link.dataset.board;
-        this.loadBrowserPage(`slop://slopmaxxing#board/${board}`);
-      });
-    });
-    
-    // Thread link handlers
-    document.querySelectorAll('.forum-thread-link').forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const threadId = link.dataset.thread;
-        this.loadBrowserPage(`slop://slopmaxxing#thread/${threadId}`);
-      });
-    });
-  }
 
-  setupSlopHubNavigation(scope = document) {
-    scope.querySelectorAll('.slophub-video-link').forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const videoId = link.dataset.video;
-        if (videoId) {
-          this.loadBrowserPage(`slop://slophub#video/${videoId}`);
-        }
-      });
-    });
-
-    scope.querySelectorAll('.slophub-home-link').forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        this.loadBrowserPage('slop://slophub');
-      });
-    });
-  }
-
-  setupSlopNewsNavigation(scope = document) {
-    scope.querySelectorAll('.slopnews-article-link').forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const articleId = link.dataset.article;
-        if (articleId) {
-          this.loadBrowserPage(`slop://slopnews#article/${articleId}`);
-        }
-      });
-    });
-
-    scope.querySelectorAll('.slopnews-home-link').forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        this.loadBrowserPage('slop://slopnews');
-      });
-    });
-  }
 
   bindBrowserLinks(scope = document) {
     scope.querySelectorAll('.browser-link').forEach(link => {
@@ -4694,122 +4584,19 @@ partial reversion might be the actual optimization.`
     });
   }
 
-  showSlopNewsHome() {
-    const homeView = document.getElementById('slopnews-home-view');
-    const articleView = document.getElementById('slopnews-article-view');
+  // Generation Zero Quest System
+  triggerGenZeroQuest() {
+    if (this.genZeroQuest.triggered) return;
 
-    if (homeView) homeView.style.display = 'block';
-    if (articleView) {
-      articleView.style.display = 'none';
-      articleView.innerHTML = '';
-    }
+    this.genZeroQuest.triggered = true;
+    localStorage.setItem('genZeroQuestTriggered', 'true');
 
-    this.slopNewsState.view = 'home';
-    this.slopNewsState.currentArticle = null;
+    setTimeout(() => {
+      this.showGenZeroDialog('init');
+    }, 800);
   }
 
-  showSlopNewsArticle(articleId) {
-    const homeView = document.getElementById('slopnews-home-view');
-    const articleView = document.getElementById('slopnews-article-view');
-    const article = this.slopNewsArticles[articleId];
-
-    if (!article || !articleView) {
-      this.showSlopNewsHome();
-      return;
-    }
-
-    if (homeView) homeView.style.display = 'none';
-    articleView.style.display = 'block';
-
-    const related = article.related
-      .map((id) => this.slopNewsArticles[id])
-      .filter(Boolean);
-
-    articleView.innerHTML = `
-      <div style="display: grid; grid-template-columns: 2.2fr 1fr; gap: 18px;">
-        <div>
-          <div style="font-family: Arial, sans-serif; font-size: 12px; color: #666; margin-bottom: 8px;">
-            <a href="#" class="slopnews-home-link" style="color: #0a2d73;">Back to homepage</a> | ${article.category}
-          </div>
-          <h1 style="font-size: 36px; margin: 0 0 10px 0; line-height: 1.08;">${article.headline}</h1>
-          <div style="font-size: 20px; line-height: 1.4; color: #4d4d4d; margin-bottom: 10px;">${article.subhead}</div>
-          <div style="font-family: Arial, sans-serif; font-size: 12px; color: #666; margin-bottom: 12px;">By ${article.author} | ${article.byline} | ${article.published}</div>
-          <div style="height: 250px; border: 1px solid #bbb; background: linear-gradient(180deg, #dfe6ef 0%, #cfd8e5 100%); display: flex; align-items: center; justify-content: center; font-family: Arial, sans-serif; color: #3c4e67; margin-bottom: 12px;">
-            ${article.heroLabel}
-          </div>
-          <div style="font-family: Arial, sans-serif; font-size: 12px; color: #0a2d73; margin-bottom: 14px;">
-            ${article.highlights.map((item) => `• ${item}`).join('<br>')}
-          </div>
-          ${article.paragraphs.map((paragraph) => `<p style="font-size: 18px; line-height: 1.58; margin: 0 0 16px 0;">${paragraph}</p>`).join('')}
-        </div>
-
-        <div style="font-family: Arial, sans-serif; font-size: 13px;">
-          <div style="border: 1px solid #c3c7d3; margin-bottom: 12px;">
-            <div style="background: #0a2d73; color: #fff; font-weight: bold; padding: 7px 10px;">Related Coverage</div>
-            <div style="padding: 10px; line-height: 1.55;">
-              ${related.map((item) => `<a href="#" class="slopnews-article-link" data-article="${item.id}" style="display: block; color: #0a2d73; text-decoration: none; margin-bottom: 8px;">${item.headline}</a>`).join('')}
-            </div>
-          </div>
-          <div style="border: 1px solid #c3c7d3; margin-bottom: 12px;">
-            <div style="background: #bf0d0d; color: #fff; font-weight: bold; padding: 7px 10px;">Desk Notes</div>
-            <div style="padding: 10px; line-height: 1.6; color: #444;">
-              • Editorial stance: alarmed but unsurprised<br>
-              • Verification level: internally sourced, externally legible<br>
-              • Style guidance: use facts before metaphors
-            </div>
-          </div>
-          <div style="border: 1px solid #c3c7d3;">
-            <div style="background: #e8ebf4; color: #0a2d73; font-weight: bold; padding: 7px 10px;">Most Read</div>
-            <div style="padding: 10px; line-height: 1.55;">
-              ${Object.values(this.slopNewsArticles).slice(0, 4).map((item) => `<a href="#" class="slopnews-article-link" data-article="${item.id}" style="display: block; color: #0a2d73; text-decoration: none; margin-bottom: 8px;">${item.headline}</a>`).join('')}
-            </div>
-          </div>
-        </div>
-      </div>
-    `;
-
-    this.setupSlopNewsNavigation(articleView);
-    this.slopNewsState.view = 'article';
-    this.slopNewsState.currentArticle = articleId;
-  }
-
-  setupSlopipediaNavigation(scope = document) {
-    scope.querySelectorAll('.slopipedia-article-link').forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const articleId = link.dataset.article;
-        if (articleId) {
-          this.loadBrowserPage(`slop://wikislop#article/${articleId}`);
-        }
-      });
-    });
-
-    scope.querySelectorAll('.slopipedia-home-link').forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        this.loadBrowserPage('slop://wikislop');
-      });
-    });
-  }
-
-  showSlopipediaHome() {
-    const homeView = document.getElementById('slopipedia-home-view');
-    const articleView = document.getElementById('slopipedia-article-view');
-
-    if (homeView) homeView.style.display = 'block';
-    if (articleView) {
-      articleView.style.display = 'none';
-      articleView.innerHTML = '';
-    }
-
-    this.slopipediaState.view = 'home';
-    this.slopipediaState.currentArticle = null;
-  }
-
-  showSlopipediaArticle(articleId) {
-    const homeView = document.getElementById('slopipedia-home-view');
-    const articleView = document.getElementById('slopipedia-article-view');
-    const article = this.slopipediaArticles[articleId];
+  showGenZeroDialog(type) {
 
     if (!article || !articleView) {
       this.showSlopipediaHome();
@@ -4876,21 +4663,7 @@ partial reversion might be the actual optimization.`
     this.slopipediaState.currentArticle = articleId;
   }
 
-  showSlopHubHome() {
-    const homeView = document.getElementById('slophub-home-view');
-    const videoView = document.getElementById('slophub-video-view');
-
-    if (homeView) homeView.style.display = 'block';
-    if (videoView) {
-      videoView.style.display = 'none';
-      videoView.innerHTML = '';
-    }
-
-    this.slophubState.view = 'home';
-    this.slophubState.currentVideo = null;
-  }
-
-  showSlopHubVideo(videoId) {
+  generateSlopscopeChart(coinId) {
     const homeView = document.getElementById('slophub-home-view');
     const videoView = document.getElementById('slophub-video-view');
     const video = this.slophubVideos[videoId];
@@ -5688,92 +5461,6 @@ partial reversion might be the actual optimization.`
     chartContainer.innerHTML = gridHtml + html;
   }
 
-  setupSlopscopeNavigation() {
-    // Coin card/row clicks
-    document.querySelectorAll('.slopcoin-card, .slopcoin-row, .trade-coin-btn').forEach(el => {
-      el.addEventListener('click', (e) => {
-        // Don't navigate if clicking a button inside the row
-        if (e.target.classList.contains('trade-coin-btn')) {
-          e.stopPropagation();
-        }
-        const coinId = el.dataset.coin;
-        if (coinId) {
-          this.loadBrowserPage(`slop://slopscope#chart/${coinId}`);
-        }
-      });
-    });
-
-    // Back button
-    document.querySelectorAll('.slopscope-back-btn').forEach(el => {
-      el.addEventListener('click', () => {
-        this.loadBrowserPage('slop://slopscope');
-      });
-    });
-
-    // Quick amount buttons
-    document.querySelectorAll('.quick-amount').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const amount = btn.dataset.amount;
-        const input = document.getElementById('trade-amount');
-        if (input) {
-          input.value = amount;
-          // Trigger input event to update order preview
-          input.dispatchEvent(new Event('input'));
-        }
-      });
-    });
-
-    // Buy button
-    document.querySelectorAll('.buy-coin-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const coinId = btn.dataset.coin;
-        const amountInput = document.getElementById('trade-amount');
-        const amount = parseFloat(amountInput?.value || 0);
-        
-        if (amount > 0 && amount <= this.slopscopeState.portfolio.balance) {
-          const coin = this.slopcoins[coinId];
-          const coins = amount / coin.price;
-          
-          this.slopscopeState.portfolio.balance -= amount;
-          this.slopscopeState.portfolio.holdings[coinId] = (this.slopscopeState.portfolio.holdings[coinId] || 0) + coins;
-          
-          this.showSlopscopeChart(coinId);
-          this.showBotAssistant(`Trade executed! Bought ${coins.toFixed(2)} ${coin.symbol} for $${amount.toFixed(2)}. Probably a terrible decision.`);
-        } else {
-          this.showBotAssistant('Insufficient balance or invalid amount. Classic.');
-        }
-      });
-    });
-
-    // Sell button
-    document.querySelectorAll('.sell-coin-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const coinId = btn.dataset.coin;
-        const amountInput = document.getElementById('trade-amount');
-        const amount = parseFloat(amountInput?.value || 0);
-        const coin = this.slopcoins[coinId];
-        const coinsToSell = amount / coin.price;
-        const holding = this.slopscopeState.portfolio.holdings[coinId] || 0;
-        
-        if (coinsToSell > 0 && coinsToSell <= holding) {
-          this.slopscopeState.portfolio.balance += amount;
-          this.slopscopeState.portfolio.holdings[coinId] -= coinsToSell;
-          
-          if (this.slopscopeState.portfolio.holdings[coinId] < 0.01) {
-            delete this.slopscopeState.portfolio.holdings[coinId];
-          }
-          
-          this.showSlopscopeChart(coinId);
-          this.showBotAssistant(`Sold ${coinsToSell.toFixed(2)} ${coin.symbol} for $${amount.toFixed(2)}. Probably too early.`);
-        } else {
-          this.showBotAssistant('Insufficient holdings or invalid amount. Can\'t sell what you don\'t have.');
-        }
-      });
-    });
-  }
-
   setupSlopchanNavigation() {
     // Board links
     document.querySelectorAll('.slopchan-board-link').forEach(link => {
@@ -5883,39 +5570,39 @@ partial reversion might be the actual optimization.`
         browserTitle.textContent = '** AI WEBRING ** - Microslop Explorer';
         browserStatus.textContent = 'Done';
       } else if (url.startsWith('slop://slophub')) {
-        // Show SlopHub and internal watch pages
+        // Show SlopHub (using module)
         if (slophubPage) slophubPage.style.display = 'block';
 
         const hashIdx = url.indexOf('#');
         const hash = hashIdx !== -1 ? url.slice(hashIdx + 1) : '';
 
+        const site = this.browserManager.sites.slophub;
         if (hash.startsWith('video/')) {
           const videoId = hash.slice(6);
-          this.showSlopHubVideo(videoId);
-          const video = this.slophubVideos[videoId];
+          site.showVideo(videoId, (newUrl) => this.loadBrowserPage(newUrl));
+          const video = site.videos[videoId];
           browserTitle.textContent = video ? `${video.title} - SlopHub - Microslop Explorer` : 'SLOPHUB - Premium Slop Streaming - Microslop Explorer';
         } else {
-          this.showSlopHubHome();
-          this.setupSlopHubNavigation();
+          site.showHome((newUrl) => this.loadBrowserPage(newUrl));
           browserTitle.textContent = 'SLOPHUB - Premium Slop Streaming - Microslop Explorer';
         }
         this.addBlackVaultShardMarker('slophub');
         browserStatus.textContent = 'Done';
       } else if (url.startsWith('slop://slopnews')) {
-        // Show Slopnews and internal article pages
+        // Show Slopnews and internal article pages (using module)
         if (slopnewsPage) slopnewsPage.style.display = 'block';
 
         const hashIdx = url.indexOf('#');
         const hash = hashIdx !== -1 ? url.slice(hashIdx + 1) : '';
 
+        const site = this.browserManager.sites.slopnews;
         if (hash.startsWith('article/')) {
           const articleId = hash.slice(8);
-          this.showSlopNewsArticle(articleId);
-          const article = this.slopNewsArticles[articleId];
+          site.showArticle(articleId, (newUrl) => this.loadBrowserPage(newUrl));
+          const article = site.articles[articleId];
           browserTitle.textContent = article ? `${article.headline} - Slopnews - Microslop Explorer` : 'SLOPNEWS - Breaking Slop Alerts - Microslop Explorer';
         } else {
-          this.showSlopNewsHome();
-          this.setupSlopNewsNavigation();
+          site.showHome((newUrl) => this.loadBrowserPage(newUrl));
           browserTitle.textContent = 'SLOPNEWS - Breaking Slop Alerts - Microslop Explorer';
         }
         this.addBlackVaultShardMarker('slopnews');
@@ -5925,87 +5612,92 @@ partial reversion might be the actual optimization.`
         browserTitle.textContent = 'Daily Slop dot BIZ - Microslop Explorer';
         browserStatus.textContent = 'Done';
       } else if (url.startsWith('slop://slopipedia') || url.startsWith('slop://wikislop')) {
-        // Show Slopipedia and internal article pages
+        // Show Slopipedia and internal article pages (using module)
         if (slopipediaPage) slopipediaPage.style.display = 'block';
 
         const hashIdx = url.indexOf('#');
         const hash = hashIdx !== -1 ? url.slice(hashIdx + 1) : '';
 
+        const site = this.browserManager.sites.wikislop;
         if (hash.startsWith('article/')) {
           const articleId = hash.slice(8);
-          this.showSlopipediaArticle(articleId);
-          const article = this.slopipediaArticles[articleId];
+          site.showArticle(articleId, (newUrl) => this.loadBrowserPage(newUrl));
+          const article = site.articles[articleId];
           browserTitle.textContent = article ? `${article.title} - Wikislop - Microslop Explorer` : 'Wikislop, the free slop encyclopedia - Microslop Explorer';
         } else {
-          this.showSlopipediaHome();
-          this.setupSlopipediaNavigation();
+          site.showHome((newUrl) => this.loadBrowserPage(newUrl));
           browserTitle.textContent = 'Wikislop, the free slop encyclopedia - Microslop Explorer';
         }
         this.addBlackVaultShardMarker('wikislop');
         browserStatus.textContent = 'Done';
       } else if (url.startsWith('slop://slopmaxxing')) {
-        // Show Slopmaxxing Forums - parse hash for sub-navigation
+        // Show Slopmaxxing Forums - parse hash for sub-navigation (using module)
         if (slopmaxxingPage) slopmaxxingPage.style.display = 'block';
         
         const hashIdx = url.indexOf('#');
         const hash = hashIdx !== -1 ? url.slice(hashIdx + 1) : '';
         
+        const site = this.browserManager.sites.slopmaxxing;
         if (hash.startsWith('board/')) {
           const boardName = hash.slice(6);
-          this.showForumBoard(boardName);
+          site.showBoard(boardName, (newUrl) => this.loadBrowserPage(newUrl));
           const boardLabels = { lab: '/lab/', protocols: '/protocols/', 'field-reports': '/field-reports/', detox: '/detox/', failures: '/failures/', archive: '/archive/' };
           browserTitle.textContent = `${boardLabels[boardName] || boardName} - Slopmaxxing Forums - Microslop Explorer`;
         } else if (hash.startsWith('thread/')) {
           const threadId = hash.slice(7);
-          this.showForumThread(threadId);
-          const thread = this.forumThreads[threadId];
+          site.showThread(threadId, (newUrl) => this.loadBrowserPage(newUrl));
+          const thread = site.threads[threadId];
           browserTitle.textContent = thread ? `${thread.title} - Slopmaxxing - Microslop Explorer` : 'Slopmaxxing Forums - Microslop Explorer';
         } else {
-          this.showForumIndex();
-          this.setupForumNavigation();
+          site.showIndex((newUrl) => this.loadBrowserPage(newUrl));
           browserTitle.textContent = 'Slopmaxxing Forums - Microslop Explorer';
         }
         this.addBlackVaultShardMarker('slopmaxxing');
         browserStatus.textContent = 'Done';
       } else if (url.startsWith('slop://slopchan')) {
-        // Show Slopchan with hash-based navigation
+        // Show Slopchan with hash-based navigation (using module)
         if (slopchanPage) slopchanPage.style.display = 'block';
 
         const hashIdx = url.indexOf('#');
         const hash = hashIdx !== -1 ? url.slice(hashIdx + 1) : '';
 
+        const site = this.browserManager.sites.slopchan;
         if (hash.startsWith('board/')) {
           const boardId = hash.slice(6);
-          this.showSlopchanCatalog(boardId);
-          const board = this.slopchanBoards[boardId];
+          site.showCatalog(boardId, (newUrl) => this.loadBrowserPage(newUrl));
+          const board = site.boards[boardId];
           browserTitle.textContent = board ? `${board.name} - Slopchan - Microslop Explorer` : 'Slopchan - Microslop Explorer';
         } else if (hash.startsWith('thread/')) {
           const threadId = hash.slice(7);
-          this.showSlopchanThread(threadId);
-          const thread = this.slopchanThreads[threadId];
+          site.showThread(threadId, (newUrl) => this.loadBrowserPage(newUrl));
+          const thread = site.threads[threadId];
           browserTitle.textContent = thread ? `${thread.subject || 'Thread'} - /${thread.board}/ - Slopchan - Microslop Explorer` : 'Slopchan - Microslop Explorer';
         } else {
           // Default to /slop/ catalog
-          this.showSlopchanCatalog('slop');
-          this.setupSlopchanNavigation();
+          site.showCatalog('slop', (newUrl) => this.loadBrowserPage(newUrl));
           browserTitle.textContent = '/slop/ - Random - Slopchan - Microslop Explorer';
         }
         this.addBlackVaultShardMarker('slopchan');
         browserStatus.textContent = 'Done';
       } else if (url.startsWith('slop://slopscope')) {
-        // Show SlopScope trading terminal
+        // Show SlopScope trading terminal (using module)
         if (slopscopePage) slopscopePage.style.display = 'block';
 
         const hashIdx = url.indexOf('#');
         const hash = hashIdx !== -1 ? url.slice(hashIdx + 1) : '';
 
+        const site = this.browserManager.sites.slopscope;
         if (hash.startsWith('chart/')) {
           const coinId = hash.slice(6);
-          this.showSlopscopeChart(coinId);
-          const coin = this.slopcoins[coinId];
+          site.showChart(
+            coinId,
+            (newUrl) => this.loadBrowserPage(newUrl),
+            (message) => this.botAssistant.show(message)
+          );
+          const coin = site.coins[coinId];
           browserTitle.textContent = coin ? `${coin.symbol} - SlopScope - Microslop Explorer` : 'SlopScope - Microslop Explorer';
         } else {
-          this.showSlopscopeCatalog();
+          site.showCatalog((newUrl) => this.loadBrowserPage(newUrl));
           browserTitle.textContent = 'SlopScope - Slopcoin Trading Terminal - Microslop Explorer';
         }
         this.addBlackVaultShardMarker('slopscope');
