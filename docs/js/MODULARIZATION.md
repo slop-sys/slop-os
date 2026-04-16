@@ -8,28 +8,28 @@ This guide documents the modularization of the Slop OS codebase from a single 6,
 js/
 ├── core/
 │   ├── desktop.js         # Window management, drag/drop, taskbar (TODO)
-│   ├── terminal.js        # Terminal system + commands ✅
-│   └── bot-assistant.js   # Slopbot popup system ✅
+│   ├── terminal.js        # Terminal system + commands (TODO)
+│   └── bot-assistant.js   # Slopbot popup system (TODO)
 ├── browser/
 │   ├── browser-manager.js # Browser navigation & routing ✅
 │   └── sites/
 │       ├── slophub.js     # SlopHub video platform ✅
-│       ├── slopnews.js    # News site ✅
-│       ├── wikislop.js    # Wikipedia clone ✅
-│       ├── slopmaxxing.js # Forum site ✅
-│       ├── slopchan.js    # 4chan clone ✅
-│       ├── slopscope.js   # Crypto tracker ✅
-│       ├── aigallery.js   # AI art gallery (static HTML)
-│       ├── promptkingdom.js # Prompt marketplace (static HTML)
-│       ├── contentfarm.js # Content farm site (static HTML)
-│       └── webring.js     # Webring portal (static HTML)
+│       ├── slopnews.js    # News site (TODO)
+│       ├── wikislop.js    # Wikipedia clone (TODO)
+│       ├── slopmaxxing.js # Forum site (TODO)
+│       ├── slopchan.js    # 4chan clone (TODO)
+│       ├── slopscope.js   # Crypto tracker (TODO)
+│       ├── aigallery.js   # AI art gallery (TODO)
+│       ├── promptkingdom.js # Prompt marketplace (TODO)
+│       ├── contentfarm.js # Content farm site (TODO)
+│       └── webring.js     # Webring portal (TODO)
 ├── quests/
 │   ├── generation-zero.js # Generation Zero quest (TODO)
-│   └── black-vault.js     # Black Vault quest (in terminal.js)
+│   └── black-vault.js     # Black Vault quest (TODO)
 ├── utils/
 │   ├── storage.js         # localStorage helpers (TODO)
 │   └── sound.js           # Audio management (TODO)
-└── desktop.js             # Main entry point ✅ (refactored to use modules)
+└── desktop.js             # Main entry point (to be refactored)
 ```
 
 ## Completed Modules
@@ -279,17 +279,14 @@ When adding new features:
 ## Status
 
 - ✅ Directory structure created
-- ✅ Browser sites extracted (6 modules)
-- ✅ Terminal system extracted
-- ✅ Bot assistant extracted
+- ✅ SlopHub module extracted & tested
 - ✅ Browser manager created
-- ✅ Desktop.js refactored to use imports
-- ✅ index.html updated for ES6 modules
-- ✅ Integration complete
+- 🔄 Integration in progress
+- ⏱️ Remaining sites pending
+- ⏱️ Terminal/bot/quests pending
 
 ---
 
 **Last Updated:** April 16, 2026  
-**Modules Completed:** 9/12 core modules (75%)  
-**Lines Modularized:** ~3,000/6,387 (47%)  
-**Status:** Modularization directories added to .gitignore (WIP)
+**Modules Completed:** 2/20+  
+**Lines Modularized:** ~800/6387 (12.5%)
