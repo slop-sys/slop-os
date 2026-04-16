@@ -1,0 +1,13 @@
+{
+  "id": "my-first-slopsite",
+  "name": "My First Slopsite",
+  "slug": "my-first-slopsite",
+  "author": "slopfriend42",
+  "description": "A tiny retro page about archive artifacts from generation 847, built for Microslop Explorer.",
+  "entry": "sites/my-first-slopsite/index.html",
+  "icon": "sites/my-first-slopsite/assets/icon.png",
+  "tags": ["retro", "archive", "slop"],
+  "version": "1.0.0",
+  "license": "MIT",
+  "source": "https://github.com/example/my-first-slopsite"
+}

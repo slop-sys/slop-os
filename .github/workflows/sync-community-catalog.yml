@@ -1,0 +1,50 @@
+name: Sync Community Catalog
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '15 * * * *'
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Pull submissions repo archive
+        env:
+          COMMUNITY_REPO: slop-sys/community-pages
+          COMMUNITY_BRANCH: main
+        run: |
+          curl -fsSL "https://api.github.com/repos/${COMMUNITY_REPO}/tarball/${COMMUNITY_BRANCH}" -o community.tar.gz
+          mkdir community
+          tar -xzf community.tar.gz -C community --strip-components=1
+
+      - name: Copy submissions into workspace
+        run: |
+          rm -rf submissions
+          cp -r community/submissions submissions
+
+      - name: Validate submissions
+        run: node scripts/community-sites/validate-submissions.mjs
+
+      - name: Build trusted catalog
+        run: |
+          node -e "const fs=require('fs'); const p='submissions'; const out=[]; for (const d of fs.readdirSync(p,{withFileTypes:true}).filter(x=>x.isDirectory())) { const m=JSON.parse(fs.readFileSync(`${p}/${d.name}/site.json`,'utf8')); out.push({id:m.id,name:m.name,slug:m.slug,description:m.description,entry:m.entry,icon:m.icon||null,tags:m.tags,version:m.version,author:m.author}); } fs.mkdirSync('docs/data',{recursive:true}); fs.writeFileSync('docs/data/community-sites.catalog.json',JSON.stringify({updatedAt:new Date().toISOString(),sites:out},null,2));"
+
+      - name: Commit catalog changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/data/community-sites.catalog.json
+          git diff --cached --quiet || git commit -m "chore: sync community catalog"
+          git diff --cached --quiet || git push

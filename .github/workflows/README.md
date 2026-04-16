@@ -1,8 +1,20 @@
-# No Workflows
+# Workflows
 
-This is vaporware. We don't need CI/CD for code that does nothing.
+This repository now includes one security-focused workflow:
 
-The old workflow errors you see in GitHub Actions are from before we deleted the workflows.
-New commits won't trigger any actions.
+- [sync-community-catalog.yml](sync-community-catalog.yml)
 
-**This is intentional and part of the satire.**
+Purpose:
+
+- Pulls approved submissions from `slop-sys/community-pages`
+- Validates all imported submissions using local guardrails
+- Generates `docs/data/community-sites.catalog.json`
+- Commits catalog changes when they differ
+
+Schedule:
+
+- Hourly (`15 * * * *`) and manual dispatch
+
+Notes:
+
+- This workflow is intentionally narrow in scope and does not run arbitrary user code.

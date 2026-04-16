@@ -1,0 +1,36 @@
+name: Validate Community Submissions
+
+on:
+  pull_request:
+    paths:
+      - submissions/**
+      - .github/workflows/validate-submission.yml
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Fetch validator from trusted repo
+        run: |
+          mkdir -p .tmp
+          curl -fsSL https://raw.githubusercontent.com/slop-sys/slop-os/main/scripts/community-sites/validate-submissions.mjs -o .tmp/validate-submissions.mjs
+          curl -fsSL https://raw.githubusercontent.com/slop-sys/slop-os/main/docs/community-sites/community-site.schema.json -o .tmp/community-site.schema.json
+
+      - name: Link schema into expected path
+        run: |
+          mkdir -p docs/community-sites
+          cp .tmp/community-site.schema.json docs/community-sites/community-site.schema.json
+
+      - name: Validate
+        run: node .tmp/validate-submissions.mjs

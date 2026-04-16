@@ -1,0 +1,5 @@
+# Require maintainer review for all submissions
+* @slop-sys/core-maintainers
+
+# Optional stricter owners for workflow files
+.github/workflows/* @slop-sys/core-maintainers
