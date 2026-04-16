@@ -38,5 +38,11 @@ pnpm-debug.log*
 *.tmp
 .cache/
 
+# Modularized code (work in progress)
+docs/js/browser/
+docs/js/core/
+docs/js/quests/
+docs/js/utils/
+
 # Local Copilot workspace instructions
 .github/copilot-instructions.md
