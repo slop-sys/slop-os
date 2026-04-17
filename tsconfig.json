@@ -28,7 +28,8 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "newLine": "lf"
   },
   "exclude": [
     "node_modules",
