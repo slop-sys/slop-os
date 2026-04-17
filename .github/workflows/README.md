@@ -8,7 +8,7 @@ Purpose:
 
 - Pulls approved submissions from `slop-sys/community-pages`
 - Validates all imported submissions using local guardrails
-- Generates `docs/data/community-sites.catalog.json`
+- Generates `data/community-sites.catalog.json`
 - Commits catalog changes when they differ
 
 Schedule:

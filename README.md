@@ -123,7 +123,7 @@ git clone https://github.com/slop-sys/slop-os.git
 cd slop-os
 
 # Open the interface
-open docs/index.html
+open index.html
 ```
 
 No installation required. Pure HTML/CSS/JavaScript.  

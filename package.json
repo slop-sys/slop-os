@@ -24,11 +24,11 @@
     "build": "echo \"No build step configured\"",
     "test": "vitest run --passWithNoTests",
     "test:coverage": "vitest run --coverage --passWithNoTests",
-    "lint": "eslint docs/js scripts --ext .js,.mjs --max-warnings 0",
+    "lint": "eslint js scripts --ext .js,.mjs --max-warnings 0",
     "format": "prettier --write \"**/*.{ts,tsx,js,json,md}\"",
     "clean": "rm -rf dist coverage",
-    "dev": "npx http-server docs -p 8000 --cors"
-  },
+    "dev": "npx http-server . -p 8000 --cors"
+  }
   "devDependencies": {
     "@types/node": "^20.11.0",
     "eslint": "^8.56.0",

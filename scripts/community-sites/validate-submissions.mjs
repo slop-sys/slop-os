@@ -5,7 +5,7 @@ import path from 'node:path';
 
 const repoRoot = process.cwd();
 const submissionsDir = path.join(repoRoot, 'submissions');
-const schemaPath = path.join(repoRoot, 'docs', 'community-sites', 'community-site.schema.json');
+const schemaPath = path.join(repoRoot, 'community-sites', 'community-site.schema.json');
 
 const MAX_HTML_BYTES = 200_000;
 const MAX_ASSET_BYTES = 1_500_000;

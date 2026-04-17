@@ -39,12 +39,12 @@ jobs:
 
       - name: Build trusted catalog
         run: |
-          node -e "const fs=require('fs'); const p='submissions'; const out=[]; for (const d of fs.readdirSync(p,{withFileTypes:true}).filter(x=>x.isDirectory())) { const m=JSON.parse(fs.readFileSync(`${p}/${d.name}/site.json`,'utf8')); out.push({id:m.id,name:m.name,slug:m.slug,description:m.description,entry:m.entry,icon:m.icon||null,tags:m.tags,version:m.version,author:m.author}); } fs.mkdirSync('docs/data',{recursive:true}); fs.writeFileSync('docs/data/community-sites.catalog.json',JSON.stringify({updatedAt:new Date().toISOString(),sites:out},null,2));"
+          node -e "const fs=require('fs'); const p='submissions'; const out=[]; for (const d of fs.readdirSync(p,{withFileTypes:true}).filter(x=>x.isDirectory())) { const m=JSON.parse(fs.readFileSync(`${p}/${d.name}/site.json`,'utf8')); out.push({id:m.id,name:m.name,slug:m.slug,description:m.description,entry:m.entry,icon:m.icon||null,tags:m.tags,version:m.version,author:m.author}); } fs.mkdirSync('data',{recursive:true}); fs.writeFileSync('data/community-sites.catalog.json',JSON.stringify({updatedAt:new Date().toISOString(),sites:out},null,2));"
 
       - name: Commit catalog changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs/data/community-sites.catalog.json
+          git add data/community-sites.catalog.json
           git diff --cached --quiet || git commit -m "chore: sync community catalog"
           git diff --cached --quiet || git push
