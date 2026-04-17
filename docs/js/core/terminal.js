@@ -62,8 +62,6 @@ export class Terminal {
   executeCommand(cmd, onPrompt = null) {
     const args = cmd.toLowerCase().split(' ');
     const command = args[0];
-    const rawArgs = cmd.split(' ');
-    const rawCommandArgs = rawArgs.slice(1).join(' ').trim();
     this.trackCommandUsage(command);
 
     setTimeout(() => {

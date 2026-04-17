@@ -1,8 +1,8 @@
 {
-  "name": "@useless/monorepo",
+  "name": "slop-os",
   "version": "0.0.0",
   "private": true,
-  "description": "The complete framework for building nothing, efficiently.",
+  "description": "SLOP-OS web interface",
   "keywords": [
     "framework",
     "nothing",
@@ -20,30 +20,19 @@
   },
   "license": "MIT",
   "author": "The useless bot Team",
-  "workspaces": [
-    "packages/*"
-  ],
   "scripts": {
-    "build": "pnpm -r build",
-    "test": "pnpm -r test",
-    "test:coverage": "pnpm -r test:coverage",
-    "lint": "pnpm -r lint",
+    "build": "echo \"No build step configured\"",
+    "test": "vitest run --passWithNoTests",
+    "test:coverage": "vitest run --coverage --passWithNoTests",
+    "lint": "eslint docs/js scripts --ext .js,.mjs --max-warnings 0",
     "format": "prettier --write \"**/*.{ts,tsx,js,json,md}\"",
-    "clean": "pnpm -r clean",
-    "dev": "pnpm -r --parallel dev",
-    "changeset": "changeset",
-    "version": "changeset version",
-    "release": "pnpm build && changeset publish"
+    "clean": "rm -rf dist coverage",
+    "dev": "npx http-server docs -p 8000 --cors"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.27.1",
     "@types/node": "^20.11.0",
-    "@typescript-eslint/eslint-plugin": "^6.19.0",
-    "@typescript-eslint/parser": "^6.19.0",
     "eslint": "^8.56.0",
     "prettier": "^3.2.4",
-    "tsup": "^8.0.1",
-    "typescript": "^5.3.3",
     "vitest": "^1.2.0"
   },
   "engines": {

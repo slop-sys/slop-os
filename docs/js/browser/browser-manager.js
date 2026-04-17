@@ -50,6 +50,16 @@ export class BrowserManager {
     this.initialized = false;
   }
 
+  resetPageScroll(pageEl) {
+    if (!pageEl) return;
+
+    pageEl.scrollTop = 0;
+
+    if (typeof pageEl.scrollTo === 'function') {
+      pageEl.scrollTo(0, 0);
+    }
+  }
+
   setup() {
     if (this.initialized) return;
     this.initialized = true;
@@ -390,6 +400,7 @@ export class BrowserManager {
     const slopmaxxingPage = document.getElementById('browser-page-slopmaxxing');
     const slopchanPage = document.getElementById('browser-page-slopchan');
     const slopscopePage = document.getElementById('browser-page-slopscope');
+    const resetActivePageScroll = (pageEl) => this.resetPageScroll(pageEl);
 
     if (addToHistory) {
       this.historyIndex++;
@@ -422,6 +433,7 @@ export class BrowserManager {
 
       if (url === 'home' || url === 'about:home') {
         homePage.style.display = 'block';
+        resetActivePageScroll(homePage);
         browserTitle.textContent = 'Slop Labs Research Portal - Microslop Explorer';
         browserStatus.textContent = 'Done';
       } else if (url === 'about:blank') {
@@ -431,22 +443,27 @@ export class BrowserManager {
         browserStatus.textContent = 'Done';
       } else if (url === 'slop://aigallery') {
         if (aiGalleryPage) aiGalleryPage.style.display = 'block';
+        resetActivePageScroll(aiGalleryPage);
         browserTitle.textContent = '** FREE AI ART GALLERY ** - Microslop Explorer';
         browserStatus.textContent = 'Done';
       } else if (url === 'slop://promptkingdom') {
         if (promptKingdomPage) promptKingdomPage.style.display = 'block';
+        resetActivePageScroll(promptKingdomPage);
         browserTitle.textContent = '** AI PROMPT KINGDOM ** - Microslop Explorer';
         browserStatus.textContent = 'Done';
       } else if (url === 'slop://contentfarm') {
         if (contentFarmPage) contentFarmPage.style.display = 'block';
+        resetActivePageScroll(contentFarmPage);
         browserTitle.textContent = 'GENERIC CONTENT DEPOT - Microslop Explorer';
         browserStatus.textContent = 'Done';
       } else if (url === 'slop://webring') {
         if (webringPage) webringPage.style.display = 'block';
+        resetActivePageScroll(webringPage);
         browserTitle.textContent = '** AI WEBRING ** - Microslop Explorer';
         browserStatus.textContent = 'Done';
       } else if (url.startsWith('slop://slophub')) {
         if (slophubPage) slophubPage.style.display = 'block';
+        resetActivePageScroll(slophubPage);
 
         const hashIdx = url.indexOf('#');
         const hash = hashIdx !== -1 ? url.slice(hashIdx + 1) : '';
@@ -464,6 +481,7 @@ export class BrowserManager {
         browserStatus.textContent = 'Done';
       } else if (url.startsWith('slop://slopnews')) {
         if (slopnewsPage) slopnewsPage.style.display = 'block';
+        resetActivePageScroll(slopnewsPage);
 
         const hashIdx = url.indexOf('#');
         const hash = hashIdx !== -1 ? url.slice(hashIdx + 1) : '';
@@ -481,10 +499,12 @@ export class BrowserManager {
         browserStatus.textContent = 'Done';
       } else if (url === 'slop://dailyslop') {
         if (dailyslopPage) dailyslopPage.style.display = 'block';
+        resetActivePageScroll(dailyslopPage);
         browserTitle.textContent = 'Daily Slop dot BIZ - Microslop Explorer';
         browserStatus.textContent = 'Done';
       } else if (url.startsWith('slop://wikislop')) {
         if (slopipediaPage) slopipediaPage.style.display = 'block';
+        resetActivePageScroll(slopipediaPage);
 
         const hashIdx = url.indexOf('#');
         const hash = hashIdx !== -1 ? url.slice(hashIdx + 1) : '';
@@ -502,6 +522,7 @@ export class BrowserManager {
         browserStatus.textContent = 'Done';
       } else if (url.startsWith('slop://slopmaxxing')) {
         if (slopmaxxingPage) slopmaxxingPage.style.display = 'block';
+        resetActivePageScroll(slopmaxxingPage);
 
         const hashIdx = url.indexOf('#');
         const hash = hashIdx !== -1 ? url.slice(hashIdx + 1) : '';
@@ -524,6 +545,7 @@ export class BrowserManager {
         browserStatus.textContent = 'Done';
       } else if (url.startsWith('slop://slopchan')) {
         if (slopchanPage) slopchanPage.style.display = 'block';
+        resetActivePageScroll(slopchanPage);
 
         const hashIdx = url.indexOf('#');
         const hash = hashIdx !== -1 ? url.slice(hashIdx + 1) : '';
@@ -546,6 +568,7 @@ export class BrowserManager {
         browserStatus.textContent = 'Done';
       } else if (url.startsWith('slop://slopscope')) {
         if (slopscopePage) slopscopePage.style.display = 'block';
+        resetActivePageScroll(slopscopePage);
 
         const hashIdx = url.indexOf('#');
         const hash = hashIdx !== -1 ? url.slice(hashIdx + 1) : '';
@@ -567,6 +590,7 @@ export class BrowserManager {
         browserStatus.textContent = 'Done';
       } else {
         errorPage.style.display = 'block';
+        resetActivePageScroll(errorPage);
         browserTitle.textContent = 'The page cannot be displayed - Microslop Explorer';
         browserStatus.textContent = 'Done';
         this.openExternalUrl(url);

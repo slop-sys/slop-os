@@ -210,7 +210,6 @@ export class Wikislop {
   showHome(onNavigate) {
     const homeView = document.getElementById('slopipedia-home-view');
     const articleView = document.getElementById('slopipedia-article-view');
-    const pageContainer = document.getElementById('browser-page-slopipedia');
 
     if (homeView) homeView.style.display = 'block';
     if (articleView) {
