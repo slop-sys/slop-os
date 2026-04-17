@@ -555,7 +555,7 @@ post your best recursive degradation stories`,
 
     const html = `
       <div style="text-align: center; margin: 10px 0 6px 0;">
-        <img src="assets/slopchan.png?v=20260416" alt="Slopchan" style="height: 70px; width: auto; display: inline-block;">
+        <img src="assets/slopchan-new.png" alt="Slopchan" style="height: 70px; width: auto; display: inline-block;">
       </div>
 
       <div style="text-align: center; margin-bottom: 6px;">
@@ -619,7 +619,7 @@ post your best recursive degradation stories`,
 
     const html = `
       <div style="text-align: center; margin: 10px 0 6px 0;">
-        <img src="assets/slopchan.png?v=20260416" alt="Slopchan" style="height: 70px; width: auto; display: inline-block;">
+        <img src="assets/slopchan-new.png" alt="Slopchan" style="height: 70px; width: auto; display: inline-block;">
       </div>
 
       <div style="text-align: center; margin-bottom: 6px;">
