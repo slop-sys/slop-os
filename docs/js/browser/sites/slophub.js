@@ -207,8 +207,9 @@ export class SlopHub {
 
   /**
    * Show the home view with video grid
+   * @param {Function} onNavigate - Optional callback for navigation
    */
-  showHome() {
+  showHome(onNavigate) {
     const homeView = document.getElementById('slophub-home-view');
     const videoView = document.getElementById('slophub-video-view');
 
@@ -216,6 +217,11 @@ export class SlopHub {
     if (videoView) {
       videoView.style.display = 'none';
       videoView.innerHTML = '';
+    }
+
+    // Setup navigation for the static home page links
+    if (homeView && onNavigate) {
+      this.setupNavigation(homeView, onNavigate);
     }
 
     this.state.view = 'home';

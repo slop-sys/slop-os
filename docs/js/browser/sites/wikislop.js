@@ -9,6 +9,8 @@ export class Wikislop {
       view: 'home',
       currentArticle: null
     };
+    
+    this.sidebarInitialized = false;
 
     this.articles = {
       'slop-os-universe': {
@@ -205,14 +207,30 @@ export class Wikislop {
     };
   }
 
-  showHome() {
+  showHome(onNavigate) {
     const homeView = document.getElementById('slopipedia-home-view');
     const articleView = document.getElementById('slopipedia-article-view');
+    const pageContainer = document.getElementById('browser-page-slopipedia');
 
     if (homeView) homeView.style.display = 'block';
     if (articleView) {
       articleView.style.display = 'none';
       articleView.innerHTML = '';
+    }
+
+    // Setup navigation for the static home page links AND the sidebar
+    if (onNavigate) {
+      if (homeView) {
+        this.setupNavigation(homeView, onNavigate);
+      }
+      // Setup sidebar navigation only once to avoid duplicate handlers
+      if (!this.sidebarInitialized) {
+        const pageContainer = document.getElementById('browser-page-slopipedia');
+        if (pageContainer) {
+          this.setupNavigation(pageContainer, onNavigate);
+          this.sidebarInitialized = true;
+        }
+      }
     }
 
     this.state.view = 'home';
@@ -282,7 +300,18 @@ export class Wikislop {
       </p>
     `;
 
+    // Setup navigation for article content
     this.setupNavigation(articleView, onNavigate);
+    
+    // Setup sidebar navigation only once to avoid duplicate handlers
+    if (!this.sidebarInitialized) {
+      const pageContainer = document.getElementById('browser-page-slopipedia');
+      if (pageContainer) {
+        this.setupNavigation(pageContainer, onNavigate);
+        this.sidebarInitialized = true;
+      }
+    }
+    
     this.state.view = 'article';
     this.state.currentArticle = articleId;
   }

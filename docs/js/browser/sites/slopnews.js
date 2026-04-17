@@ -155,7 +155,7 @@ export class SlopNews {
     };
   }
 
-  showHome() {
+  showHome(onNavigate) {
     const homeView = document.getElementById('slopnews-home-view');
     const articleView = document.getElementById('slopnews-article-view');
 
@@ -163,6 +163,11 @@ export class SlopNews {
     if (articleView) {
       articleView.style.display = 'none';
       articleView.innerHTML = '';
+    }
+
+    // Setup navigation for the static home page links
+    if (homeView && onNavigate) {
+      this.setupNavigation(homeView, onNavigate);
     }
 
     this.state.view = 'home';

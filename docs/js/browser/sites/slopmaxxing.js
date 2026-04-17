@@ -10,6 +10,8 @@ export class Slopmaxxing {
       currentBoard: null,
       currentThread: null
     };
+    
+    this.headerInitialized = false;
 
     this.threads = {
       'adjective-cleanse': {
@@ -464,14 +466,27 @@ partial reversion might be the actual optimization.`
     };
   }
 
-  showIndex() {
+  showIndex(onNavigate) {
     const indexView = document.getElementById('forum-view-index');
     const boardView = document.getElementById('forum-view-board');
     const threadView = document.getElementById('forum-view-thread');
+    const pageContainer = document.getElementById('browser-page-slopmaxxing');
     
     if (indexView) indexView.style.display = 'block';
     if (boardView) boardView.style.display = 'none';
     if (threadView) threadView.style.display = 'none';
+    
+    // Setup navigation for the static index page links AND the header board links
+    if (onNavigate) {
+      if (indexView) {
+        this.setupNavigation(indexView, onNavigate);
+      }
+      // Setup header navigation only once to avoid duplicate handlers
+      if (!this.headerInitialized && pageContainer) {
+        this.setupNavigation(pageContainer, onNavigate);
+        this.headerInitialized = true;
+      }
+    }
     
     this.state.view = 'index';
     this.state.currentBoard = null;
@@ -533,6 +548,14 @@ partial reversion might be the actual optimization.`
       `;
       
       this.setupNavigation(boardView, onNavigate);
+      // Setup header navigation only once to avoid duplicate handlers
+      if (!this.headerInitialized) {
+        const pageContainer = document.getElementById('browser-page-slopmaxxing');
+        if (pageContainer) {
+          this.setupNavigation(pageContainer, onNavigate);
+          this.headerInitialized = true;
+        }
+      }
     }
     if (threadView) threadView.style.display = 'none';
     
@@ -630,6 +653,14 @@ partial reversion might be the actual optimization.`
       `;
       
       this.setupNavigation(threadView, onNavigate);
+      // Setup header navigation only once to avoid duplicate handlers
+      if (!this.headerInitialized) {
+        const pageContainer = document.getElementById('browser-page-slopmaxxing');
+        if (pageContainer) {
+          this.setupNavigation(pageContainer, onNavigate);
+          this.headerInitialized = true;
+        }
+      }
     }
     
     this.state.view = 'thread';
@@ -650,6 +681,16 @@ partial reversion might be the actual optimization.`
           if (onNavigate) {
             onNavigate('slop://slopmaxxing');
           }
+        }
+      });
+    });
+
+    scope.querySelectorAll('.forum-board-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const boardName = link.dataset.board;
+        if (boardName && onNavigate) {
+          onNavigate(`slop://slopmaxxing#board/${boardName}`);
         }
       });
     });
