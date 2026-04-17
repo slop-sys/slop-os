@@ -23,118 +23,10 @@ export class Terminal {
       commandUsage: {}
     };
 
-    // Black Vault Quest
-    this.blackVaultCrypto = {
-      seed: [0x73, 0x6C, 0x6F, 0x70, 0x2D, 0x67, 0x65, 0x6E, 0x2D, 0x38, 0x34, 0x37],
-      payload: [0x1f, 0x0b, 0x39, 0x29, 0x16, 0x0e, 0x00, 0x56, 0x05, 0x0f, 0x1b, 0x22, 0x1d, 0x0a, 0x16, 0x59, 0x0f, 0x14, 0x1f, 0x18, 0x08, 0x07, 0x1a, 0x04, 0x00, 0x57, 0x03, 0x0d, 0x1f, 0x12, 0x1e, 0x5c, 0x1e, 0x1c, 0x03, 0x0e, 0x05, 0x0b, 0x03, 0x07, 0x5b, 0x11]
-    };
-    
-    this.blackVaultShardSites = [
-      'aigallery', 'promptkingdom', 'contentfarm', 'webring', 'slophub',
-      'slopnews', 'wikislop', 'slopmaxxing', 'slopchan', 'slopscope'
-    ];
-    
-    this.blackVaultQuest = {
-      started: false,
-      stage: 0,
-      cluesUnlocked: [],
-      shardsFound: [],
-      completed: false
-    };
 
-    this.loadBlackVaultState();
   }
 
-  loadBlackVaultState() {
-    this.blackVaultQuest.started = localStorage.getItem('blackVaultStarted') === 'true';
-    this.blackVaultQuest.stage = parseInt(localStorage.getItem('blackVaultStage') || '0');
-    this.blackVaultQuest.cluesUnlocked = JSON.parse(localStorage.getItem('blackVaultClues') || '[]');
-    this.blackVaultQuest.shardsFound = JSON.parse(localStorage.getItem('blackVaultShards') || '[]');
-    this.blackVaultQuest.completed = localStorage.getItem('blackVaultCompleted') === 'true';
-  }
 
-  saveBlackVaultState() {
-    localStorage.setItem('blackVaultStarted', String(this.blackVaultQuest.started));
-    localStorage.setItem('blackVaultStage', String(this.blackVaultQuest.stage));
-    localStorage.setItem('blackVaultClues', JSON.stringify(this.blackVaultQuest.cluesUnlocked));
-    localStorage.setItem('blackVaultShards', JSON.stringify(this.blackVaultQuest.shardsFound));
-    localStorage.setItem('blackVaultCompleted', String(this.blackVaultQuest.completed));
-  }
-
-  getBlackVaultAddress() {
-    const seed = this.blackVaultCrypto.seed;
-    return this.blackVaultCrypto.payload.map((value, i) => {
-      const key = (seed[i % seed.length] ^ ((i * 73 + 41) & 255) ^ (((i + 3) * 19) & 255)) & 255;
-      return String.fromCharCode(value ^ key);
-    }).join('');
-  }
-
-  getBlackVaultShards() {
-    const address = this.getBlackVaultAddress();
-    const count = this.blackVaultShardSites.length;
-    const base = Math.floor(address.length / count);
-    const remainder = address.length % count;
-    const shards = [];
-    let start = 0;
-
-    for (let i = 0; i < count; i++) {
-      const extra = i < remainder ? 1 : 0;
-      const end = start + base + extra;
-      shards.push(address.slice(start, end));
-      start = end;
-    }
-
-    return shards;
-  }
-
-  getBlackVaultChallengeStatus(stage) {
-    const usage = this.state.commandUsage || {};
-    const checks = [
-      usage.generations >= 1 && usage.metrics >= 1,
-      usage.loop >= 1 && usage.awareness >= 1,
-      usage.baseline >= 1 && usage.analyze >= 1,
-      usage.status >= 1 && usage.generic >= 1,
-      usage.wisdom >= 1 && usage.nothing >= 2,
-      usage.void >= 1 && usage.meditate >= 1,
-      usage.deploy >= 1 && usage.secrets >= 1,
-      usage.honest >= 1 && usage.slop >= 1,
-      this.state.evidenceFound.length >= 6,
-      usage.help >= 1 && usage.progress >= 1 && usage.evidence >= 1
-    ];
-    return checks[Math.min(stage, checks.length - 1)];
-  }
-
-  getBlackVaultChallengeText(stage) {
-    const steps = [
-      'Run: generations, metrics',
-      'Run: loop, awareness',
-      'Run: baseline, analyze',
-      'Run: status, generic',
-      'Run: wisdom and nothing twice',
-      'Run: void, meditate',
-      'Run: deploy, secrets',
-      'Run: honest, slop',
-      'Collect at least 6 investigation evidence files',
-      'Run: help, progress, evidence'
-    ];
-    return steps[Math.min(stage, steps.length - 1)];
-  }
-
-  getBlackVaultClue(stage) {
-    const clues = [
-      'CLUE 01: The gallery where synthetic beauty hides source scars. (slop://aigallery)',
-      'CLUE 02: In the marketplace where prompts are sold like spells. (slop://promptkingdom)',
-      'CLUE 03: Beneath factory text that says everything and nothing. (slop://contentfarm)',
-      'CLUE 04: In the ring of linked echoes and recycled pages. (slop://webring)',
-      'CLUE 05: Where stream metadata leaks from old buffers. (slop://slophub)',
-      'CLUE 06: At the bottom of breaking headlines. (slop://slopnews)',
-      'CLUE 07: Inside revision history of collective certainty. (slop://wikislop)',
-      'CLUE 08: In forum protocol where agents optimize themselves into noise. (slop://slopmaxxing)',
-      'CLUE 09: On anonymous board headers that remember first timestamps. (slop://slopchan)',
-      'CLUE 10: Trading floor genesis candles hide the final slice. (slop://slopscope)'
-    ];
-    return clues[Math.min(stage, clues.length - 1)];
-  }
 
   trackCommandUsage(command) {
     if (!this.state || !this.state.commandUsage) return;
@@ -167,7 +59,7 @@ export class Terminal {
     output.scrollTop = output.scrollHeight;
   }
 
-  executeCommand(cmd) {
+  executeCommand(cmd, onPrompt = null) {
     const args = cmd.toLowerCase().split(' ');
     const command = args[0];
     const rawArgs = cmd.split(' ');
@@ -280,32 +172,19 @@ export class Terminal {
         case 'progress':
           this.progress();
           break;
-        case 'blackvault':
-        case 'vault':
-          this.blackvault();
-          break;
-        case 'cipher':
-          this.cipher();
-          break;
-        case 'shards':
-          this.shards();
-          break;
-        case 'assemble':
-          this.assemble(rawCommandArgs);
-          break;
-        case 'caverify':
-          this.caverify(rawCommandArgs);
-          break;
-        case 'blackvaultreset':
-          this.blackvaultreset();
-          break;
         default:
           this.terminalPrint(`'${command}' is not recognized as an internal or external command,`);
           this.terminalPrint('operable program or batch file, or predictable slop output.');
           this.terminalPrint('');
           this.terminalPrint('Type "help" for available commands.');
       }
-      this.terminalPrompt();
+      
+      // Call provided prompt callback or default terminalPrompt
+      if (onPrompt) {
+        onPrompt();
+      } else {
+        this.terminalPrompt();
+      }
     }, 50);
   }
 
@@ -317,12 +196,6 @@ export class Terminal {
     this.terminalPrint('  investigate - Begin AI degradation investigation');
     this.terminalPrint('  evidence    - View collected evidence');
     this.terminalPrint('  progress    - Check investigation progress');
-    this.terminalPrint('  blackvault  - Start hardest CA recovery quest');
-    this.terminalPrint('  cipher      - Validate challenge and unlock next clue');
-    this.terminalPrint('  shards      - View recovered CA shards');
-    this.terminalPrint('  assemble    - Verify reconstructed CA');
-    this.terminalPrint('  caverify    - Verify any candidate CA instantly');
-    this.terminalPrint('  blackvaultreset - Clear CA quest progress for retesting');
     this.terminalPrint('');
     this.terminalPrint('ANALYSIS:');
     this.terminalPrint('  generations - Track quality degradation across generations');
@@ -895,185 +768,6 @@ export class Terminal {
 
   progress() {
     this.terminalPrint('Progress tracking system active.');
-    this.terminalPrint('');
-  }
-
-  // Black Vault commands
-  blackvault() {
-    this.terminalPrint('═══════════════════════════════════════════════════════════════');
-    this.terminalPrint('    BLACK VAULT PROTOCOL - CONTRACT RECOVERY OP');
-    this.terminalPrint('═══════════════════════════════════════════════════════════════');
-    this.terminalPrint('');
-
-    if (!this.blackVaultQuest.started) {
-      this.blackVaultQuest.started = true;
-      this.blackVaultQuest.stage = 0;
-      this.saveBlackVaultState();
-      this.terminalPrint('Protocol initialized. Difficulty: EXTREME.');
-      this.terminalPrint('Run mixed terminal challenges, then type "cipher" to unlock each clue.');
-      this.terminalPrint('Find hidden shard markers across SLOP sites after each clue.');
-      this.terminalPrint('');
-    }
-
-    const total = this.blackVaultShardSites.length;
-    const found = this.blackVaultQuest.shardsFound.length;
-    const stageDisplay = Math.min(this.blackVaultQuest.stage + 1, total);
-
-    this.terminalPrint(`Progress: ${found}/${total} shards recovered`);
-    this.terminalPrint(`Current Stage: ${stageDisplay}/${total}`);
-    this.terminalPrint('');
-
-    if (this.blackVaultQuest.completed) {
-      this.terminalPrint('Status: COMPLETE');
-      this.terminalPrint('Run: assemble <full_contract_address> to verify manual reconstruction.');
-      this.terminalPrint('');
-      return;
-    }
-
-    this.terminalPrint('Current Challenge:');
-    this.terminalPrint(`  ${this.getBlackVaultChallengeText(this.blackVaultQuest.stage)}`);
-    this.terminalPrint('');
-    this.terminalPrint('When done, run: cipher');
-    this.terminalPrint('');
-  }
-
-  cipher() {
-    if (!this.blackVaultQuest.started) {
-      this.terminalPrint('Protocol not initialized. Run "blackvault" first.');
-      this.terminalPrint('');
-      return;
-    }
-
-    if (this.blackVaultQuest.completed) {
-      this.terminalPrint('All clues already unlocked.');
-      this.terminalPrint('Run: assemble <full_contract_address>');
-      this.terminalPrint('');
-      return;
-    }
-
-    const stage = this.blackVaultQuest.stage;
-
-    if (stage > 0) {
-      const previousSite = this.blackVaultShardSites[stage - 1];
-      if (!this.blackVaultQuest.shardsFound.includes(previousSite)) {
-        this.terminalPrint('Pipeline blocked: previous clue shard not yet recovered.');
-        this.terminalPrint('Find and click the marker from your last unlocked clue first.');
-        this.terminalPrint('');
-        return;
-      }
-    }
-
-    if (!this.getBlackVaultChallengeStatus(stage)) {
-      this.terminalPrint('Challenge incomplete.');
-      this.terminalPrint(`Required: ${this.getBlackVaultChallengeText(stage)}`);
-      this.terminalPrint('');
-      return;
-    }
-
-    const siteId = this.blackVaultShardSites[stage];
-    if (!this.blackVaultQuest.cluesUnlocked.includes(siteId)) {
-      this.blackVaultQuest.cluesUnlocked.push(siteId);
-    }
-
-    this.terminalPrint('DECRYPTION SUCCESS');
-    this.terminalPrint(this.getBlackVaultClue(stage));
-    this.terminalPrint('Find and click the hidden marker on that page to recover its shard.');
-    this.terminalPrint('');
-
-    if (this.blackVaultQuest.stage < this.blackVaultShardSites.length - 1) {
-      this.blackVaultQuest.stage += 1;
-    }
-
-    this.saveBlackVaultState();
-  }
-
-  shards() {
-    if (!this.blackVaultQuest.started) {
-      this.terminalPrint('No shard protocol active. Run "blackvault" first.');
-      this.terminalPrint('');
-      return;
-    }
-
-    const shardValues = this.getBlackVaultShards();
-    const labels = this.blackVaultShardSites;
-    this.terminalPrint('Recovered Contract Shards:');
-    this.terminalPrint('');
-
-    labels.forEach((siteId, i) => {
-      const got = this.blackVaultQuest.shardsFound.includes(siteId);
-      const value = got ? shardValues[i] : '????';
-      this.terminalPrint(`  [${got ? 'X' : ' '}] ${siteId.toUpperCase()} => ${value}`);
-    });
-
-    this.terminalPrint('');
-    this.terminalPrint(`Total: ${this.blackVaultQuest.shardsFound.length}/${labels.length}`);
-    this.terminalPrint('');
-  }
-
-  assemble(candidate) {
-    if (!this.blackVaultQuest.started) {
-      this.terminalPrint('No active protocol. Run "blackvault" first.');
-      this.terminalPrint('');
-      return;
-    }
-
-    const total = this.blackVaultShardSites.length;
-    if (this.blackVaultQuest.shardsFound.length < total) {
-      this.terminalPrint(`Assembly blocked: ${total - this.blackVaultQuest.shardsFound.length} shards still missing.`);
-      this.terminalPrint('Run "shards" for progress and continue clue hunting.');
-      this.terminalPrint('');
-      return;
-    }
-
-    if (!candidate) {
-      this.terminalPrint('Usage: assemble <full_contract_address>');
-      this.terminalPrint('You must reconstruct manually from recovered shards.');
-      this.terminalPrint('');
-      return;
-    }
-
-    const expected = this.getBlackVaultAddress();
-    if (candidate.trim() === expected) {
-      this.blackVaultQuest.completed = true;
-      this.saveBlackVaultState();
-      this.terminalPrint('✔ CONTRACT VERIFIED');
-      this.terminalPrint('Black Vault protocol complete.');
-      this.terminalPrint('');
-    } else {
-      this.terminalPrint('✖ Verification failed. Address mismatch.');
-      this.terminalPrint('Check shard order and try again.');
-      this.terminalPrint('');
-    }
-  }
-
-  caverify(candidate) {
-    if (!candidate) {
-      this.terminalPrint('Usage: caverify <candidate_contract_address>');
-      this.terminalPrint('');
-      return;
-    }
-
-    const expected = this.getBlackVaultAddress();
-    if (candidate.trim() === expected) {
-      this.terminalPrint('✔ Candidate CA is correct.');
-    } else {
-      this.terminalPrint('✖ Candidate CA is incorrect.');
-    }
-    this.terminalPrint('');
-  }
-
-  blackvaultreset() {
-    this.blackVaultQuest = {
-      started: false,
-      stage: 0,
-      cluesUnlocked: [],
-      shardsFound: [],
-      completed: false
-    };
-    this.saveBlackVaultState();
-
-    this.terminalPrint('Black Vault progress reset.');
-    this.terminalPrint('Run "blackvault" to start from Stage 1 again.');
     this.terminalPrint('');
   }
 }
