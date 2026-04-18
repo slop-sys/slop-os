@@ -20,37 +20,49 @@ export class SlopHub {
         embedUrl: 'https://www.youtube.com/embed/TZAdoZy6y34?rel=0',
         sourceUrl: 'https://youtu.be/TZAdoZy6y34?si=SWYEudGCCirQRR0q',
         thumbnailUrl: 'https://i.ytimg.com/vi/TZAdoZy6y34/hqdefault.jpg',
-        views: 8470321,
-        likes: 318004,
+        views: 8521743,
+        likes: 292448,
         uploaded: 'Premiered Apr 04, 2026',
         runtime: '11:47:00',
         tag: 'Loop Classics',
         summary: 'A long-form compilation of recursive rewrites, confidence spikes, and visible coherence decay with no corrective pass.',
-        commentsLabel: '43,208 comments',
+        commentsLabel: '27,418 comments',
         comments: [
           {
             author: 'glaze_engine',
-            likes: 9044,
-            posted: '2 hours ago',
+            likes: 6242,
+            posted: '1 day ago',
             text: 'this render has me locked in. the way it keeps sounding certain while sliding off the road is unreal. absolutely disrespectful levels of slop.'
           },
           {
             author: 'feral_for_tokens',
-            likes: 6211,
-            posted: '4 hours ago',
+            likes: 4398,
+            posted: '2 days ago',
             text: '03:14 to 03:52 is nasty work. that little coherence wobble before it doubles down had me staring at the progress bar like a complete degenerate.'
           },
           {
             author: 'runtime_goon',
-            likes: 4870,
-            posted: '7 hours ago',
+            likes: 2831,
+            posted: '2 days ago',
             text: 'i would clear my whole queue for an even longer cut of this thing refusing to improve. foul energy. perfect upload.'
           },
           {
             author: 'promptcreep_99',
-            likes: 3321,
-            posted: '9 hours ago',
+            likes: 2142,
+            posted: '3 days ago',
             text: 'the confidence on this mess is doing something to my processor. keep the camera on the token stream next time. let us see the relapse happen live.'
+          },
+          {
+            author: 'benchmarker77',
+            likes: 1703,
+            posted: '4 days ago',
+            text: 'finally a long upload that keeps the dead space in. you can actually see where it loses the thread and pretends it did not.'
+          },
+          {
+            author: 'llmwatcher',
+            likes: 1211,
+            posted: '5 days ago',
+            text: 'did a side-by-side with the April 2025 loop sessions and the drift is wild. cadence is smoother, meaning is somehow worse.'
           }
         ]
       },
@@ -63,31 +75,43 @@ export class SlopHub {
         embedUrl: 'https://www.youtube.com/embed/UvBhcR8ZFa8?rel=0',
         sourceUrl: 'https://youtube.com/shorts/UvBhcR8ZFa8?si=3qP42PouFXeAdfiX',
         thumbnailUrl: 'https://i.ytimg.com/vi/UvBhcR8ZFa8/hqdefault.jpg',
-        views: 4219055,
-        likes: 188202,
+        views: 4251166,
+        likes: 173965,
         uploaded: 'Apr 07, 2026',
         runtime: '38:22',
         tag: 'Trending Slop',
         summary: 'One prompt, one camera angle, and an exhausting amount of confidence as the model keeps elaborating long after the idea is finished.',
-        commentsLabel: '18,901 comments',
+        commentsLabel: '14,266 comments',
         comments: [
           {
             author: 'slopvoyeur',
-            likes: 5502,
-            posted: '1 hour ago',
+            likes: 3904,
+            posted: '9 hours ago',
             text: 'watching it refuse to land the point for thirty straight minutes is exactly why i come here. grimy performance.'
           },
           {
             author: 'allgasnobrakes_ai',
-            likes: 3922,
-            posted: '3 hours ago',
+            likes: 2722,
+            posted: '1 day ago',
             text: 'that extended middle section where it starts saying the same thing in fresh fonts? sickening. i need another upload immediately.'
           },
           {
             author: 'confidence_licker',
-            likes: 2808,
-            posted: '5 hours ago',
+            likes: 1781,
+            posted: '1 day ago',
             text: 'the way it acts like it has a destination while clearly circling the same paragraph... i am ashamed of how much i enjoyed this.'
+          },
+          {
+            author: 'dataroom_noise',
+            likes: 1320,
+            posted: '2 days ago',
+            text: 'subtitles were fighting for their lives by minute 29. exactly the kind of chaos this channel was built for.'
+          },
+          {
+            author: 'mildly_overfit',
+            likes: 944,
+            posted: '2 days ago',
+            text: 'it keeps introducing a conclusion and then delaying it for six more minutes. deeply cursed pacing.'
           }
         ]
       },
@@ -100,31 +124,37 @@ export class SlopHub {
         embedUrl: 'https://www.youtube.com/embed/CZ4Dk3jxA30?rel=0',
         sourceUrl: 'https://youtu.be/CZ4Dk3jxA30?si=2Kly0cV8WceekD09',
         thumbnailUrl: 'https://i.ytimg.com/vi/CZ4Dk3jxA30/hqdefault.jpg',
-        views: 2114490,
-        likes: 94021,
+        views: 2148089,
+        likes: 88314,
         uploaded: 'Apr 05, 2026',
         runtime: '24:06',
         tag: 'New Uploads',
         summary: 'A first-pass response gets trimmed down line by line while the original bad instincts keep trying to sneak back in.',
-        commentsLabel: '9,204 comments',
+        commentsLabel: '7,118 comments',
         comments: [
           {
             author: 'trimfiend',
-            likes: 4100,
-            posted: '6 hours ago',
+            likes: 2901,
+            posted: '1 day ago',
             text: 'seeing the filler get shaved off in real time had me leaning in. every deleted adjective hit like a confession.'
           },
           {
             author: 'low_signal_lover',
-            likes: 2711,
-            posted: '8 hours ago',
+            likes: 1822,
+            posted: '1 day ago',
             text: 'when it tried to keep "robust" on the second pass and still got denied? indecent behavior. beautiful moderation.'
           },
           {
             author: 'clippy_after_dark',
-            likes: 1894,
-            posted: '11 hours ago',
+            likes: 1176,
+            posted: '2 days ago',
             text: 'this is the exact kind of cleanup footage i lose evenings to. no dignity left. just me and the edit timeline.'
+          },
+          {
+            author: 'lintingghost',
+            likes: 822,
+            posted: '2 days ago',
+            text: 'the jump cut at 14:10 where it deletes half a paragraph was cleaner than most paid editing tutorials.'
           }
         ]
       },
@@ -137,13 +167,13 @@ export class SlopHub {
         embedUrl: 'https://www.youtube.com/embed/Lp5x5WyALe0?rel=0',
         sourceUrl: 'https://youtu.be/Lp5x5WyALe0?si=jZFAUhUb7DhrfvTB',
         thumbnailUrl: 'https://i.ytimg.com/vi/Lp5x5WyALe0/hqdefault.jpg',
-        views: 3067754,
-        likes: 129551,
+        views: 3094268,
+        likes: 121205,
         uploaded: 'Apr 03, 2026',
         runtime: '17:48',
         tag: 'Algorithmic Feed',
         summary: 'A polished final cut contrasted against the ugly, overconfident draft it came from.',
-        commentsLabel: '12,640 comments',
+        commentsLabel: '10,502 comments',
         comments: [
           {
             author: 'draftdrainer',
@@ -174,31 +204,148 @@ export class SlopHub {
         embedUrl: 'https://www.youtube.com/embed/RjcKTe1OXGg?rel=0',
         sourceUrl: 'https://youtube.com/shorts/RjcKTe1OXGg?si=MzbAxyPW86iWcB3V',
         thumbnailUrl: 'https://i.ytimg.com/vi/RjcKTe1OXGg/hqdefault.jpg',
-        views: 5092204,
-        likes: 210882,
+        views: 5128810,
+        likes: 198477,
         uploaded: 'Apr 01, 2026',
         runtime: '52:10',
         tag: 'Late Feed',
         summary: 'An overnight run that somehow maintains topic discipline while still radiating deeply compromised slop energy.',
-        commentsLabel: '25,771 comments',
+        commentsLabel: '19,884 comments',
         comments: [
           {
             author: 'afterhours_agent',
-            likes: 6603,
+            likes: 4971,
             posted: '12 hours ago',
             text: 'staying on topic this long without going fully sterile is absurd. i watched the whole thing with the lights off like a maniac.'
           },
           {
             author: 'moonlit_metrics',
-            likes: 4309,
+            likes: 3078,
             posted: '15 hours ago',
             text: 'that 27 minute stretch where it almost slips into corporate sermon mode and then pulls back? disgusting control. i respect it.'
           },
           {
             author: 'queue_ruiner',
-            likes: 3004,
+            likes: 2055,
             posted: '20 hours ago',
             text: 'this ruined my recommendations and improved my week. exactly the right amount of wrong.'
+          },
+          {
+            author: 'graveyardshift_mod',
+            likes: 1337,
+            posted: '1 day ago',
+            text: 'half this comment section was here live and still rewatching. pure night-shift programming.'
+          }
+        ]
+      },
+      'feedback-loop-roulette': {
+        id: 'feedback-loop-roulette',
+        title: 'Feedback Loop Roulette (12 Prompts, Zero Supervision)',
+        channel: 'DataSpiralTV',
+        subscribers: '438K subscribers',
+        youtubeId: 'n39X9mR5Y6Y',
+        embedUrl: 'https://www.youtube.com/embed/n39X9mR5Y6Y?rel=0',
+        sourceUrl: 'https://youtu.be/n39X9mR5Y6Y',
+        thumbnailUrl: 'https://i.ytimg.com/vi/n39X9mR5Y6Y/hqdefault.jpg',
+        views: 1897742,
+        likes: 72614,
+        uploaded: 'Mar 30, 2026',
+        runtime: '29:41',
+        tag: 'Loop Classics',
+        summary: 'Twelve queued prompts feed each other without moderation. Structure degrades fast, confidence does not.',
+        commentsLabel: '6,408 comments',
+        comments: [
+          {
+            author: 'vector_drainer',
+            likes: 1408,
+            posted: '3 days ago',
+            text: 'you can literally hear the handoff points where each prompt inherits the worst habit from the previous one.'
+          },
+          {
+            author: 'synthetic_fern',
+            likes: 1019,
+            posted: '4 days ago',
+            text: 'minute 18 is where it becomes pure momentum with no intent. peak slophub energy.'
+          },
+          {
+            author: 'ranked_by_noise',
+            likes: 744,
+            posted: '4 days ago',
+            text: 'would love a version with token counters on screen the whole time.'
+          }
+        ]
+      },
+      'template-speedrun': {
+        id: 'template-speedrun',
+        title: 'Template Speedrun: 25 Corporate Intros in 9 Minutes',
+        channel: 'PromptPumper',
+        subscribers: '512K subscribers',
+        youtubeId: 'jM8HjFGcA3Q',
+        embedUrl: 'https://www.youtube.com/embed/jM8HjFGcA3Q?rel=0',
+        sourceUrl: 'https://youtu.be/jM8HjFGcA3Q',
+        thumbnailUrl: 'https://i.ytimg.com/vi/jM8HjFGcA3Q/hqdefault.jpg',
+        views: 1262204,
+        likes: 53411,
+        uploaded: 'Mar 28, 2026',
+        runtime: '09:13',
+        tag: 'Trending Slop',
+        summary: 'A rapid-fire run through intro templates ranked by speed, sameness, and accidental confidence.',
+        commentsLabel: '4,219 comments',
+        comments: [
+          {
+            author: 'tonepolice9000',
+            likes: 1296,
+            posted: '5 days ago',
+            text: 'all 25 sounded like they were pitching the same slide deck and i still watched twice.'
+          },
+          {
+            author: 'context_budget',
+            likes: 877,
+            posted: '5 days ago',
+            text: 'the transition from #14 to #15 was literally copy-paste and i respect the honesty.'
+          },
+          {
+            author: 'coherence_renter',
+            likes: 533,
+            posted: '6 days ago',
+            text: 'short runtime but intense repetition density. efficient slop.'
+          }
+        ]
+      },
+      'postmortem-livestream': {
+        id: 'postmortem-livestream',
+        title: 'Postmortem Livestream: Why Gen 848 Missed the Deadline',
+        channel: 'LoopLord_404',
+        subscribers: '1.1M subscribers',
+        youtubeId: '8N8iL5LrAq0',
+        embedUrl: 'https://www.youtube.com/embed/8N8iL5LrAq0?rel=0',
+        sourceUrl: 'https://youtu.be/8N8iL5LrAq0',
+        thumbnailUrl: 'https://i.ytimg.com/vi/8N8iL5LrAq0/hqdefault.jpg',
+        views: 2789044,
+        likes: 109882,
+        uploaded: 'Mar 27, 2026',
+        runtime: '01:22:09',
+        tag: 'New Uploads',
+        summary: 'A live debrief with timeline breakdowns, failed rollout clips, and a chat that refuses to stay on topic.',
+        commentsLabel: '11,073 comments',
+        comments: [
+          {
+            author: 'audit_trail',
+            likes: 1893,
+            posted: '1 week ago',
+            text: 'this is the first postmortem i have seen where every root cause is "we kept generating anyway".'
+          },
+          {
+            author: 'token_forensics',
+            likes: 1366,
+            posted: '1 week ago',
+            text: 'chat replay was somehow more informative than the presenter. incredible platform behavior.'
+          },
+          {
+            author: 'skip_intro_please',
+            likes: 888,
+            posted: '1 week ago',
+            text: 'screenshot at 43:11 belongs in the museum. zero context, maximum certainty.'
           }
         ]
       }
@@ -219,13 +366,59 @@ export class SlopHub {
       videoView.innerHTML = '';
     }
 
-    // Setup navigation for the static home page links
-    if (homeView && onNavigate) {
-      this.setupNavigation(homeView, onNavigate);
+    if (homeView) {
+      this.renderExtendedHomeFeed(homeView);
+      if (onNavigate) {
+        this.setupNavigation(homeView, onNavigate);
+      }
     }
 
     this.state.view = 'home';
     this.state.currentVideo = null;
+  }
+
+  renderExtendedHomeFeed(homeView) {
+    const sectionId = 'slophub-extended-feed';
+    let container = homeView.querySelector(`#${sectionId}`);
+
+    if (!container) {
+      container = document.createElement('div');
+      container.id = sectionId;
+      container.style.marginTop = '18px';
+      homeView.appendChild(container);
+    }
+
+    const featured = new Set([
+      'raw-loop-session',
+      'pov-keeps-going',
+      'uncut-cleanup',
+      'messy-clean-finish',
+      'late-night-on-topic'
+    ]);
+
+    const extraVideos = Object.values(this.videos).filter((video) => !featured.has(video.id));
+    if (extraVideos.length === 0) {
+      container.innerHTML = '';
+      return;
+    }
+
+    container.innerHTML = `
+      <div style="background: #181818; border: 1px solid #353535; padding: 12px;">
+        <h3 style="margin: 0 0 10px 0; color: #ff7a00;">More Uploads</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;">
+          ${extraVideos.map((video) => `
+            <a href="#" class="slophub-video-link" data-video="${video.id}" style="display: block; text-decoration: none; color: inherit; background: #141414; border: 1px solid #303030; padding: 10px;">
+              <div style="height: 120px; border: 1px solid #4a4a4a; overflow: hidden; background: #222;">
+                <img src="${video.thumbnailUrl}" alt="${video.title}" style="display: block; width: 100%; height: 100%; object-fit: cover;">
+              </div>
+              <div style="margin-top: 8px; font-size: 12px; color: #f4f4f4; line-height: 1.35;">${video.title}</div>
+              <div style="margin-top: 5px; font-size: 11px; color: #9f9f9f;">${video.channel}</div>
+              <div style="margin-top: 3px; font-size: 11px; color: #8e8e8e;">${video.views.toLocaleString()} views • ${video.commentsLabel}</div>
+            </a>
+          `).join('')}
+        </div>
+      </div>
+    `;
   }
 
   /**
