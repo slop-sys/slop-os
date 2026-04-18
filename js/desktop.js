@@ -7,6 +7,7 @@ import { FileExplorerManager } from './explorer/file-explorer-manager.js';
 import { BlackVaultQuest } from './quests/black-vault-quest.js';
 import { GamesManager } from './games/games-manager.js';
 import { SlopcadeManager } from './slopcade/slopcade-manager.js';
+import { MicroslopFlightSimulator } from './flight-sim/microslop-flight-simulator.js';
 
 class Desktop95 {
   constructor() {
@@ -45,6 +46,7 @@ class Desktop95 {
       showBotAssistant: (message) => this.botAssistant.show(message)
     });
     this.slopcadeManager = new SlopcadeManager();
+    this.microslopFlightSimulator = new MicroslopFlightSimulator();
     
     // Sound state
     this.soundPlayed = false;
@@ -127,6 +129,9 @@ class Desktop95 {
 
     // Setup Slopcade arcade
     this.slopcadeManager.init();
+
+    // Setup Microslop Flight Simulator
+    this.microslopFlightSimulator.init();
   }
   
   attemptStartupSound() {
@@ -237,6 +242,11 @@ class Desktop95 {
         this.slopcadeManager.init();
         if (!this.botAssistant.shown) {
           this.botAssistant.show("slopcade arcade system initialized. these games actually have rules. that's the slop twist.");
+        }
+      } else if (windowId === 'flightsim-window') {
+        this.microslopFlightSimulator.init();
+        if (!this.botAssistant.shown) {
+          this.botAssistant.show("microslop flight simulator online. use WASD and thread the rings if you can.");
         }
       }
     }, 1000);
