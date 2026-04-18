@@ -9,7 +9,7 @@ export class BotAssistant {
     this.messageIndex = 0;
     this.hideTimer = null;
     this.messages = [
-      "try opening the Slop Terminal and typing 'help' to see what commands are available.",
+      "something is hidden in this system. open the Slop Terminal and type 'blackvault' to begin.",
       "check out the Research Notes for documentation on the training loop degradation.",
       "curious about the project? click the About window to learn how this became generation 847.",
       "the System Logs window has detailed information about recursive training patterns.",

@@ -4,19 +4,26 @@ import { Terminal } from './core/terminal.js';
 import { BotAssistant } from './core/bot-assistant.js';
 import { WindowShellManager } from './core/window-shell-manager.js';
 import { FileExplorerManager } from './explorer/file-explorer-manager.js';
+import { BlackVaultQuest } from './quests/black-vault-quest.js';
 
 class Desktop95 {
   constructor() {
     // Initialize modular systems
     this.terminal = new Terminal();
     this.botAssistant = new BotAssistant();
+    this.blackVaultQuest = new BlackVaultQuest({
+      playClickSound: () => this.playClickSound(),
+      showBotAssistant: (message) => this.botAssistant.show(message)
+    });
+    this.blackVaultQuest.registerTerminalCommands(this.terminal);
     this.browserManager = new BrowserManager({
       playClickSound: () => this.playClickSound(),
       showBotAssistant: (message) => this.botAssistant.show(message),
       triggerGenZeroQuest: () => this.triggerGenZeroQuest(),
       getGenZeroQuestState: () => this.genZeroQuest,
       renderGenerationZeroArchive: () => this.showGenerationZeroArchive(),
-      openExternalUrl: (url) => window.open(url, '_blank')
+      openExternalUrl: (url) => window.open(url, '_blank'),
+      onSlopPageLoaded: ({ siteId, pageEl }) => this.blackVaultQuest.handleSiteRender(siteId, pageEl)
     });
     this.windowShell = new WindowShellManager({
       playClickSound: () => this.playClickSound(),
@@ -91,9 +98,9 @@ class Desktop95 {
       }, 500);
     }, 2200); // Delay until after boot screen
     
-    // Show bot assistant after boot screen
+    // Show bot assistant after boot screen — always lead with the Black Vault hint
     setTimeout(() => {
-      this.botAssistant.show();
+      this.botAssistant.show("something is hidden in this system. open the Slop Terminal and type 'blackvault' to begin.");
     }, 6000); // Show bot 2 seconds after boot completes
     
     // Setup bot assistant cycling through messages

@@ -22,8 +22,19 @@ export class Terminal {
       agentsDeployed: 0,
       commandUsage: {}
     };
+    this.customCommands = new Map();
 
 
+  }
+
+  registerCommand(names, handler) {
+    if (!handler || typeof handler !== 'function') return;
+
+    const list = Array.isArray(names) ? names : [names];
+    list.forEach((name) => {
+      if (!name || typeof name !== 'string') return;
+      this.customCommands.set(name.toLowerCase(), handler);
+    });
   }
 
 
@@ -60,11 +71,30 @@ export class Terminal {
   }
 
   executeCommand(cmd, onPrompt = null) {
-    const args = cmd.toLowerCase().split(' ');
-    const command = args[0];
+    const rawParts = cmd.trim().split(/\s+/);
+    const command = (rawParts[0] || '').toLowerCase();
+    const rawArgs = rawParts.slice(1);
+    const args = rawArgs.map((part) => part.toLowerCase());
     this.trackCommandUsage(command);
 
     setTimeout(() => {
+      if (this.customCommands.has(command)) {
+        this.customCommands.get(command)({
+          terminal: this,
+          command,
+          args,
+          rawArgs,
+          rawInput: cmd
+        });
+
+        if (onPrompt) {
+          onPrompt();
+        } else {
+          this.terminalPrompt();
+        }
+        return;
+      }
+
       switch(command) {
         case 'help':
           this.help();
@@ -77,7 +107,7 @@ export class Terminal {
           this.dir();
           break;
         case 'cd':
-          this.cd(args[1]);
+          this.cd(rawArgs[0]);
           break;
         case 'deploy':
           this.deploy();
@@ -101,14 +131,14 @@ export class Terminal {
           this.hack();
           break;
         case 'sudo':
-          this.sudo(args.slice(1).join(' '));
+          this.sudo(rawArgs.join(' '));
           break;
         case 'cls':
         case 'clear':
           this.clear();
           break;
         case 'echo':
-          this.echo(args.slice(1).join(' '));
+          this.echo(rawArgs.join(' '));
           break;
         case 'exit':
           this.exit();
@@ -120,10 +150,10 @@ export class Terminal {
           this.wisdom();
           break;
         case 'cat':
-          this.cat(args[1]);
+          this.cat(rawArgs[0]);
           break;
         case 'rm':
-          this.rm(args[1]);
+          this.rm(rawArgs[0]);
           break;
         case 'format':
           this.format();
@@ -194,6 +224,14 @@ export class Terminal {
     this.terminalPrint('  investigate - Begin AI degradation investigation');
     this.terminalPrint('  evidence    - View collected evidence');
     this.terminalPrint('  progress    - Check investigation progress');
+    this.terminalPrint('');
+    this.terminalPrint('BLACK VAULT:');
+    this.terminalPrint('  blackvault  - Start or view Black Vault protocol status');
+    this.terminalPrint('  cipher      - Validate stage challenge and unlock site clue');
+    this.terminalPrint('  shards      - View recovered shard fragments');
+    this.terminalPrint('  assemble    - Verify reconstructed full CA');
+    this.terminalPrint('  caverify    - Direct CA validation check');
+    this.terminalPrint('  blackvaultreset - Reset Black Vault progress');
     this.terminalPrint('');
     this.terminalPrint('ANALYSIS:');
     this.terminalPrint('  generations - Track quality degradation across generations');

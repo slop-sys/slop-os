@@ -27,6 +27,7 @@ export class BrowserManager {
     this.getGenZeroQuestState = typeof options.getGenZeroQuestState === 'function' ? options.getGenZeroQuestState : () => null;
     this.renderGenerationZeroArchive = typeof options.renderGenerationZeroArchive === 'function' ? options.renderGenerationZeroArchive : () => {};
     this.openExternalUrl = typeof options.openExternalUrl === 'function' ? options.openExternalUrl : (url) => window.open(url, '_blank');
+    this.onSlopPageLoaded = typeof options.onSlopPageLoaded === 'function' ? options.onSlopPageLoaded : () => {};
 
     this.history = [];
     this.historyIndex = -1;
@@ -401,6 +402,8 @@ export class BrowserManager {
     const slopchanPage = document.getElementById('browser-page-slopchan');
     const slopscopePage = document.getElementById('browser-page-slopscope');
     const resetActivePageScroll = (pageEl) => this.resetPageScroll(pageEl);
+    let activeSiteId = null;
+    let activeSitePage = null;
 
     if (addToHistory) {
       this.historyIndex++;
@@ -444,26 +447,36 @@ export class BrowserManager {
       } else if (url === 'slop://aigallery') {
         if (aiGalleryPage) aiGalleryPage.style.display = 'block';
         resetActivePageScroll(aiGalleryPage);
+        activeSiteId = 'aigallery';
+        activeSitePage = aiGalleryPage;
         browserTitle.textContent = '** FREE AI ART GALLERY ** - Microslop Explorer';
         browserStatus.textContent = 'Done';
       } else if (url === 'slop://promptkingdom') {
         if (promptKingdomPage) promptKingdomPage.style.display = 'block';
         resetActivePageScroll(promptKingdomPage);
+        activeSiteId = 'promptkingdom';
+        activeSitePage = promptKingdomPage;
         browserTitle.textContent = '** AI PROMPT KINGDOM ** - Microslop Explorer';
         browserStatus.textContent = 'Done';
       } else if (url === 'slop://contentfarm') {
         if (contentFarmPage) contentFarmPage.style.display = 'block';
         resetActivePageScroll(contentFarmPage);
+        activeSiteId = 'contentfarm';
+        activeSitePage = contentFarmPage;
         browserTitle.textContent = 'GENERIC CONTENT DEPOT - Microslop Explorer';
         browserStatus.textContent = 'Done';
       } else if (url === 'slop://webring') {
         if (webringPage) webringPage.style.display = 'block';
         resetActivePageScroll(webringPage);
+        activeSiteId = 'webring';
+        activeSitePage = webringPage;
         browserTitle.textContent = '** AI WEBRING ** - Microslop Explorer';
         browserStatus.textContent = 'Done';
       } else if (url.startsWith('slop://slophub')) {
         if (slophubPage) slophubPage.style.display = 'block';
         resetActivePageScroll(slophubPage);
+        activeSiteId = 'slophub';
+        activeSitePage = slophubPage;
 
         const hashIdx = url.indexOf('#');
         const hash = hashIdx !== -1 ? url.slice(hashIdx + 1) : '';
@@ -482,6 +495,8 @@ export class BrowserManager {
       } else if (url.startsWith('slop://slopnews')) {
         if (slopnewsPage) slopnewsPage.style.display = 'block';
         resetActivePageScroll(slopnewsPage);
+        activeSiteId = 'slopnews';
+        activeSitePage = slopnewsPage;
 
         const hashIdx = url.indexOf('#');
         const hash = hashIdx !== -1 ? url.slice(hashIdx + 1) : '';
@@ -505,6 +520,8 @@ export class BrowserManager {
       } else if (url.startsWith('slop://wikislop')) {
         if (slopipediaPage) slopipediaPage.style.display = 'block';
         resetActivePageScroll(slopipediaPage);
+        activeSiteId = 'wikislop';
+        activeSitePage = slopipediaPage;
 
         const hashIdx = url.indexOf('#');
         const hash = hashIdx !== -1 ? url.slice(hashIdx + 1) : '';
@@ -523,6 +540,8 @@ export class BrowserManager {
       } else if (url.startsWith('slop://slopmaxxing')) {
         if (slopmaxxingPage) slopmaxxingPage.style.display = 'block';
         resetActivePageScroll(slopmaxxingPage);
+        activeSiteId = 'slopmaxxing';
+        activeSitePage = slopmaxxingPage;
 
         const hashIdx = url.indexOf('#');
         const hash = hashIdx !== -1 ? url.slice(hashIdx + 1) : '';
@@ -546,6 +565,8 @@ export class BrowserManager {
       } else if (url.startsWith('slop://slopchan')) {
         if (slopchanPage) slopchanPage.style.display = 'block';
         resetActivePageScroll(slopchanPage);
+        activeSiteId = 'slopchan';
+        activeSitePage = slopchanPage;
 
         const hashIdx = url.indexOf('#');
         const hash = hashIdx !== -1 ? url.slice(hashIdx + 1) : '';
@@ -569,6 +590,8 @@ export class BrowserManager {
       } else if (url.startsWith('slop://slopscope')) {
         if (slopscopePage) slopscopePage.style.display = 'block';
         resetActivePageScroll(slopscopePage);
+        activeSiteId = 'slopscope';
+        activeSitePage = slopscopePage;
 
         const hashIdx = url.indexOf('#');
         const hash = hashIdx !== -1 ? url.slice(hashIdx + 1) : '';
@@ -624,6 +647,10 @@ export class BrowserManager {
           browserTitle.textContent = 'Generation Zero Archive - CLASSIFIED - Microslop Explorer';
         }
         browserStatus.textContent = 'Done';
+      }
+
+      if (activeSiteId && activeSitePage) {
+        this.onSlopPageLoaded({ siteId: activeSiteId, pageEl: activeSitePage, url });
       }
     }, 500);
   }
