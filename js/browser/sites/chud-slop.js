@@ -54,11 +54,11 @@ export class ChudSlop {
         <!-- Left Column -->
         <div style="background: #ff00ff; border: 5px solid #00ffff; padding: 10px; box-shadow: inset 0 0 20px rgba(0,255,255,0.5);">
           <h2 style="color: #000; font-family: 'Comic Sans MS'; animation: chudslop-blink 0.5s infinite; margin: 0 0 10px 0;">📺 THE CHUD ARCHIVES 📺</h2>
-          <div class="chudslop-gif-container" style="background: #333; border: 3px dashed #00ff00; padding: 10px; margin: 10px 0; min-height: 120px; display: flex; align-items: center; justify-content: center; color: #0f0; font-family: monospace; font-size: 10px; text-align: center;">
-            [GIF SLOT 1 - CHUD BEHAVIOR]
+          <div class="chudslop-gif-container" style="background: #333; border: 3px dashed #00ff00; padding: 10px; margin: 10px 0; min-height: 120px; display: flex; align-items: center; justify-content: center; color: #0f0; font-family: monospace; font-size: 10px; text-align: center; overflow: hidden;">
+            <img src="assets/misc/2OKJ4GPSZEGYCKEXJKKXVODVVLO2BBTQ%20(1).gif" alt="Chud archive gif 1" style="width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated;">
           </div>
-          <div class="chudslop-gif-container" style="background: #333; border: 3px dashed #ffff00; padding: 10px; margin: 10px 0; min-height: 120px; display: flex; align-items: center; justify-content: center; color: #ff0; font-family: monospace; font-size: 10px; text-align: center;">
-            [GIF SLOT 2 - SLOP ENERGY]
+          <div class="chudslop-gif-container" style="background: #333; border: 3px dashed #ffff00; padding: 10px; margin: 10px 0; min-height: 120px; display: flex; align-items: center; justify-content: center; color: #ff0; font-family: monospace; font-size: 10px; text-align: center; overflow: hidden;">
+            <img src="assets/misc/4TMTSTDHS6VQ4RGY7AH5PUBJ74SNTBMW.gif" alt="Chud archive gif 2" style="width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated;">
           </div>
         </div>
 
@@ -81,11 +81,11 @@ export class ChudSlop {
         <!-- Right Column -->
         <div style="background: #ffff00; border: 5px solid #ff00ff; padding: 10px; box-shadow: inset 0 0 20px rgba(255,0,255,0.5);">
           <h2 style="color: #000; font-family: 'Comic Sans MS'; margin: 0 0 10px 0;">✨ SLOP PHENOMENA ✨</h2>
-          <div class="chudslop-gif-container" style="background: #ff00ff; border: 3px solid #00ff00; padding: 10px; margin: 10px 0; min-height: 120px; display: flex; align-items: center; justify-content: center; color: #000; font-family: monospace; font-size: 10px; text-align: center; font-weight: bold;">
-            [GIF SLOT 3 - DIMENSIONAL RIFT]
+          <div class="chudslop-gif-container" style="background: #ff00ff; border: 3px solid #00ff00; padding: 10px; margin: 10px 0; min-height: 120px; display: flex; align-items: center; justify-content: center; color: #000; font-family: monospace; font-size: 10px; text-align: center; font-weight: bold; overflow: hidden;">
+            <img src="assets/misc/5RLVPVPVKFBEJ4HNNDXMKAT5EG6GS3DA.gif" alt="Chud rift gif" style="width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated;">
           </div>
-          <div class="chudslop-gif-container" style="background: #00ff00; border: 3px solid #ff00ff; padding: 10px; margin: 10px 0; min-height: 120px; display: flex; align-items: center; justify-content: center; color: #000; font-family: monospace; font-size: 10px; text-align: center; font-weight: bold;">
-            [GIF SLOT 4 - CHUD ASCENSION]
+          <div class="chudslop-gif-container" style="background: #00ff00; border: 3px solid #ff00ff; padding: 10px; margin: 10px 0; min-height: 120px; display: flex; align-items: center; justify-content: center; color: #000; font-family: monospace; font-size: 10px; text-align: center; font-weight: bold; overflow: hidden;">
+            <img src="assets/misc/6CU2R5IDQFNGX4Y3PZ7SDJDIVH66HVK7.gif" alt="Chud ascension gif" style="width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated;">
           </div>
         </div>
       </div>

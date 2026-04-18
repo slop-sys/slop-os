@@ -54,11 +54,11 @@ export class BrainRotSlop {
           <!-- Top Left - Pure Chaos -->
           <div style="background: #ff00ff; border: 5px solid #00ff00; padding: 10px; grid-row: span 2; box-shadow: 0 0 30px rgba(0,255,0,0.8), inset 0 0 20px rgba(255,0,255,0.5);">
             <h2 style="color: #000; font-family: 'Courier New'; margin: 0 0 10px 0; animation: brainrot-glitchBig 0.1s infinite;">PURE CHAOS ZONE</h2>
-            <div class="brainrotslop-gif-container" style="background: #000; border: 3px dashed #00ff00; padding: 10px; margin: 10px 0; min-height: 140px; display: flex; align-items: center; justify-content: center; color: #0f0; font-family: monospace; font-size: 9px; text-align: center; animation: brainrot-scale 0.3s infinite;">
-              [CHAOS GIF 1]
+            <div class="brainrotslop-gif-container" style="background: #000; border: 3px dashed #00ff00; padding: 10px; margin: 10px 0; min-height: 140px; display: flex; align-items: center; justify-content: center; color: #0f0; font-family: monospace; font-size: 9px; text-align: center; animation: brainrot-scale 0.3s infinite; overflow: hidden;">
+              <img src="assets/misc/Z6MWWELJB3WCWEWRTWPO6AH7NPKOFWX4.gif" alt="Brain rot chaos gif 1" style="width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated;">
             </div>
-            <div class="brainrotslop-gif-container" style="background: #000; border: 3px dashed #ffff00; padding: 10px; margin: 10px 0; min-height: 140px; display: flex; align-items: center; justify-content: center; color: #ff0; font-family: monospace; font-size: 9px; text-align: center; animation: brainrot-scale 0.4s infinite;">
-              [CHAOS GIF 2]
+            <div class="brainrotslop-gif-container" style="background: #000; border: 3px dashed #ffff00; padding: 10px; margin: 10px 0; min-height: 140px; display: flex; align-items: center; justify-content: center; color: #ff0; font-family: monospace; font-size: 9px; text-align: center; animation: brainrot-scale 0.4s infinite; overflow: hidden;">
+              <img src="assets/misc/2OKJ4GPSZEGYCKEXJKKXVODVVLO2BBTQ%20(1).gif" alt="Brain rot chaos gif 2" style="width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated;">
             </div>
           </div>
 
@@ -79,14 +79,14 @@ export class BrainRotSlop {
           <!-- Center Right - Animated GIF Stack -->
           <div style="background: #ffff00; border: 5px solid #ff00ff; padding: 10px; box-shadow: 0 0 30px rgba(255,0,255,0.8); display: flex; flex-direction: column; gap: 8px;">
             <h2 style="color: #000; font-family: 'Comic Sans MS'; margin: 0; animation: brainrot-bounce 0.5s infinite;">🎆 CHAOS STACK 🎆</h2>
-            <div class="brainrotslop-gif-container" style="background: #ff00ff; border: 2px solid #00ff00; padding: 8px; min-height: 80px; display: flex; align-items: center; justify-content: center; color: #000; font-family: monospace; font-size: 8px; animation: brainrot-pulse 0.4s infinite;">
-              [GIF 3]
+            <div class="brainrotslop-gif-container" style="background: #ff00ff; border: 2px solid #00ff00; padding: 8px; min-height: 80px; display: flex; align-items: center; justify-content: center; color: #000; font-family: monospace; font-size: 8px; animation: brainrot-pulse 0.4s infinite; overflow: hidden;">
+              <img src="assets/misc/4TMTSTDHS6VQ4RGY7AH5PUBJ74SNTBMW.gif" alt="Brain rot stack gif 3" style="width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated;">
             </div>
-            <div class="brainrotslop-gif-container" style="background: #00ffff; border: 2px solid #ff00ff; padding: 8px; min-height: 80px; display: flex; align-items: center; justify-content: center; color: #000; font-family: monospace; font-size: 8px; animation: brainrot-pulse 0.5s infinite;">
-              [GIF 4]
+            <div class="brainrotslop-gif-container" style="background: #00ffff; border: 2px solid #ff00ff; padding: 8px; min-height: 80px; display: flex; align-items: center; justify-content: center; color: #000; font-family: monospace; font-size: 8px; animation: brainrot-pulse 0.5s infinite; overflow: hidden;">
+              <img src="assets/misc/5RLVPVPVKFBEJ4HNNDXMKAT5EG6GS3DA.gif" alt="Brain rot stack gif 4" style="width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated;">
             </div>
-            <div class="brainrotslop-gif-container" style="background: #00ff00; border: 2px solid #ffff00; padding: 8px; min-height: 80px; display: flex; align-items: center; justify-content: center; color: #000; font-family: monospace; font-size: 8px; animation: brainrot-pulse 0.3s infinite;">
-              [GIF 5]
+            <div class="brainrotslop-gif-container" style="background: #00ff00; border: 2px solid #ffff00; padding: 8px; min-height: 80px; display: flex; align-items: center; justify-content: center; color: #000; font-family: monospace; font-size: 8px; animation: brainrot-pulse 0.3s infinite; overflow: hidden;">
+              <img src="assets/misc/6CU2R5IDQFNGX4Y3PZ7SDJDIVH66HVK7.gif" alt="Brain rot stack gif 5" style="width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated;">
             </div>
           </div>
 
@@ -94,23 +94,23 @@ export class BrainRotSlop {
           <div style="background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00, #00ff00); grid-column: span 3; border: 5px solid #000; padding: 15px; box-shadow: 0 0 40px rgba(255,255,255,0.5);">
             <h2 style="color: #000; font-family: Impact; font-size: 36px; margin: 0 0 10px 0; text-shadow: 2px 2px #fff, 4px 4px #000; animation: brainrot-wiggle 0.15s infinite;">MAXIMUM SLOP ACHIEVED</h2>
             <div style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px;">
-              <div class="brainrotslop-gif-container" style="background: #000; border: 2px solid #0f0; padding: 8px; min-height: 90px; font-size: 7px; display: flex; align-items: center; justify-content: center; color: #0f0; animation: brainrot-scale 0.2s infinite;">
-                [MINI 1]
+              <div class="brainrotslop-gif-container" style="background: #000; border: 2px solid #0f0; padding: 8px; min-height: 90px; font-size: 7px; display: flex; align-items: center; justify-content: center; color: #0f0; animation: brainrot-scale 0.2s infinite; overflow: hidden;">
+                <img src="assets/misc/CLKMVEFMERIBGKATXTUKFJRN4JUEIQCI.gif" alt="Brain rot mini gif 1" style="width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated;">
               </div>
-              <div class="brainrotslop-gif-container" style="background: #000; border: 2px solid #ff0; padding: 8px; min-height: 90px; font-size: 7px; display: flex; align-items: center; justify-content: center; color: #ff0; animation: brainrot-scale 0.25s infinite;">
-                [MINI 2]
+              <div class="brainrotslop-gif-container" style="background: #000; border: 2px solid #ff0; padding: 8px; min-height: 90px; font-size: 7px; display: flex; align-items: center; justify-content: center; color: #ff0; animation: brainrot-scale 0.25s infinite; overflow: hidden;">
+                <img src="assets/misc/F2Z3EW2XGZKWCZXMEP6G6NWTMNK2FAJO.gif" alt="Brain rot mini gif 2" style="width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated;">
               </div>
-              <div class="brainrotslop-gif-container" style="background: #000; border: 2px solid #f0f; padding: 8px; min-height: 90px; font-size: 7px; display: flex; align-items: center; justify-content: center; color: #f0f; animation: brainrot-scale 0.22s infinite;">
-                [MINI 3]
+              <div class="brainrotslop-gif-container" style="background: #000; border: 2px solid #f0f; padding: 8px; min-height: 90px; font-size: 7px; display: flex; align-items: center; justify-content: center; color: #f0f; animation: brainrot-scale 0.22s infinite; overflow: hidden;">
+                <img src="assets/misc/KJ3AGHPG56RERXUMCC2PP5RHRX3IM47L.gif" alt="Brain rot mini gif 3" style="width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated;">
               </div>
-              <div class="brainrotslop-gif-container" style="background: #000; border: 2px solid #0ff; padding: 8px; min-height: 90px; font-size: 7px; display: flex; align-items: center; justify-content: center; color: #0ff; animation: brainrot-scale 0.28s infinite;">
-                [MINI 4]
+              <div class="brainrotslop-gif-container" style="background: #000; border: 2px solid #0ff; padding: 8px; min-height: 90px; font-size: 7px; display: flex; align-items: center; justify-content: center; color: #0ff; animation: brainrot-scale 0.28s infinite; overflow: hidden;">
+                <img src="assets/misc/NAC72UHCOALLUZTLHQ3WGXJOFPWLKUTV.gif" alt="Brain rot mini gif 4" style="width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated;">
               </div>
-              <div class="brainrotslop-gif-container" style="background: #000; border: 2px solid #0f0; padding: 8px; min-height: 90px; font-size: 7px; display: flex; align-items: center; justify-content: center; color: #0f0; animation: brainrot-scale 0.23s infinite;">
-                [MINI 5]
+              <div class="brainrotslop-gif-container" style="background: #000; border: 2px solid #0f0; padding: 8px; min-height: 90px; font-size: 7px; display: flex; align-items: center; justify-content: center; color: #0f0; animation: brainrot-scale 0.23s infinite; overflow: hidden;">
+                <img src="assets/misc/OMTHABRNISIPES54OTNZHXNR456LULOA.gif" alt="Brain rot mini gif 5" style="width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated;">
               </div>
-              <div class="brainrotslop-gif-container" style="background: #000; border: 2px solid #ff0; padding: 8px; min-height: 90px; font-size: 7px; display: flex; align-items: center; justify-content: center; color: #ff0; animation: brainrot-scale 0.26s infinite;">
-                [MINI 6]
+              <div class="brainrotslop-gif-container" style="background: #000; border: 2px solid #ff0; padding: 8px; min-height: 90px; font-size: 7px; display: flex; align-items: center; justify-content: center; color: #ff0; animation: brainrot-scale 0.26s infinite; overflow: hidden;">
+                <img src="assets/misc/VT67U5UYYJPRLX4IB5FYWRRPNNEN3JED.gif" alt="Brain rot mini gif 6" style="width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated;">
               </div>
             </div>
           </div>

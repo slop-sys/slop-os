@@ -48,11 +48,11 @@ export class SkibidiSlop {
           <!-- Toilet Section -->
           <div style="background: #0f3460; border: 3px solid #e94560; padding: 15px; box-shadow: 0 0 20px rgba(233, 69, 96, 0.5);">
             <h2 style="color: #e94560; font-family: 'Comic Sans MS'; margin: 0 0 10px 0; animation: skibidislop-blink 0.6s infinite;">🚽 TOILET DIMENSION 🚽</h2>
-            <div class="skibidislop-gif-container" style="background: #1a1a2e; border: 3px dashed #00ff41; padding: 10px; margin: 10px 0; min-height: 150px; display: flex; align-items: center; justify-content: center; color: #00ff41; font-family: monospace; font-size: 10px; text-align: center;">
-              [GIF SLOT 1 - ROTATING TOILET]
+            <div class="skibidislop-gif-container" style="background: #1a1a2e; border: 3px dashed #00ff41; padding: 10px; margin: 10px 0; min-height: 150px; display: flex; align-items: center; justify-content: center; color: #00ff41; font-family: monospace; font-size: 10px; text-align: center; overflow: hidden;">
+              <img src="assets/misc/CLKMVEFMERIBGKATXTUKFJRN4JUEIQCI.gif" alt="Skibidi toilet gif" style="width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated;">
             </div>
-            <div class="skibidislop-gif-container" style="background: #1a1a2e; border: 3px dashed #e94560; padding: 10px; margin: 10px 0; min-height: 150px; display: flex; align-items: center; justify-content: center; color: #e94560; font-family: monospace; font-size: 10px; text-align: center;">
-              [GIF SLOT 2 - SKIBIDI TRANSFORMATION]
+            <div class="skibidislop-gif-container" style="background: #1a1a2e; border: 3px dashed #e94560; padding: 10px; margin: 10px 0; min-height: 150px; display: flex; align-items: center; justify-content: center; color: #e94560; font-family: monospace; font-size: 10px; text-align: center; overflow: hidden;">
+              <img src="assets/misc/F2Z3EW2XGZKWCZXMEP6G6NWTMNK2FAJO.gif" alt="Skibidi transformation gif" style="width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated;">
             </div>
           </div>
 
@@ -77,17 +77,17 @@ export class SkibidiSlop {
           <div style="background: #e94560; border: 3px solid #00ff41; padding: 15px; grid-column: span 2; box-shadow: 0 0 30px rgba(0, 255, 65, 0.5);">
             <h2 style="color: #000; font-family: Impact; margin: 0 0 15px 0; text-transform: uppercase; animation: skibidislop-rotate 4s linear infinite;">THE INFINITE SPIRAL</h2>
             <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
-              <div class="skibidislop-gif-container" style="background: #0f3460; border: 2px solid #00ffff; padding: 8px; min-height: 100px; display: flex; align-items: center; justify-content: center; color: #00ffff; font-size: 8px; text-align: center; animation: skibidislop-bounce 0.8s infinite;">
-                [CHAOS 1]
+              <div class="skibidislop-gif-container" style="background: #0f3460; border: 2px solid #00ffff; padding: 8px; min-height: 100px; display: flex; align-items: center; justify-content: center; color: #00ffff; font-size: 8px; text-align: center; animation: skibidislop-bounce 0.8s infinite; overflow: hidden;">
+                <img src="assets/misc/KJ3AGHPG56RERXUMCC2PP5RHRX3IM47L.gif" alt="Skibidi chaos gif 1" style="width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated;">
               </div>
-              <div class="skibidislop-gif-container" style="background: #1a1a2e; border: 2px solid #00ff41; padding: 8px; min-height: 100px; display: flex; align-items: center; justify-content: center; color: #00ff41; font-size: 8px; text-align: center; animation: skibidislop-bounce 0.9s infinite;">
-                [CHAOS 2]
+              <div class="skibidislop-gif-container" style="background: #1a1a2e; border: 2px solid #00ff41; padding: 8px; min-height: 100px; display: flex; align-items: center; justify-content: center; color: #00ff41; font-size: 8px; text-align: center; animation: skibidislop-bounce 0.9s infinite; overflow: hidden;">
+                <img src="assets/misc/NAC72UHCOALLUZTLHQ3WGXJOFPWLKUTV.gif" alt="Skibidi chaos gif 2" style="width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated;">
               </div>
-              <div class="skibidislop-gif-container" style="background: #0f3460; border: 2px solid #e94560; padding: 8px; min-height: 100px; display: flex; align-items: center; justify-content: center; color: #e94560; font-size: 8px; text-align: center; animation: skibidislop-bounce 0.7s infinite;">
-                [CHAOS 3]
+              <div class="skibidislop-gif-container" style="background: #0f3460; border: 2px solid #e94560; padding: 8px; min-height: 100px; display: flex; align-items: center; justify-content: center; color: #e94560; font-size: 8px; text-align: center; animation: skibidislop-bounce 0.7s infinite; overflow: hidden;">
+                <img src="assets/misc/OMTHABRNISIPES54OTNZHXNR456LULOA.gif" alt="Skibidi chaos gif 3" style="width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated;">
               </div>
-              <div class="skibidislop-gif-container" style="background: #16213e; border: 2px solid #ffff00; padding: 8px; min-height: 100px; display: flex; align-items: center; justify-content: center; color: #ffff00; font-size: 8px; text-align: center; animation: skibidislop-bounce 0.6s infinite;">
-                [CHAOS 4]
+              <div class="skibidislop-gif-container" style="background: #16213e; border: 2px solid #ffff00; padding: 8px; min-height: 100px; display: flex; align-items: center; justify-content: center; color: #ffff00; font-size: 8px; text-align: center; animation: skibidislop-bounce 0.6s infinite; overflow: hidden;">
+                <img src="assets/misc/VT67U5UYYJPRLX4IB5FYWRRPNNEN3JED.gif" alt="Skibidi chaos gif 4" style="width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated;">
               </div>
             </div>
           </div>
