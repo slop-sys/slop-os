@@ -14,6 +14,7 @@ export class MicroslopFlightSimulator {
     this.keys = { w: false, a: false, s: false, d: false };
 
     this.handleKeyDown = (event) => {
+      if (!this.shouldCaptureKeyboard(event)) return;
       const key = event.key.toLowerCase();
       if (key in this.keys) {
         this.keys[key] = true;
@@ -22,12 +23,31 @@ export class MicroslopFlightSimulator {
     };
 
     this.handleKeyUp = (event) => {
+      if (!this.shouldCaptureKeyboard(event)) return;
       const key = event.key.toLowerCase();
       if (key in this.keys) {
         this.keys[key] = false;
         event.preventDefault();
       }
     };
+  }
+
+  shouldCaptureKeyboard(event) {
+    if (!this.running) return false;
+
+    const target = event.target;
+    if (target instanceof HTMLElement) {
+      const tag = target.tagName;
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || target.isContentEditable) {
+        return false;
+      }
+    }
+
+    const flightWindow = document.getElementById('flightsim-window');
+    if (!flightWindow) return false;
+    if (flightWindow.style.display === 'none') return false;
+
+    return flightWindow.classList.contains('active');
   }
 
   createInitialState() {
