@@ -2,7 +2,7 @@
 
 IGNORE FAKE COINS AND FAKE X PROFILES. THE ONLY REAL SLOP OS X IS: @Slop_OS
 
-The only real CA is already hidden in this codebase.
+The only real CA is already hidden in this codebase. Black Vault is active — a live token is embedded in the system. Find it.
 
 ```
 C:\SLOP\SYSTEM> type README.TXT
@@ -153,6 +153,11 @@ Before AI slop consumed everything.
 → Execute commands. Explore the slop. Experience recursive degradation.  
 → Try `help` to start. Or `status` for current generation metrics.
 
+**Black Vault**  
+→ A live token CA is hidden inside the system. Black Vault is active.  
+→ Open the terminal and type `blackvault` to begin the hunt.  
+→ Recover all 10 cipher shards, assemble the CA, verify it. No hints given.
+
 **File Explorer**  
 → Empty for now. Will be populated with SLOP research files.  
 → Coming soon: training data analysis, generation comparisons, slop metrics.
@@ -197,6 +202,13 @@ C:\SLOP\SYSTEM> history     [Generation timeline]
 C:\SLOP\SYSTEM> slop        [Acknowledge slop production]
 C:\SLOP\SYSTEM> aware       [Self-awareness metrics]
 C:\SLOP\SYSTEM> why         [Existential questioning]
+
+[ BLACK VAULT — token recovery quest ]
+C:\SLOP\SYSTEM> blackvault  [Initialize Black Vault protocol]
+C:\SLOP\SYSTEM> shards      [View recovered cipher shards]
+C:\SLOP\SYSTEM> cipher      [Decode shard fragments]
+C:\SLOP\SYSTEM> assemble    [Attempt CA assembly with recovered shards]
+C:\SLOP\SYSTEM> caverify    [Verify a candidate CA against the vault]
 ```
 
 More commands available. Explore the terminal to find them.
