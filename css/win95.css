@@ -71,8 +71,10 @@ body {
   left: 10px;
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   gap: 20px;
   z-index: 1;
+  max-height: calc(100vh - var(--taskbar-height) - 30px);
 }
 
 .desktop-icon {

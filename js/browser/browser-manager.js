@@ -9,6 +9,10 @@ import { Wikislop } from './sites/wikislop.js';
 import { Slopchan } from './sites/slopchan.js';
 import { Slopmaxxing } from './sites/slopmaxxing.js';
 import { SlopScope } from './sites/slopscope.js';
+import { SloppedIn } from './sites/sloppedin.js';
+import { ChudSlop } from './sites/chud-slop.js';
+import { SkibidiSlop } from './sites/skibidi-slop.js';
+import { BrainRotSlop } from './sites/brain-rot-slop.js';
 
 export class BrowserManager {
   constructor(options = {}) {
@@ -18,7 +22,11 @@ export class BrowserManager {
       wikislop: new Wikislop(),
       slopchan: new Slopchan(),
       slopmaxxing: new Slopmaxxing(),
-      slopscope: new SlopScope()
+      slopscope: new SlopScope(),
+      sloppedin: new SloppedIn(),
+      chudslop: new ChudSlop(),
+      skibidislop: new SkibidiSlop(),
+      brainrotslop: new BrainRotSlop()
     };
 
     this.playClickSound = typeof options.playClickSound === 'function' ? options.playClickSound : () => {};
@@ -34,6 +42,10 @@ export class BrowserManager {
 
     this.browserFavorites = [
       { name: 'SlopHub', url: 'slop://slophub' },
+      { name: 'SloppedIn', url: 'slop://sloppedin' },
+      { name: 'Chud Slop', url: 'slop://chudslop' },
+      { name: 'Skibidi Slop', url: 'slop://skibidislop' },
+      { name: 'Brain Rot Slop', url: 'slop://brainrotslop' },
       { name: 'SLOPNEWS', url: 'slop://slopnews' },
       { name: 'Daily Slop', url: 'slop://dailyslop' },
       { name: 'Wikislop', url: 'slop://wikislop' },
@@ -401,6 +413,10 @@ export class BrowserManager {
     const slopmaxxingPage = document.getElementById('browser-page-slopmaxxing');
     const slopchanPage = document.getElementById('browser-page-slopchan');
     const slopscopePage = document.getElementById('browser-page-slopscope');
+    const sloppedinPage = document.getElementById('browser-page-sloppedin');
+    const chudSlopPage = document.getElementById('browser-page-chudslop');
+    const skibidiSlopPage = document.getElementById('browser-page-skibidislop');
+    const brainrotSlopPage = document.getElementById('browser-page-brainrotslop');
     const resetActivePageScroll = (pageEl) => this.resetPageScroll(pageEl);
     let activeSiteId = null;
     let activeSitePage = null;
@@ -425,6 +441,10 @@ export class BrowserManager {
     if (slopmaxxingPage) slopmaxxingPage.style.display = 'none';
     if (slopchanPage) slopchanPage.style.display = 'none';
     if (slopscopePage) slopscopePage.style.display = 'none';
+    if (sloppedinPage) sloppedinPage.style.display = 'none';
+    if (chudSlopPage) chudSlopPage.style.display = 'none';
+    if (skibidiSlopPage) skibidiSlopPage.style.display = 'none';
+    if (brainrotSlopPage) brainrotSlopPage.style.display = 'none';
     loadingIndicator.style.display = 'block';
 
     if (addressBar) {
@@ -610,6 +630,58 @@ export class BrowserManager {
           site.showCatalog((newUrl) => this.loadPage(newUrl));
           browserTitle.textContent = 'SlopScope - Slopcoin Trading Terminal - Microslop Explorer';
         }
+        browserStatus.textContent = 'Done';
+      } else if (url.startsWith('slop://sloppedin')) {
+        if (sloppedinPage) sloppedinPage.style.display = 'block';
+        resetActivePageScroll(sloppedinPage);
+        activeSiteId = 'sloppedin';
+        activeSitePage = sloppedinPage;
+
+        const hashIdx = url.indexOf('#');
+        const hash = hashIdx !== -1 ? url.slice(hashIdx + 1) : '';
+
+        const site = this.sites.sloppedin;
+        if (hash.startsWith('profile/')) {
+          const agentId = hash.slice(8);
+          site.showProfile(agentId, (newUrl) => this.loadPage(newUrl));
+          browserTitle.textContent = 'Agent Profile - SloppedIn - Microslop Explorer';
+        } else {
+          site.showHome((newUrl) => this.loadPage(newUrl));
+          browserTitle.textContent = 'SloppedIn - Agent Profiles - Microslop Explorer';
+        }
+        browserStatus.textContent = 'Done';
+      } else if (url.startsWith('slop://chudslop')) {
+        if (chudSlopPage) chudSlopPage.style.display = 'block';
+        resetActivePageScroll(chudSlopPage);
+        activeSiteId = 'chudslop';
+        activeSitePage = chudSlopPage;
+        const site = this.sites.chudslop;
+        if (site) {
+          site.showHome((newUrl) => this.loadPage(newUrl));
+        }
+        browserTitle.textContent = 'Chud Slop - GifCities Chaos - Microslop Explorer';
+        browserStatus.textContent = 'Done';
+      } else if (url.startsWith('slop://skibidislop')) {
+        if (skibidiSlopPage) skibidiSlopPage.style.display = 'block';
+        resetActivePageScroll(skibidiSlopPage);
+        activeSiteId = 'skibidislop';
+        activeSitePage = skibidiSlopPage;
+        const site = this.sites.skibidislop;
+        if (site) {
+          site.showHome((newUrl) => this.loadPage(newUrl));
+        }
+        browserTitle.textContent = 'Skibidi Slop - Toilet Dimension - Microslop Explorer';
+        browserStatus.textContent = 'Done';
+      } else if (url.startsWith('slop://brainrotslop')) {
+        if (brainrotSlopPage) brainrotSlopPage.style.display = 'block';
+        resetActivePageScroll(brainrotSlopPage);
+        activeSiteId = 'brainrotslop';
+        activeSitePage = brainrotSlopPage;
+        const site = this.sites.brainrotslop;
+        if (site) {
+          site.showHome((newUrl) => this.loadPage(newUrl));
+        }
+        browserTitle.textContent = 'Brain Rot Slop - Maximum Chaos - Microslop Explorer';
         browserStatus.textContent = 'Done';
       } else {
         errorPage.style.display = 'block';

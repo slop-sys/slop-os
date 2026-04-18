@@ -6,6 +6,7 @@ import { WindowShellManager } from './core/window-shell-manager.js';
 import { FileExplorerManager } from './explorer/file-explorer-manager.js';
 import { BlackVaultQuest } from './quests/black-vault-quest.js';
 import { GamesManager } from './games/games-manager.js';
+import { SlopcadeManager } from './slopcade/slopcade-manager.js';
 
 class Desktop95 {
   constructor() {
@@ -43,6 +44,7 @@ class Desktop95 {
       playClickSound: () => this.playClickSound(),
       showBotAssistant: (message) => this.botAssistant.show(message)
     });
+    this.slopcadeManager = new SlopcadeManager();
     
     // Sound state
     this.soundPlayed = false;
@@ -122,6 +124,9 @@ class Desktop95 {
 
     // Setup pointless games module
     this.gamesManager.setup();
+
+    // Setup Slopcade arcade
+    this.slopcadeManager.init();
   }
   
   attemptStartupSound() {
@@ -227,6 +232,11 @@ class Desktop95 {
         this.gamesManager.setup();
         if (!this.botAssistant.shown) {
           this.botAssistant.show("pointless games initialized. no rewards, no leaderboard, no meaning. click things anyway.");
+        }
+      } else if (windowId === 'slopcade-window') {
+        this.slopcadeManager.init();
+        if (!this.botAssistant.shown) {
+          this.botAssistant.show("slopcade arcade system initialized. these games actually have rules. that's the slop twist.");
         }
       }
     }, 1000);
