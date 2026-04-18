@@ -5,6 +5,7 @@ import { BotAssistant } from './core/bot-assistant.js';
 import { WindowShellManager } from './core/window-shell-manager.js';
 import { FileExplorerManager } from './explorer/file-explorer-manager.js';
 import { BlackVaultQuest } from './quests/black-vault-quest.js';
+import { GamesManager } from './games/games-manager.js';
 
 class Desktop95 {
   constructor() {
@@ -37,6 +38,10 @@ class Desktop95 {
           evidence.push(evidenceKey);
         }
       }
+    });
+    this.gamesManager = new GamesManager({
+      playClickSound: () => this.playClickSound(),
+      showBotAssistant: (message) => this.botAssistant.show(message)
     });
     
     // Sound state
@@ -114,6 +119,9 @@ class Desktop95 {
     
     // Setup button and link handlers
     this.setupButtonHandlers();
+
+    // Setup pointless games module
+    this.gamesManager.setup();
   }
   
   attemptStartupSound() {
@@ -214,6 +222,11 @@ class Desktop95 {
         }
         if (!this.botAssistant.shown) {
           this.botAssistant.show("terminal access granted. watch the degradation in real-time. or type 'help' for generic commands i generated.");
+        }
+      } else if (windowId === 'games-window') {
+        this.gamesManager.setup();
+        if (!this.botAssistant.shown) {
+          this.botAssistant.show("pointless games initialized. no rewards, no leaderboard, no meaning. click things anyway.");
         }
       }
     }, 1000);
