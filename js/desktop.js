@@ -8,6 +8,7 @@ import { BlackVaultQuest } from './quests/black-vault-quest.js';
 import { GamesManager } from './games/games-manager.js';
 import { SlopcadeManager } from './slopcade/slopcade-manager.js';
 import { MicroslopFlightSimulator } from './flight-sim/microslop-flight-simulator.js';
+import { PhotoslopManager } from './photoslop/photoslop-manager.js';
 
 class Desktop95 {
   constructor() {
@@ -49,6 +50,7 @@ class Desktop95 {
     });
     this.slopcadeManager = new SlopcadeManager();
     this.microslopFlightSimulator = new MicroslopFlightSimulator();
+    this.photoslopManager = new PhotoslopManager();
     
     // Sound state
     this.soundPlayed = false;
@@ -134,6 +136,9 @@ class Desktop95 {
 
     // Setup Microslop Flight Simulator
     this.microslopFlightSimulator.init();
+
+    // Setup Photoslop Paint
+    // (initialized on window open)
   }
   
   attemptStartupSound() {
@@ -249,6 +254,11 @@ class Desktop95 {
         this.microslopFlightSimulator.init();
         if (!this.botAssistant.shown) {
           this.botAssistant.show("microslop flight simulator online. use WASD and thread the rings if you can.");
+        }
+      } else if (windowId === 'photoslop-window') {
+        this.photoslopManager.init();
+        if (!this.botAssistant.shown) {
+          this.botAssistant.show("photoslop initialized. early 90s paint nostalgia incoming. draw something mediocre.");
         }
       }
     }, 1000);

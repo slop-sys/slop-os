@@ -186,6 +186,10 @@ Synthetic Learning Output Protocol
                 <img src="icons/flight.png" alt="" style="width: 32px; height: 32px;">
                 <span class="icon-label">Microslop Flight Simulator</span>
             </div>
+            <div class="desktop-icon" data-window="photoslop-window" tabindex="0">
+                <img src="icons/paint_file-1.png" alt="" style="width: 32px; height: 32px;">
+                <span class="icon-label">Photoslop</span>
+            </div>
             <div class="desktop-icon" tabindex="0" style="cursor: help;" data-action="recycle-bin">
                 <img src="icons/recycle_bin_empty-1.png" alt="" style="width: 32px; height: 32px;">
                 <span class="icon-label">Recycle Bin</span>
@@ -768,6 +772,28 @@ Synthetic Learning Output Protocol
             <div class="status-bar">
                 <div class="status-bar-field">WASD Flight Controls</div>
                 <div class="status-bar-field">v0.1 ultra-light</div>
+            </div>
+        </div>
+
+        <!-- Photoslop Window -->
+        <div class="window" id="photoslop-window" style="width: 900px; height: 700px;">
+            <div class="title-bar">
+                <div class="title-bar-text">
+                    <img src="icons/paint_file-0.png" alt="" style="width: 16px; height: 16px;">
+                    Photoslop - Paint Parody
+                </div>
+                <div class="title-bar-controls">
+                    <button class="title-bar-btn minimize-btn" aria-label="Minimize">_</button>
+                    <button class="title-bar-btn maximize-btn" aria-label="Maximize">□</button>
+                    <button class="title-bar-btn close-btn" aria-label="Close">×</button>
+                </div>
+            </div>
+            <div class="window-body" style="padding: 0; height: calc(100% - 32px);">
+                <div id="photoslop-host" style="height: 100%; display: flex; flex-direction: column;"></div>
+            </div>
+            <div class="status-bar">
+                <div class="status-bar-field">Draw something sloppy</div>
+                <div class="status-bar-field">v0.1 early paint</div>
             </div>
         </div>
 
