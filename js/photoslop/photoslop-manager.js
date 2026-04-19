@@ -14,38 +14,46 @@ export class PhotoslopManager {
     // Drawing state
     this.color = '#000000';
     this.brushSize = 3;
-    this.tool = 'pencil'; // pencil, eraser, line
+    this.tool = 'pencil'; // pencil, eraser, line, rect, circle
     this.fillPattern = null;
 
     // History for undo/redo
     this.history = [];
     this.historyStep = -1;
     this.maxHistory = 50;
+    this.savedImageData = null;
 
     // Toolbar elements
     this.colorInput = null;
     this.brushSizeInput = null;
-    this.toolButtons = {};
+    this.sizeLabelEl = null;
+    this.hostDiv = null;
+    this.isActive = false;
+
+    // Bound methods for cleanup
+    this.boundKeyDown = null;
+    this.boundKeyUp = null;
   }
 
   init() {
-    const hostDiv = document.getElementById('photoslop-host');
-    if (!hostDiv) return;
+    this.hostDiv = document.getElementById('photoslop-host');
+    if (!this.hostDiv) return;
 
-    this.setupUI(hostDiv);
+    this.setupUI();
     this.setupCanvas();
     this.setupEventListeners();
+    this.setupWindowFocus();
     this.saveHistory();
   }
 
-  setupUI(hostDiv) {
-    hostDiv.innerHTML = `
+  setupUI() {
+    this.hostDiv.innerHTML = `
       <div style="display: flex; flex-direction: column; height: 100%; background: #c0c0c0; font-family: 'MS Sans Serif', Arial, sans-serif; font-size: 11px;">
         <!-- Menu Bar -->
         <div style="background: #c0c0c0; border-bottom: 2px outset #dfdfdf; padding: 2px; display: flex; gap: 20px; padding-left: 4px;">
-          <div class="photoslop-menu-item" style="cursor: pointer; padding: 2px 4px;">File</div>
-          <div class="photoslop-menu-item" style="cursor: pointer; padding: 2px 4px;">Edit</div>
-          <div class="photoslop-menu-item" style="cursor: pointer; padding: 2px 4px;">View</div>
+          <span class="photoslop-menu" data-menu="file" style="cursor: pointer; padding: 2px 4px; user-select: none;">File</span>
+          <span class="photoslop-menu" data-menu="edit" style="cursor: pointer; padding: 2px 4px; user-select: none;">Edit</span>
+          <span class="photoslop-menu" data-menu="view" style="cursor: pointer; padding: 2px 4px; user-select: none;">View</span>
         </div>
 
         <!-- Toolbox -->
@@ -53,11 +61,11 @@ export class PhotoslopManager {
           
           <!-- Tool Buttons -->
           <div style="display: flex; gap: 2px; padding: 4px; border: 2px outset #dfdfdf; background: #c0c0c0;">
-            <button class="photoslop-tool-btn" data-tool="pencil" title="Pencil" style="width: 24px; height: 24px; background: #c0c0c0; border: 2px outset #dfdfdf; cursor: pointer; display: flex; align-items: center; justify-content: center; font-weight: bold;">✏</button>
-            <button class="photoslop-tool-btn" data-tool="eraser" title="Eraser" style="width: 24px; height: 24px; background: #c0c0c0; border: 2px solid #ababab; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 10px;">E</button>
-            <button class="photoslop-tool-btn" data-tool="line" title="Line" style="width: 24px; height: 24px; background: #c0c0c0; border: 2px solid #ababab; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 10px;">╱</button>
-            <button class="photoslop-tool-btn" data-tool="rect" title="Rectangle" style="width: 24px; height: 24px; background: #c0c0c0; border: 2px solid #ababab; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 10px;">▭</button>
-            <button class="photoslop-tool-btn" data-tool="circle" title="Circle" style="width: 24px; height: 24px; background: #c0c0c0; border: 2px solid #ababab; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 10px;">○</button>
+            <button class="photoslop-tool-btn" data-tool="pencil" title="Pencil (P)" style="width: 24px; height: 24px; background: #c0c0c0; border: 2px outset #dfdfdf; cursor: pointer; display: flex; align-items: center; justify-content: center; font-weight: bold;">✏</button>
+            <button class="photoslop-tool-btn" data-tool="eraser" title="Eraser (E)" style="width: 24px; height: 24px; background: #c0c0c0; border: 2px solid #ababab; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 10px;">E</button>
+            <button class="photoslop-tool-btn" data-tool="line" title="Line (L)" style="width: 24px; height: 24px; background: #c0c0c0; border: 2px solid #ababab; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 10px;">╱</button>
+            <button class="photoslop-tool-btn" data-tool="rect" title="Rectangle (R)" style="width: 24px; height: 24px; background: #c0c0c0; border: 2px solid #ababab; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 10px;">▭</button>
+            <button class="photoslop-tool-btn" data-tool="circle" title="Circle (C)" style="width: 24px; height: 24px; background: #c0c0c0; border: 2px solid #ababab; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 10px;">○</button>
           </div>
 
           <!-- Separator -->
@@ -66,29 +74,29 @@ export class PhotoslopManager {
           <!-- Color Picker -->
           <div style="display: flex; align-items: center; gap: 6px;">
             <label style="font-size: 10px; font-weight: bold;">Color:</label>
-            <input type="color" id="photoslop-color" value="#000000" style="width: 32px; height: 24px; cursor: pointer; border: 2px inset #7f7f7f;">
+            <input type="color" class="photoslop-color-input" value="#000000" style="width: 32px; height: 24px; cursor: pointer; border: 2px inset #7f7f7f;">
           </div>
 
           <!-- Brush Size -->
           <div style="display: flex; align-items: center; gap: 6px;">
             <label style="font-size: 10px; font-weight: bold;">Size:</label>
-            <input type="range" id="photoslop-brush-size" min="1" max="50" value="3" style="width: 80px; cursor: pointer;">
-            <span id="photoslop-size-label" style="min-width: 20px;">3</span>px
+            <input type="range" class="photoslop-size-input" min="1" max="50" value="3" style="width: 80px; cursor: pointer;">
+            <span class="photoslop-size-label" style="min-width: 20px; display: inline-block;">3</span>px
           </div>
 
           <!-- Separator -->
           <div style="width: 2px; height: 24px; background: #ababab;"></div>
 
           <!-- Action Buttons -->
-          <button id="photoslop-clear" title="Clear Canvas" style="padding: 2px 8px; background: #c0c0c0; border: 2px outset #dfdfdf; cursor: pointer; font-size: 11px; font-weight: bold;">Clear</button>
-          <button id="photoslop-undo" title="Undo (Ctrl+Z)" style="padding: 2px 8px; background: #c0c0c0; border: 2px outset #dfdfdf; cursor: pointer; font-size: 11px; font-weight: bold;">↶ Undo</button>
-          <button id="photoslop-redo" title="Redo (Ctrl+Y)" style="padding: 2px 8px; background: #c0c0c0; border: 2px outset #dfdfdf; cursor: pointer; font-size: 11px; font-weight: bold;">↷ Redo</button>
-          <button id="photoslop-save" title="Save Image" style="padding: 2px 8px; background: #c0c0c0; border: 2px outset #dfdfdf; cursor: pointer; font-size: 11px; font-weight: bold;">Save</button>
+          <button class="photoslop-clear-btn" title="Clear Canvas" style="padding: 2px 8px; background: #c0c0c0; border: 2px outset #dfdfdf; cursor: pointer; font-size: 11px; font-weight: bold;">Clear</button>
+          <button class="photoslop-undo-btn" title="Undo (Ctrl+Z)" style="padding: 2px 8px; background: #c0c0c0; border: 2px outset #dfdfdf; cursor: pointer; font-size: 11px; font-weight: bold;">↶ Undo</button>
+          <button class="photoslop-redo-btn" title="Redo (Ctrl+Y)" style="padding: 2px 8px; background: #c0c0c0; border: 2px outset #dfdfdf; cursor: pointer; font-size: 11px; font-weight: bold;">↷ Redo</button>
+          <button class="photoslop-save-btn" title="Save Image" style="padding: 2px 8px; background: #c0c0c0; border: 2px outset #dfdfdf; cursor: pointer; font-size: 11px; font-weight: bold;">Save</button>
         </div>
 
         <!-- Canvas Area -->
         <div style="flex: 1; display: flex; background: #dfdfdf; padding: 4px; overflow: auto;">
-          <canvas id="photoslop-canvas" style="background: white; cursor: crosshair; border: 2px inset #7f7f7f; image-rendering: pixelated; max-width: 100%; max-height: 100%;"></canvas>
+          <canvas class="photoslop-canvas" style="background: white; cursor: crosshair; border: 2px inset #7f7f7f; image-rendering: pixelated; max-width: 100%; max-height: 100%;"></canvas>
         </div>
 
         <!-- Status Bar -->
@@ -99,11 +107,16 @@ export class PhotoslopManager {
       </div>
     `;
 
-    // Get references
-    this.canvas = document.getElementById('photoslop-canvas');
-    this.colorInput = document.getElementById('photoslop-color');
-    this.brushSizeInput = document.getElementById('photoslop-brush-size');
-    this.sizeLabelEl = document.getElementById('photoslop-size-label');
+    // Get references using scoped query within hostDiv
+    this.canvas = this.hostDiv.querySelector('.photoslop-canvas');
+    this.colorInput = this.hostDiv.querySelector('.photoslop-color-input');
+    this.brushSizeInput = this.hostDiv.querySelector('.photoslop-size-input');
+    this.sizeLabelEl = this.hostDiv.querySelector('.photoslop-size-label');
+
+    if (!this.canvas || !this.colorInput || !this.brushSizeInput) {
+      console.error('Photoslop: Failed to initialize UI elements');
+      return;
+    }
 
     // Initialize color
     this.color = this.colorInput.value;
@@ -118,64 +131,128 @@ export class PhotoslopManager {
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
   }
 
+  setupCanvas() {
+    // Already initialized in setupUI
+  }
+
+  setupWindowFocus() {
+    // Track when the photoslop window becomes active
+    const photoslopWindow = this.hostDiv.closest('.window');
+    if (photoslopWindow) {
+      // Listen for window focus/blur events by watching the parent window element
+      photoslopWindow.addEventListener('mousedown', () => {
+        this.isActive = true;
+      });
+    }
+
+    // Blur when clicking outside
+    document.addEventListener('mousedown', (e) => {
+      const photoslopWindow = this.hostDiv.closest('.window');
+      if (photoslopWindow && !photoslopWindow.contains(e.target)) {
+        this.isActive = false;
+      }
+    });
+  }
+
   setupEventListeners() {
-    // Tool buttons
-    document.querySelectorAll('.photoslop-tool-btn').forEach((btn) => {
+    // Tool buttons - scoped to hostDiv
+    this.hostDiv.querySelectorAll('.photoslop-tool-btn').forEach((btn) => {
       btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
         // Update button states
-        document.querySelectorAll('.photoslop-tool-btn').forEach((b) => {
-          b.style.borderStyle = b === btn ? 'inset' : 'solid';
-          b.style.borderColor = b === btn ? '#dfdfdf' : '#ababab';
+        this.hostDiv.querySelectorAll('.photoslop-tool-btn').forEach((b) => {
+          if (b === btn) {
+            b.style.borderStyle = 'inset';
+            b.style.borderColor = '#dfdfdf';
+          } else {
+            b.style.borderStyle = 'solid';
+            b.style.borderColor = '#ababab';
+          }
         });
         this.tool = btn.dataset.tool;
       });
     });
 
     // Initialize first tool button as active
-    const firstBtn = document.querySelector('.photoslop-tool-btn');
+    const firstBtn = this.hostDiv.querySelector('.photoslop-tool-btn');
     if (firstBtn) {
       firstBtn.style.borderStyle = 'inset';
       firstBtn.style.borderColor = '#dfdfdf';
     }
 
-    // Color picker
+    // Color picker - scoped
     this.colorInput.addEventListener('change', (e) => {
       this.color = e.target.value;
     });
 
-    // Brush size
+    // Brush size - scoped
     this.brushSizeInput.addEventListener('input', (e) => {
       this.brushSize = parseInt(e.target.value);
-      this.sizeLabelEl.textContent = this.brushSize;
-    });
-
-    // Canvas events
-    this.canvas.addEventListener('mousedown', (e) => this.handleMouseDown(e));
-    this.canvas.addEventListener('mousemove', (e) => this.handleMouseMove(e));
-    this.canvas.addEventListener('mouseup', (e) => this.handleMouseUp(e));
-    this.canvas.addEventListener('mouseleave', (e) => this.handleMouseLeave(e));
-
-    // Touch events for drawing
-    this.canvas.addEventListener('touchstart', (e) => this.handleTouchStart(e));
-    this.canvas.addEventListener('touchmove', (e) => this.handleTouchMove(e));
-    this.canvas.addEventListener('touchend', (e) => this.handleTouchEnd(e));
-
-    // Buttons
-    document.getElementById('photoslop-clear').addEventListener('click', () => this.clearCanvas());
-    document.getElementById('photoslop-undo').addEventListener('click', () => this.undo());
-    document.getElementById('photoslop-redo').addEventListener('click', () => this.redo());
-    document.getElementById('photoslop-save').addEventListener('click', () => this.saveImage());
-
-    // Keyboard shortcuts
-    document.addEventListener('keydown', (e) => {
-      if (e.ctrlKey && e.key === 'z') {
-        e.preventDefault();
-        this.undo();
-      } else if (e.ctrlKey && e.key === 'y') {
-        e.preventDefault();
-        this.redo();
+      if (this.sizeLabelEl) {
+        this.sizeLabelEl.textContent = this.brushSize.toString();
       }
     });
+
+    // Canvas events - only listen to canvas
+    this.canvas.addEventListener('mousedown', (e) => this.handleMouseDown(e), false);
+    this.canvas.addEventListener('mousemove', (e) => this.handleMouseMove(e), false);
+    this.canvas.addEventListener('mouseup', (e) => this.handleMouseUp(e), false);
+    this.canvas.addEventListener('mouseleave', (e) => this.handleMouseLeave(e), false);
+    this.canvas.addEventListener('mouseout', (e) => this.handleMouseLeave(e), false);
+
+    // Touch events for drawing
+    this.canvas.addEventListener('touchstart', (e) => this.handleTouchStart(e), false);
+    this.canvas.addEventListener('touchmove', (e) => this.handleTouchMove(e), false);
+    this.canvas.addEventListener('touchend', (e) => this.handleTouchEnd(e), false);
+
+    // Buttons - scoped
+    this.hostDiv.querySelector('.photoslop-clear-btn').addEventListener('click', () => this.clearCanvas());
+    this.hostDiv.querySelector('.photoslop-undo-btn').addEventListener('click', () => this.undo());
+    this.hostDiv.querySelector('.photoslop-redo-btn').addEventListener('click', () => this.redo());
+    this.hostDiv.querySelector('.photoslop-save-btn').addEventListener('click', () => this.saveImage());
+
+    // Menu items - scoped
+    this.hostDiv.querySelectorAll('.photoslop-menu').forEach((menu) => {
+      menu.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const menuType = menu.dataset.menu;
+        this.handleMenu(menuType);
+      });
+    });
+
+    // Keyboard shortcuts - ONLY when photoslop is active
+    this.boundKeyDown = (e) => this.handleKeyDown(e);
+    this.hostDiv.addEventListener('keydown', this.boundKeyDown, true);
+    this.canvas.addEventListener('keydown', this.boundKeyDown, true);
+  }
+
+  handleMenu(menuType) {
+    if (menuType === 'file') {
+      alert('File menu\n\n• New\n• Open\n• Save\n• Exit');
+    } else if (menuType === 'edit') {
+      alert('Edit menu\n\n• Undo\n• Redo\n• Clear');
+    } else if (menuType === 'view') {
+      alert('View menu\n\n• Zoom In\n• Zoom Out\n• Fit to Window');
+    }
+  }
+
+  handleKeyDown(e) {
+    // Only handle keyboard if photoslop window is active
+    if (!this.isActive) return;
+
+    // Undo/Redo shortcuts - these are safe to trigger
+    if (e.ctrlKey && e.key === 'z') {
+      e.preventDefault();
+      e.stopPropagation();
+      this.undo();
+    } else if (e.ctrlKey && e.key === 'y') {
+      e.preventDefault();
+      e.stopPropagation();
+      this.redo();
+    }
   }
 
   getCanvasPos(e) {
