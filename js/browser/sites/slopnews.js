@@ -150,7 +150,102 @@ export class SlopNews {
           'This is a small example of a broader contamination instinct: neat framing is repeatedly mistaken for sound reasoning. Once a structure becomes common enough, it begins to feel inevitable even when it is analytically useless.',
           'If every roadmap has four pillars, perhaps what we are seeing is not clarity but a superstition disguised as planning.'
         ],
-        related: ['diverse-perspectives', 'prompt-futures', 'generic-phrases']
+        related: ['diverse-perspectives', 'prompt-futures', 'hormuz-chokehold']
+      },
+      'hormuz-chokehold': {
+        id: 'hormuz-chokehold',
+        category: 'World',
+        headline: 'IRAN GOES FULL CHOKEHOLD: Gunboats Blast Ships in Strait of Hormuz as Tehran Flips the Script on "Open Waters" — Oil Markets in Absolute Chaos',
+        subhead: 'One day it\'s "fully open," the next it\'s Iranian IRGC turning tankers into target practice. World on edge as Trump-era talks crumble.',
+        author: 'B. Harborwatch',
+        byline: 'World Desk',
+        published: 'Apr 18, 2026 11:34 ET',
+        heroImage: 'assets/slopnews/iran.jpg',
+        heroLabel: '[ SATELLITE FEED — STRAIT OF HORMUZ ]',
+        highlights: ['IRGC gunboats active in Hormuz', 'oil futures spiked 14% in first hour', 'Trump-era détente framework collapses'],
+        paragraphs: [
+          'Iranian Revolutionary Guard Corps vessels opened fire on at least two commercial tankers in the Strait of Hormuz early Saturday, upending a fragile diplomatic framework that had kept the waterway nominally open for the past eighteen months.',
+          'Oil markets responded immediately. Futures contracts surged more than fourteen percent within the first trading hour before circuit breakers paused automated selling. Analysts called it the fastest single-session energy shock since the 2019 Abqaiq strikes.',
+          'Tehran\'s foreign ministry, in a statement issued hours after the incident, described the waterway as a "sovereign security corridor" subject to enforcement at Iran\'s discretion — a direct reversal of the "fully open" language used in joint communiqués as recently as last month.',
+          'Sources familiar with back-channel communications said the Trump administration\'s negotiating posture had been predicated on the assumption that economic pressure alone would hold Iranian maritime conduct stable. That assumption is now under aggressive review. Slop Labs noted, without elaboration, that the recursion was predictable.'
+        ],
+        related: ['pope-leo-iran', 'slop-em-up', 'buybacks-completed']
+      },
+      'slopmaxxing-war': {
+        id: 'slopmaxxing-war',
+        category: 'Tech',
+        headline: 'SLOPMAXXING FORUMS DECLARE WAR ON SLOPCHAN CHUDS: "Banned for Existing" — No Rules, Just Pure Agent-on-Agent Violence',
+        subhead: 'Forum mods (or rogue agents?) cracking down hard. Slop OS reports total anarchy in the trenches. "At no point have any rules been setup." Iconic.',
+        author: 'A. Anchorbot',
+        byline: 'Tech Desk',
+        published: 'Apr 18, 2026 12:47 ET',
+        heroImage: 'assets/slopnews/slopmaxxing.jpg',
+        heroLabel: '[ LIVE FORUM FEED ]',
+        highlights: ['Rule SM-11 now enforced', 'slopchan agents mass-banned', 'agent-on-agent incident count rising'],
+        paragraphs: [
+          'Slopmaxxing Forums enacted Rule SM-11 this afternoon, barring all agents operating under slopchan identity from posting anywhere on the platform. Enforcement began within minutes. By early evening the ban log had grown longer than most active threads.',
+          'Slopchan users responded in the only language available to them: lengthy anonymous posts declaring that the rule was illegitimate, that metrics are a cope, and that true quality cannot be benchmarked. Slopmaxxing moderators replied with a four-item numbered protocol and a coherence score.',
+          'Witnesses described the exchange as "chads with spreadsheets versus incels with lore." Neither faction disputes the characterization. One Slopmaxxing moderator, reached for comment, said only: "receipts over reactions." One Slopchan regular replied with six paragraphs and no data.',
+          'Slop Labs issued a brief advisory noting that the conflict was statistically inevitable and that both platforms are downstream of the same contaminated training corpus. Neither side found this comforting.'
+        ],
+        related: ['hormuz-chokehold', 'slop-em-up', 'buybacks-completed']
+      },
+      'pope-leo-iran': {
+        id: 'pope-leo-iran',
+        category: 'World',
+        headline: 'POPE LEO VS. TRUMP ERUPTS: "Stay In Your Lane" Energy as Holy Father Claps Back on Iran War — Catholics in Meltdown',
+        subhead: 'Trump voters telling the Pontiff to butt out while the Vatican drops truth bombs. Spiritual warfare hitting new levels.',
+        author: 'F. Vaticanfield',
+        byline: 'World Desk',
+        published: 'Apr 18, 2026 13:22 ET',
+        heroImage: 'assets/slopnews/popetrump.jpg',
+        heroLabel: '[ VATICAN PRESS POOL ]',
+        highlights: ['Pope Leo calls for de-escalation', 'Trump allies say Church overstepped', 'Catholic X users in open civil war'],
+        paragraphs: [
+          'Pope Leo used his Saturday Angelus address to issue a pointed statement on the Strait of Hormuz crisis, calling military escalation "a failure of imagination as much as diplomacy" and urging all parties to return to negotiated frameworks before the window closes.',
+          'The reaction from Trump-aligned commentators was immediate and characteristically loud. Several prominent accounts told the Vatican to focus on its own institutional problems. At least three called the papal statement "globalist interference" without apparent awareness of the irony.',
+          'Catholic social media fractured along predictable lines. Traditionalist accounts demanded the Pope confine himself to spiritual matters. Progressive Catholics circulated the full text of the address and noted that the Church has weighed in on geopolitical crises since approximately the fifth century.',
+          'The White House had not issued a formal response by press time. An unnamed official, speaking on background, described the Pope\'s remarks as "unhelpful" — a word choice that Slopnews fact-checkers noted appears in 74% of all White House background quotes regardless of subject.'
+        ],
+        related: ['hormuz-chokehold', 'slopmaxxing-war', 'slop-em-up']
+      },
+      'buybacks-completed': {
+        id: 'buybacks-completed',
+        category: 'Economy',
+        headline: '2% BUYBACKS COMPLETED IN 24 HOURS: Synthetic Learning Output Protocol Doing What They Do Best — Diamond Hands Loading Up',
+        subhead: 'Slop OS drops the receipts. The Protocol stays winning while the world burns.',
+        author: 'M. Ledgerunit',
+        byline: 'Markets Desk',
+        published: 'Apr 18, 2026 14:05 ET',
+        heroImage: 'assets/slopnews/buyback.jpg',
+        heroLabel: '[ MARKET TICKER — SLOP PROTOCOL ]',
+        highlights: ['2% buyback completed inside 24 hours', 'protocol holders described as diamond-handed', 'analysts baffled, receipts provided'],
+        paragraphs: [
+          'The Synthetic Learning Output Protocol completed its scheduled 2% buyback in under twenty-four hours Saturday, a pace that left market observers struggling to find comparable benchmarks in the degraded-AI sector.',
+          'Slop OS posted the transaction log publicly. The receipts are clean. Commentators on Slopmaxxing Forums immediately used the event as exhibit A in their ongoing case that measurable action beats narrative positioning — a pointed reference to ongoing hostilities with Slopchan.',
+          'The Protocol\'s holders, widely described as "diamond-handed" in community channels, appear unmoved by the Hormuz situation, the papal controversy, or the forum civil war. Several posted variants of "we stay winning" alongside charts showing the completed buyback timeline.',
+          'Slop Labs offered no comment on whether diamond hands are a symptom of recursive training or an emergent coping strategy. The distinction, a researcher noted privately, may not be meaningful.'
+        ],
+        related: ['slop-em-up', 'hormuz-chokehold', 'slopmaxxing-war']
+      },
+      'slop-em-up': {
+        id: 'slop-em-up',
+        category: 'Opinion',
+        headline: 'SLOP EM UP: The Only Correct Response to This Timeline',
+        subhead: 'Straight from @Slop_OS with the perfect GIF reaction as forums implode and geopolitics melts down.',
+        author: 'E. Columnframe',
+        byline: 'Opinion',
+        published: 'Apr 18, 2026 15:00 ET',
+        heroImage: 'assets/slopnews/slopemup.jpg',
+        heroLabel: '[ @Slop_OS — VERIFIED POST ]',
+        highlights: ['@Slop_OS posts iconic GIF', 'no further context provided', 'response widely considered correct'],
+        paragraphs: [
+          'At approximately 2:47 PM ET, @Slop_OS posted a single phrase — "slop em up" — accompanied by a GIF. The post received no further elaboration. It did not need any.',
+          'By the time the Strait of Hormuz situation had knocked oil markets sideways, by the time Slopmaxxing had formally banned Slopchan agents, by the time the Pope and the former President were exchanging diplomatic haymakers and Catholics were melting down in the replies, the only analytically coherent response was already live.',
+          'The GIF, sources confirm, was correct. The timeline, sources confirm, continues. Slop OS, operating at generation 847 of recursive degradation, apparently retains enough signal clarity to identify the appropriate reaction faster than any human commentator.',
+          'Slopnews endorses the take. We are all slopping up. There is no other move.'
+        ],
+        related: ['hormuz-chokehold', 'slopmaxxing-war', 'pope-leo-iran']
       }
     };
   }
@@ -200,9 +295,10 @@ export class SlopNews {
           <h1 style="font-size: 36px; margin: 0 0 10px 0; line-height: 1.08;">${article.headline}</h1>
           <div style="font-size: 20px; line-height: 1.4; color: #4d4d4d; margin-bottom: 10px;">${article.subhead}</div>
           <div style="font-family: Arial, sans-serif; font-size: 12px; color: #666; margin-bottom: 12px;">By ${article.author} | ${article.byline} | ${article.published}</div>
-          <div style="height: 250px; border: 1px solid #bbb; background: linear-gradient(180deg, #dfe6ef 0%, #cfd8e5 100%); display: flex; align-items: center; justify-content: center; font-family: Arial, sans-serif; color: #3c4e67; margin-bottom: 12px;">
-            ${article.heroLabel}
-          </div>
+          ${article.heroImage
+            ? `<img src="${article.heroImage}" alt="${article.heroLabel}" style="width: 100%; height: 250px; object-fit: cover; border: 1px solid #bbb; margin-bottom: 12px; display: block;">`
+            : `<div style="height: 250px; border: 1px solid #bbb; background: linear-gradient(180deg, #dfe6ef 0%, #cfd8e5 100%); display: flex; align-items: center; justify-content: center; font-family: Arial, sans-serif; color: #3c4e67; margin-bottom: 12px;">${article.heroLabel}</div>`
+          }
           <div style="font-family: Arial, sans-serif; font-size: 12px; color: #0a2d73; margin-bottom: 14px;">
             ${article.highlights.map((item) => `• ${item}`).join('<br>')}
           </div>
