@@ -9,6 +9,8 @@ export class BreakoutGame {
     this.mouseX = 0;
     this.gameRunning = false;
     this.gameOverFlag = false;
+    this.isMounted = false;
+    this.rafId = null;
   }
 
   reset() {
@@ -68,23 +70,28 @@ export class BreakoutGame {
     this.gameOverFlag = false;
 
     container.innerHTML = `
-      <div id="breakout-game" style="height: 100%; display: flex; flex-direction: column; background: #000; color: #fff; font-family: Arial, sans-serif;">
-        <div style="background: #222; border-bottom: 2px solid #ff6600; padding: 10px; display: flex; justify-content: space-between;">
+      <div id="breakout-game" style="height: 100%; display: flex; flex-direction: column; background: #c0c0c0; color: #000; font-family: 'MS Sans Serif', Tahoma, sans-serif;">
+        <div style="background: #000080; border-bottom: 1px solid #000; padding: 5px 10px; display: flex; justify-content: center; align-items: center; gap: 10px; font-size: 11px; color: #fff; font-weight: bold;">
+          <img src="assets/slop-t-trans.png" alt="Slop T Logo" style="height: 18px; width: auto; image-rendering: pixelated;">
+          <strong>BRICKS OF SLOP</strong>
+          <img src="assets/rotos.png" alt="Rotos Logo" style="height: 18px; width: auto; image-rendering: pixelated;">
+        </div>
+        <div style="background: #c0c0c0; border-top: 2px solid #fff; border-left: 2px solid #fff; border-right: 2px solid #555; border-bottom: 2px solid #555; padding: 8px 10px; display: flex; justify-content: space-between;">
           <div>
             <span style="font-size: 12px;">SCORE: <span id="breakout-score">0</span></span>
             <span style="font-size: 12px; margin-left: 20px;">LIVES: <span id="breakout-lives">3</span></span>
             <span style="font-size: 12px; margin-left: 20px;">HIGH: <span id="breakout-highscore">${this.highScore}</span></span>
           </div>
-          <div style="font-size: 11px; color: #ff6600;">
+          <div style="font-size: 11px; color: #000080; font-weight: bold;">
             <span id="breakout-status">SPACE TO LAUNCH</span>
           </div>
         </div>
 
-        <div style="flex: 1; display: flex; justify-content: center; align-items: center; padding: 10px;">
-          <canvas id="breakout-canvas" width="400" height="500" style="border: 3px solid #ff6600; background: #000; image-rendering: pixelated; box-shadow: 0 0 20px rgba(255, 102, 0, 0.3);"></canvas>
+        <div style="flex: 1; display: flex; justify-content: center; align-items: center; padding: 10px; background: #808080;">
+          <canvas id="breakout-canvas" width="400" height="500" style="border-top: 2px solid #555; border-left: 2px solid #555; border-right: 2px solid #fff; border-bottom: 2px solid #fff; background: #000; image-rendering: pixelated;"></canvas>
         </div>
 
-        <div style="background: #222; border-top: 2px solid #ff6600; padding: 8px; font-size: 10px; color: #ff6600; text-align: center;">
+        <div style="background: #c0c0c0; border-top: 2px solid #fff; border-left: 2px solid #fff; border-right: 2px solid #555; border-bottom: 2px solid #555; padding: 6px; font-size: 11px; color: #000; text-align: center;">
           ◄ ► or MOUSE to move | SPACE to launch | ESC to exit
         </div>
       </div>
@@ -99,10 +106,27 @@ export class BreakoutGame {
   }
 
   setupControls(canvas, onExit) {
+    const shouldHandleInput = () => {
+      const slopcadeWindow = document.getElementById('slopcade-window');
+      return Boolean(
+        slopcadeWindow
+        && slopcadeWindow.style.display !== 'none'
+        && slopcadeWindow.classList.contains('active')
+      );
+    };
+
     const handleKeyDown = (e) => {
+      if (!shouldHandleInput()) return;
+
       if (e.key === ' ') {
         e.preventDefault();
-        if (!this.ballLaunched) {
+        if (this.gameOverFlag) {
+          this.reset();
+          this.gameOverFlag = false;
+          document.getElementById('breakout-score').textContent = this.score;
+          document.getElementById('breakout-lives').textContent = this.lives;
+          document.getElementById('breakout-status').textContent = 'SPACE TO LAUNCH';
+        } else if (!this.ballLaunched) {
           this.ballLaunched = true;
           this.ballVelX = (Math.random() - 0.5) * 4;
           this.ballVelY = -this.ballSpeed;
@@ -139,7 +163,11 @@ export class BreakoutGame {
   }
 
   gameLoop(canvas, ctx, onExit) {
+    this.isMounted = true;
+
     const tick = () => {
+      if (!this.isMounted) return;
+
       // Clear canvas
       ctx.fillStyle = '#000';
       ctx.fillRect(0, 0, this.width, this.height);
@@ -261,21 +289,26 @@ export class BreakoutGame {
       ctx.arc(this.ballX, this.ballY, this.ballRadius, 0, Math.PI * 2);
       ctx.fill();
 
-      if (this.gameRunning || this.gameOverFlag) {
-        requestAnimationFrame(tick);
-      }
+      this.rafId = requestAnimationFrame(tick);
     };
 
     tick();
   }
 
   cleanup() {
+    this.isMounted = false;
+    if (this.rafId) {
+      cancelAnimationFrame(this.rafId);
+      this.rafId = null;
+    }
     if (this._keyHandler) {
       window.removeEventListener('keydown', this._keyHandler);
+      this._keyHandler = null;
     }
     if (this._mouseHandler) {
       const canvas = document.getElementById('breakout-canvas');
       if (canvas) canvas.removeEventListener('mousemove', this._mouseHandler);
+      this._mouseHandler = null;
     }
     this.gameRunning = false;
   }

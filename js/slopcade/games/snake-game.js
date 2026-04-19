@@ -10,13 +10,15 @@ export class SnakeGame {
     this.gameRunning = false;
     this.gamePaused = false;
     this.gameOverFlag = false;
+    this.isMounted = false;
+    this.rafId = null;
   }
 
   reset() {
     this.gridSize = 20;
     this.tileCount = 20;
     this.score = 0;
-    this.speed = 6; // ticks per move
+    this.speed = 11; // ticks per move (higher is slower)
     this.speedCounter = 0;
 
     // Snake as array of {x, y} positions
@@ -55,22 +57,27 @@ export class SnakeGame {
     this.gameOverFlag = false;
 
     container.innerHTML = `
-      <div id="snake-game" style="height: 100%; display: flex; flex-direction: column; background: #000; color: #0f0; font-family: 'Courier New', monospace;">
-        <div style="background: #111; border-bottom: 2px solid #0f0; padding: 10px; display: flex; justify-content: space-between; align-items: center;">
+      <div id="snake-game" style="height: 100%; display: flex; flex-direction: column; background: #c0c0c0; color: #000; font-family: 'MS Sans Serif', Tahoma, sans-serif;">
+        <div style="background: #000080; border-bottom: 1px solid #000; padding: 5px 10px; display: flex; justify-content: center; align-items: center; gap: 10px; font-size: 11px; color: #fff; font-weight: bold;">
+          <img src="assets/slop-t-trans.png" alt="Slop T Logo" style="height: 18px; width: auto; image-rendering: pixelated;">
+          <strong>SLOP SERPENT</strong>
+          <img src="assets/rotos.png" alt="Rotos Logo" style="height: 18px; width: auto; image-rendering: pixelated;">
+        </div>
+        <div style="background: #c0c0c0; border-top: 2px solid #fff; border-left: 2px solid #fff; border-right: 2px solid #555; border-bottom: 2px solid #555; padding: 8px 10px; display: flex; justify-content: space-between; align-items: center;">
           <div>
             <span style="font-size: 12px;">SCORE: <span id="snake-score">0</span></span>
             <span style="font-size: 12px; margin-left: 20px;">HIGH: <span id="snake-highscore">${this.highScore}</span></span>
           </div>
-          <div style="font-size: 11px; color: #0a0;">
+          <div style="font-size: 11px; color: #000080; font-weight: bold;">
             <span id="snake-status">PRESS SPACE TO START</span>
           </div>
         </div>
 
-        <div style="flex: 1; display: flex; justify-content: center; align-items: center; padding: 10px;">
-          <canvas id="snake-canvas" width="400" height="400" style="border: 3px solid #0f0; background: #000; image-rendering: pixelated; box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);"></canvas>
+        <div style="flex: 1; display: flex; justify-content: center; align-items: center; padding: 10px; background: #808080;">
+          <canvas id="snake-canvas" width="400" height="400" style="border-top: 2px solid #555; border-left: 2px solid #555; border-right: 2px solid #fff; border-bottom: 2px solid #fff; background: #000; image-rendering: pixelated;"></canvas>
         </div>
 
-        <div style="background: #111; border-top: 2px solid #0f0; padding: 8px; font-size: 10px; color: #0a0; text-align: center;">
+        <div style="background: #c0c0c0; border-top: 2px solid #fff; border-left: 2px solid #fff; border-right: 2px solid #555; border-bottom: 2px solid #555; padding: 6px; font-size: 11px; color: #000; text-align: center;">
           ▲ ▼ ◄ ► to move | SPACE to start/pause | ESC to exit
         </div>
       </div>
@@ -85,12 +92,30 @@ export class SnakeGame {
   }
 
   setupControls(onExit) {
+    const shouldHandleInput = () => {
+      const slopcadeWindow = document.getElementById('slopcade-window');
+      return Boolean(
+        slopcadeWindow
+        && slopcadeWindow.style.display !== 'none'
+        && slopcadeWindow.classList.contains('active')
+      );
+    };
+
     const handleKeyDown = (e) => {
+      if (!shouldHandleInput()) return;
+
       this.keys[e.key] = true;
 
       if (e.key === ' ') {
         e.preventDefault();
-        if (!this.gameRunning && !this.gameOverFlag) {
+        if (!this.gameRunning && this.gameOverFlag) {
+          this.reset();
+          this.gameOverFlag = false;
+          document.getElementById('snake-score').textContent = this.score;
+          document.getElementById('snake-status').textContent = 'GAME RUNNING';
+          this.gameRunning = true;
+          this.gamePaused = false;
+        } else if (!this.gameRunning && !this.gameOverFlag) {
           this.gameRunning = true;
           document.getElementById('snake-status').textContent = 'GAME RUNNING';
         } else if (this.gameRunning) {
@@ -122,7 +147,11 @@ export class SnakeGame {
   }
 
   gameLoop(canvas, ctx, onExit) {
+    this.isMounted = true;
+
     const tick = () => {
+      if (!this.isMounted) return;
+
       ctx.fillStyle = '#000';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -159,7 +188,7 @@ export class SnakeGame {
             if (newHead.x === this.food.x && newHead.y === this.food.y) {
               this.score += 10;
               document.getElementById('snake-score').textContent = this.score;
-              this.speed = Math.max(2, this.speed - 0.05);
+              this.speed = Math.max(7, this.speed - 0.02);
               this.food = this.generateFood();
             } else {
               // Remove tail
@@ -184,17 +213,21 @@ export class SnakeGame {
         ctx.fillRect(segment.x * foodSize, segment.y * foodSize, foodSize - 1, foodSize - 1);
       });
 
-      if (this.gameRunning || this.gameOverFlag) {
-        requestAnimationFrame(tick);
-      }
+      this.rafId = requestAnimationFrame(tick);
     };
 
     tick();
   }
 
   cleanup() {
+    this.isMounted = false;
+    if (this.rafId) {
+      cancelAnimationFrame(this.rafId);
+      this.rafId = null;
+    }
     if (this._keyHandler) {
       window.removeEventListener('keydown', this._keyHandler);
+      this._keyHandler = null;
     }
     this.gameRunning = false;
   }

@@ -112,9 +112,11 @@ export class UncsSlop {
               <div style="text-align: center; padding: 8px; background: #000; color: #ff0; border: 2px groove #f0f; font-family: Impact, sans-serif; font-size: 34px; text-shadow: 2px 2px #f00;">
                 WE IN UNC MODE NOW BABEH
               </div>
-              <div style="display: flex; gap: 8px; margin-top: 8px; align-items: stretch;">
-                <img src="assets/uncslop/Screenshot%202026-04-18%20202646.png" alt="unc morning mode" style="width: 42%; height: 185px; object-fit: cover; border: 3px solid #00f; animation: uncsslop-spin 5s linear infinite;">
-                <div style="width: 58%; background: #fff7b3; border: 3px ridge #666; padding: 8px; font-size: 15px; line-height: 1.3; font-family: 'Comic Sans MS', cursive;">
+              <div style="display: flex; gap: 8px; margin-top: 8px; align-items: flex-start; flex-wrap: wrap;">
+                <div style="flex: 1 1 190px; min-width: 170px; max-width: 260px; padding: 10px;">
+                  <img src="assets/uncslop/Screenshot%202026-04-18%20202646.png" alt="unc morning mode" style="width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border: 3px solid #00f; animation: uncsslop-pop 1.6s infinite; display: block; box-shadow: 0 0 0 2px #ff0;">
+                </div>
+                <div style="flex: 2 1 240px; min-width: 0; background: #fff7b3; border: 3px ridge #666; padding: 8px; font-size: 15px; line-height: 1.3; font-family: 'Comic Sans MS', cursive;">
                   <div style="font-size: 20px; color: #ff00aa; font-family: Impact, sans-serif;">Latest Unc Moments</div>
                   <hr style="border: 0; border-top: 2px dotted #f00;">
                   <div>[@unclegend420] /uncmode</div>

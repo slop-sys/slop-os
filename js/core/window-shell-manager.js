@@ -2,6 +2,8 @@ export class WindowShellManager {
   constructor(options = {}) {
     this.playClickSound = typeof options.playClickSound === 'function' ? options.playClickSound : () => {};
     this.onWindowOpened = typeof options.onWindowOpened === 'function' ? options.onWindowOpened : () => {};
+    this.onWindowClosed = typeof options.onWindowClosed === 'function' ? options.onWindowClosed : () => {};
+    this.onWindowMinimized = typeof options.onWindowMinimized === 'function' ? options.onWindowMinimized : () => {};
 
     this.windows = new Map();
     this.zIndexCounter = 10;
@@ -155,6 +157,8 @@ export class WindowShellManager {
     if (this.activeWindow === windowId) {
       this.activeWindow = null;
     }
+
+    this.onWindowClosed(windowId);
   }
 
   minimizeWindow(windowId) {
@@ -173,6 +177,8 @@ export class WindowShellManager {
     if (this.activeWindow === windowId) {
       this.activeWindow = null;
     }
+
+    this.onWindowMinimized(windowId);
   }
 
   toggleMaximize(windowId) {

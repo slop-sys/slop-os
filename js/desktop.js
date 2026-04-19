@@ -30,7 +30,9 @@ class Desktop95 {
     });
     this.windowShell = new WindowShellManager({
       playClickSound: () => this.playClickSound(),
-      onWindowOpened: (windowId) => this.handleWindowOpened(windowId)
+      onWindowOpened: (windowId) => this.handleWindowOpened(windowId),
+      onWindowClosed: (windowId) => this.handleWindowClosed(windowId),
+      onWindowMinimized: (windowId) => this.handleWindowMinimized(windowId)
     });
     this.fileExplorer = new FileExplorerManager({
       playClickSound: () => this.playClickSound(),
@@ -250,6 +252,18 @@ class Desktop95 {
         }
       }
     }, 1000);
+  }
+
+  handleWindowClosed(windowId) {
+    if (windowId === 'slopcade-window') {
+      this.slopcadeManager.cleanupActiveGame();
+    }
+  }
+
+  handleWindowMinimized(windowId) {
+    if (windowId === 'slopcade-window') {
+      this.slopcadeManager.cleanupActiveGame();
+    }
   }
   
   updateClock() {
