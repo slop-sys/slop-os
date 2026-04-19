@@ -50,7 +50,9 @@ class Desktop95 {
     });
     this.slopcadeManager = new SlopcadeManager();
     this.microslopFlightSimulator = new MicroslopFlightSimulator();
-    this.photoslopManager = new PhotoslopManager();
+    this.photoslopManager = new PhotoslopManager({
+      playClickSound: () => this.playClickSound()
+    });
     
     // Sound state
     this.soundPlayed = false;
@@ -134,11 +136,11 @@ class Desktop95 {
     // Setup Slopcade arcade
     this.slopcadeManager.init();
 
+    // Setup Photoslop
+    this.photoslopManager.init();
+
     // Setup Microslop Flight Simulator
     this.microslopFlightSimulator.init();
-
-    // Setup Photoslop Paint
-    // (initialized on window open)
   }
   
   attemptStartupSound() {
@@ -258,7 +260,7 @@ class Desktop95 {
       } else if (windowId === 'photoslop-window') {
         this.photoslopManager.init();
         if (!this.botAssistant.shown) {
-          this.botAssistant.show("photoslop initialized. early 90s paint nostalgia incoming. draw something mediocre.");
+          this.botAssistant.show("photoslop initialized. create low-fidelity masterpieces with mathematically questionable line work.");
         }
       }
     }, 1000);
@@ -267,12 +269,16 @@ class Desktop95 {
   handleWindowClosed(windowId) {
     if (windowId === 'slopcade-window') {
       this.slopcadeManager.cleanupActiveGame();
+    } else if (windowId === 'photoslop-window') {
+      this.photoslopManager.cleanup();
     }
   }
 
   handleWindowMinimized(windowId) {
     if (windowId === 'slopcade-window') {
       this.slopcadeManager.cleanupActiveGame();
+    } else if (windowId === 'photoslop-window') {
+      this.photoslopManager.cleanup();
     }
   }
   
