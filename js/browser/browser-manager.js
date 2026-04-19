@@ -13,6 +13,7 @@ import { SloppedIn } from './sites/sloppedin.js';
 import { ChudSlop } from './sites/chud-slop.js';
 import { SkibidiSlop } from './sites/skibidi-slop.js';
 import { BrainRotSlop } from './sites/brain-rot-slop.js';
+import { UncsSlop } from './sites/uncsslop.js';
 
 export class BrowserManager {
   constructor(options = {}) {
@@ -26,7 +27,8 @@ export class BrowserManager {
       sloppedin: new SloppedIn(),
       chudslop: new ChudSlop(),
       skibidislop: new SkibidiSlop(),
-      brainrotslop: new BrainRotSlop()
+      brainrotslop: new BrainRotSlop(),
+      uncsslop: new UncsSlop()
     };
 
     this.playClickSound = typeof options.playClickSound === 'function' ? options.playClickSound : () => {};
@@ -44,6 +46,7 @@ export class BrowserManager {
       { name: 'SlopHub', url: 'slop://slophub' },
       { name: 'SloppedIn', url: 'slop://sloppedin' },
       { name: 'Chud Slop', url: 'slop://chudslop' },
+      { name: 'UncsSlop', url: 'slop://uncsslop' },
       { name: 'Skibidi Slop', url: 'slop://skibidislop' },
       { name: 'Brain Rot Slop', url: 'slop://brainrotslop' },
       { name: 'SLOPNEWS', url: 'slop://slopnews' },
@@ -417,6 +420,7 @@ export class BrowserManager {
     const chudSlopPage = document.getElementById('browser-page-chudslop');
     const skibidiSlopPage = document.getElementById('browser-page-skibidislop');
     const brainrotSlopPage = document.getElementById('browser-page-brainrotslop');
+    const uncsSlopPage = document.getElementById('browser-page-uncsslop');
     const resetActivePageScroll = (pageEl) => this.resetPageScroll(pageEl);
     let activeSiteId = null;
     let activeSitePage = null;
@@ -445,6 +449,7 @@ export class BrowserManager {
     if (chudSlopPage) chudSlopPage.style.display = 'none';
     if (skibidiSlopPage) skibidiSlopPage.style.display = 'none';
     if (brainrotSlopPage) brainrotSlopPage.style.display = 'none';
+    if (uncsSlopPage) uncsSlopPage.style.display = 'none';
     loadingIndicator.style.display = 'block';
 
     if (addressBar) {
@@ -682,6 +687,17 @@ export class BrowserManager {
           site.showHome((newUrl) => this.loadPage(newUrl));
         }
         browserTitle.textContent = 'Brain Rot Slop - Maximum Chaos - Microslop Explorer';
+        browserStatus.textContent = 'Done';
+      } else if (url.startsWith('slop://uncsslop')) {
+        if (uncsSlopPage) uncsSlopPage.style.display = 'block';
+        resetActivePageScroll(uncsSlopPage);
+        activeSiteId = 'uncsslop';
+        activeSitePage = uncsSlopPage;
+        const site = this.sites.uncsslop;
+        if (site) {
+          site.showHome((newUrl) => this.loadPage(newUrl));
+        }
+        browserTitle.textContent = 'UncsSlop - The Free Unc Encyclopedia of Slop - Microslop Explorer';
         browserStatus.textContent = 'Done';
       } else {
         errorPage.style.display = 'block';
