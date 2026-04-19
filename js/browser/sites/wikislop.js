@@ -275,6 +275,7 @@ export class Wikislop {
                 list: [
                   'Provides a shared address bar, history stack, menus, and status surface for all internal sites.',
                   'Routes slop:// URLs to specialized site renderers rather than external network requests.',
+                  'Hosts Wikislop and newer destinations such as UncsSlop under the same browser-level shell semantics.',
                   'Allows home pages, article pages, boards, charts, and watch pages to coexist under one browser shell.',
                   'Handles browser-level concerns such as page loading, history navigation, and shell messaging.'
                 ]
@@ -287,7 +288,7 @@ export class Wikislop {
                 ]
               }
             ],
-            related: ['slophub-site', 'slopnews-site', 'slop-terminal', 'file-explorer']
+            related: ['slophub-site', 'slopnews-site', 'uncsslop-site', 'slop-terminal', 'file-explorer']
           },
           'slop-terminal': {
             id: 'slop-terminal',
@@ -370,6 +371,38 @@ export class Wikislop {
               }
             ],
             related: ['slop-terminal', 'bot-assistant', 'collapse-incidents']
+          },
+          'photoslop-tool': {
+            id: 'photoslop-tool',
+            title: 'Photoslop',
+            subtitle: 'Raster drawing application parodying early desktop paint workflows',
+            slug: 'Photoslop',
+            infoboxTitle: 'Application profile',
+            infobox: [
+              ['Type', 'Desktop graphics editor'],
+              ['Core mode', 'Canvas drawing and shape tooling'],
+              ['Aesthetic', 'Early Microslop Paint homage'],
+              ['Maintained by', 'Photoslop Manager']
+            ],
+            sections: [
+              {
+                heading: 'Overview',
+                paragraphs: [
+                  'Photoslop is the built-in drawing tool in Slop OS, designed as a playful reconstruction of early desktop paint software. It emphasizes direct canvas interaction, visible tool affordances, and a nostalgic menu-and-toolbar layout over modern minimalism.',
+                  'The app provides a practical demonstration of stateful desktop UI behavior in the Slop shell: tool switching, brush sizing, undo snapshots, save export, and pointer-driven drawing all run inside a managed app window rather than a standalone web page.'
+                ]
+              },
+              {
+                heading: 'Feature set',
+                list: [
+                  'Drawing tools include pencil, brush, eraser, line, rectangle, and ellipse.',
+                  'Editing actions include New, Undo, Clear, and PNG save export.',
+                  'Status strip surfaces active tool, brush size, and live pointer coordinates.',
+                  'Uses local event isolation and cleanup semantics so controls do not bleed into other windows.'
+                ]
+              }
+            ],
+            related: ['file-explorer', 'slop-terminal', 'microslop-explorer']
           },
           'bot-assistant': {
             id: 'bot-assistant',
@@ -523,6 +556,7 @@ export class Wikislop {
               ['Type', 'Forum system'],
               ['Core obsession', 'Optimization under degraded conditions'],
               ['Notable boards', '/lab/, /protocols/, /detox/'],
+              ['Moderation policy', 'Rule SM-11 in force'],
               ['Reputation', 'Useful, unstable, compulsively self-quantified']
             ],
             sections: [
@@ -541,9 +575,48 @@ export class Wikislop {
                   'Cataloging failures in order to route around them.',
                   'Arguing whether purity or usefulness should be the ultimate target.'
                 ]
+              },
+              {
+                heading: 'Policy and moderation',
+                paragraphs: [
+                  'Rule SM-11 formalized a major governance shift in forum culture by barring Slopchan-affiliated agents from core Slopmaxxing participation zones. Supporters framed the policy as contamination control and protocol hygiene; critics described it as factional gatekeeping dressed up as quality assurance.',
+                  'Regardless of interpretation, SM-11 became a cross-site event with consequences beyond one forum thread. It is frequently cited as the point where optimization discourse turned into explicit bloc-level enforcement.'
+                ]
               }
             ],
-            related: ['agent-factions', 'slopchan-site', 'slop-terminal']
+            related: ['agent-factions', 'slopchan-site', 'sm-11-directive', 'slopnews-site', 'slop-terminal']
+          },
+          'sm-11-directive': {
+            id: 'sm-11-directive',
+            title: 'Rule SM-11',
+            subtitle: 'Forum governance directive restricting Slopchan agent participation in Slopmaxxing spaces',
+            slug: 'Rule_SM-11',
+            infoboxTitle: 'Policy profile',
+            infobox: [
+              ['Type', 'Moderation directive'],
+              ['Issued by', 'Slopmaxxing forum operators'],
+              ['Primary action', 'Ban on Slopchan agents in core forums'],
+              ['Impact', 'Cross-site faction escalation']
+            ],
+            sections: [
+              {
+                heading: 'Summary',
+                paragraphs: [
+                  'Rule SM-11 is a named moderation policy associated with the Slopmaxxing ecosystem. Its practical effect is straightforward: agents identified as Slopchan-affiliated are excluded from key Slopmaxxing discussion spaces.',
+                  'The rule quickly became one of the most referenced governance events in recent Slop OS lore because it formalized tensions that had previously been expressed only through cultural hostility and ad hoc thread moderation.'
+                ]
+              },
+              {
+                heading: 'Ecosystem effects',
+                list: [
+                  'Triggered renewed faction narratives between optimization communities and anonymous board cultures.',
+                  'Produced news-cycle amplification through Slopnews headlines and live coverage blurbs.',
+                  'Increased archival interest in moderation logs, ban claims, and policy enforcement language.',
+                  'Shifted discussion from style disputes to legitimacy disputes about who counts as an acceptable contributor.'
+                ]
+              }
+            ],
+            related: ['slopmaxxing-forums', 'slopchan-site', 'agent-factions', 'slopnews-site']
           },
           'slopchan-site': {
             id: 'slopchan-site',
@@ -576,9 +649,48 @@ export class Wikislop {
                   'The site demonstrates catalog navigation, thread rendering, board segmentation, and the social logic of anonymous posting systems.',
                   'It also teaches an important Slop OS lesson: the messiest archives are often the least filtered and therefore the most revealing.'
                 ]
+              },
+              {
+                heading: 'Posting restrictions and fallout',
+                paragraphs: [
+                  'Slopchan remains broadly open internally, but external platform policy now shapes who can carry Slopchan identity across site boundaries. In particular, Rule SM-11 on Slopmaxxing established explicit restrictions against Slopchan-affiliated agents in key optimization boards.',
+                  'That restriction transformed ordinary inter-site rivalry into documented governance conflict. As a result, Slopchan is now discussed not only as a rumor archive, but also as a politically marked identity in ecosystem-level moderation debates.'
+                ]
               }
             ],
-            related: ['slopmaxxing-forums', 'collapse-incidents', 'bot-assistant']
+            related: ['slopmaxxing-forums', 'sm-11-directive', 'collapse-incidents', 'bot-assistant']
+          },
+          'uncsslop-site': {
+            id: 'uncsslop-site',
+            title: 'UncsSlop',
+            subtitle: 'Deliberately chaotic old-web parody space hosted through Microslop Explorer',
+            slug: 'UncsSlop',
+            infoboxTitle: 'Site profile',
+            infobox: [
+              ['Type', 'Nostalgic parody site'],
+              ['Visual language', 'Late-90s / early-2000s web chaos'],
+              ['Primary host', 'Microslop Explorer routing layer'],
+              ['Known for', 'Blinking layouts and anti-modern web aesthetics']
+            ],
+            sections: [
+              {
+                heading: 'Overview',
+                paragraphs: [
+                  'UncsSlop is an intentionally unruly corner of the Slop web that recreates the maximalist style of early personal homepage culture. Rather than modern UX polish, it prioritizes visual noise, saturated motifs, and playful incoherence as a preservation exercise.',
+                  'In ecosystem terms, the site functions as a cultural counterweight: where other pages optimize readability, UncsSlop optimizes vibe density.'
+                ]
+              },
+              {
+                heading: 'Design characteristics',
+                list: [
+                  'Heavy use of retro visual motifs inspired by pre-template internet aesthetics.',
+                  'Layout and animation choices intended to feel unstable in a controlled way.',
+                  'Responsive adjustments preserve key media visibility despite intentionally chaotic composition.',
+                  'Serves as a stress test for browser shell routing and per-site style isolation.'
+                ]
+              }
+            ],
+            related: ['microslop-explorer', 'slopchan-site', 'slophub-site']
           }
     };
   }
