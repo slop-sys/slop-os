@@ -99,7 +99,7 @@ export class PhotoslopManager {
           </div>
 
           <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; background: #a0a0a0;">
-            <div style="padding: 6px; flex: 1; min-height: 0; display: flex; align-items: flex-start; justify-content: flex-start; overflow: auto;">
+            <div id="photoslop-scroll-area" style="padding: 6px; flex: 1; min-height: 0; display: flex; align-items: flex-start; justify-content: flex-start; overflow: auto;">
               <canvas id="photoslop-canvas" width="960" height="560" style="background: #fff; border-top: 2px solid #555; border-left: 2px solid #555; border-right: 2px solid #fff; border-bottom: 2px solid #fff; image-rendering: pixelated; touch-action: none; cursor: crosshair;"></canvas>
             </div>
             <div style="height: 34px; border-top: 1px solid #808080; background: #c0c0c0; padding: 3px 4px; box-sizing: border-box; display: grid; grid-template-columns: repeat(14, 1fr); gap: 1px;" id="photoslop-palette"></div>

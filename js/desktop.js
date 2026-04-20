@@ -5,6 +5,7 @@ import { BotAssistant } from './core/bot-assistant.js';
 import { WindowShellManager } from './core/window-shell-manager.js';
 import { FileExplorerManager } from './explorer/file-explorer-manager.js';
 import { BlackVaultQuest } from './quests/black-vault-quest.js';
+import { GhostBranchQuest } from './quests/ghost-branch-quest.js';
 import { GamesManager } from './games/games-manager.js';
 import { SlopcadeManager } from './slopcade/slopcade-manager.js';
 import { MicroslopFlightSimulator } from './flight-sim/microslop-flight-simulator.js';
@@ -20,6 +21,11 @@ class Desktop95 {
       showBotAssistant: (message) => this.botAssistant.show(message)
     });
     this.blackVaultQuest.registerTerminalCommands(this.terminal);
+    this.ghostBranchQuest = new GhostBranchQuest({
+      playClickSound: () => this.playClickSound(),
+      showBotAssistant: (message) => this.botAssistant.show(message)
+    });
+    this.ghostBranchQuest.registerTerminalCommands(this.terminal);
     this.browserManager = new BrowserManager({
       playClickSound: () => this.playClickSound(),
       showBotAssistant: (message) => this.botAssistant.show(message),
@@ -27,7 +33,7 @@ class Desktop95 {
       getGenZeroQuestState: () => this.genZeroQuest,
       renderGenerationZeroArchive: () => this.showGenerationZeroArchive(),
       openExternalUrl: (url) => window.open(url, '_blank'),
-      onSlopPageLoaded: ({ siteId, pageEl }) => this.blackVaultQuest.handleSiteRender(siteId, pageEl)
+      onSlopPageLoaded: ({ siteId, pageEl, url }) => this.handleSlopPageLoaded({ siteId, pageEl, url })
     });
     this.windowShell = new WindowShellManager({
       playClickSound: () => this.playClickSound(),
@@ -316,6 +322,7 @@ class Desktop95 {
     this.terminal.terminalPrint('Type "investigate" to begin the AI Degradation Investigation', true);
     this.terminal.terminalPrint('Type "help" for available commands', true);
     this.terminal.terminalPrint('Type "status" to check generation metrics', true);
+    this.terminal.terminalPrint('Type "ghost847" to begin the Ghost Branch hunt', true);
     
     // Use Desktop's terminalPrompt (which creates input field)
     this.terminalPrompt();
@@ -442,6 +449,11 @@ class Desktop95 {
   // Browser functionality
   setupBrowser() {
     this.browserManager.setup();
+  }
+
+  handleSlopPageLoaded({ siteId, pageEl, url }) {
+    this.blackVaultQuest.handleSiteRender(siteId, pageEl);
+    this.ghostBranchQuest.handleSiteRender(siteId, pageEl, url);
   }
   
   // Generation Zero Quest System

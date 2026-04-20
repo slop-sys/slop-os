@@ -233,6 +233,14 @@ export class Terminal {
     this.terminalPrint('  caverify    - Direct CA validation check');
     this.terminalPrint('  blackvaultreset - Reset Black Vault progress');
     this.terminalPrint('');
+    this.terminalPrint('GHOST BRANCH:');
+    this.terminalPrint('  ghost847    - Start or view Ghost Branch 847 status');
+    this.terminalPrint('  branchlog   - Show current objective and guidance');
+    this.terminalPrint('  branchtrace - View recovered Ghost Branch fragments');
+    this.terminalPrint('  commit847   - Submit repository-sourced fragment');
+    this.terminalPrint('  merge847    - Merge full reconstructed branch hash');
+    this.terminalPrint('  ghost847reset - Reset Ghost Branch 847 progress');
+    this.terminalPrint('');
     this.terminalPrint('ANALYSIS:');
     this.terminalPrint('  generations - Track quality degradation across generations');
     this.terminalPrint('  status      - Check current generation metrics');

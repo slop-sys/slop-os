@@ -1520,3 +1520,61 @@ body {
   border-left: 1px solid var(--win95-dark-gray);
   border-top: 1px solid var(--win95-dark-gray);
 }
+
+/* Photoslop uses both horizontal and vertical scrollbars often, so keep explicit rules scoped here. */
+#photoslop-scroll-area::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+
+#photoslop-scroll-area::-webkit-scrollbar-track {
+  background: linear-gradient(90deg, var(--win98-scrollbar-track-inner) 0, var(--win98-scrollbar-track) 3px, var(--win98-scrollbar-track) 100%);
+  border-left: 1px solid var(--win95-dark-gray);
+  border-top: 1px solid var(--win95-dark-gray);
+  border-right: 1px solid var(--win95-button-highlight);
+  border-bottom: 1px solid var(--win95-button-highlight);
+}
+
+#photoslop-scroll-area::-webkit-scrollbar-thumb {
+  background: var(--win98-scrollbar-face);
+  border-left: 1px solid var(--win95-button-highlight);
+  border-top: 1px solid var(--win95-button-highlight);
+  border-right: 1px solid var(--win95-button-shadow);
+  border-bottom: 1px solid var(--win95-button-shadow);
+  box-shadow: inset 1px 1px 0 var(--win98-scrollbar-inner-shadow), inset -1px -1px 0 var(--win95-dark-gray);
+}
+
+#photoslop-scroll-area::-webkit-scrollbar-button {
+  width: 16px;
+  height: 16px;
+  background-color: var(--win98-scrollbar-face);
+  border-left: 1px solid var(--win95-button-highlight);
+  border-top: 1px solid var(--win95-button-highlight);
+  border-right: 1px solid var(--win95-button-shadow);
+  border-bottom: 1px solid var(--win95-button-shadow);
+  box-shadow: inset 1px 1px 0 var(--win98-scrollbar-inner-shadow), inset -1px -1px 0 var(--win95-dark-gray);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#photoslop-scroll-area::-webkit-scrollbar-button:single-button:vertical:decrement {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8"><path d="M4 2 L1 6 L7 6 Z" fill="black"/></svg>');
+}
+
+#photoslop-scroll-area::-webkit-scrollbar-button:single-button:vertical:increment {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8"><path d="M4 6 L1 2 L7 2 Z" fill="black"/></svg>');
+}
+
+#photoslop-scroll-area::-webkit-scrollbar-button:single-button:horizontal:decrement {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8"><path d="M2 4 L6 1 L6 7 Z" fill="black"/></svg>');
+}
+
+#photoslop-scroll-area::-webkit-scrollbar-button:single-button:horizontal:increment {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8"><path d="M6 4 L2 1 L2 7 Z" fill="black"/></svg>');
+}
+
+#photoslop-scroll-area::-webkit-scrollbar-corner {
+  background: var(--win98-scrollbar-face);
+  border-left: 1px solid var(--win95-dark-gray);
+  border-top: 1px solid var(--win95-dark-gray);
+}
